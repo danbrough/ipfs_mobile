@@ -24,14 +24,13 @@ android {
 
   afterEvaluate {
     publishing {
-      val projectName = name
       publications {
 
         publications {
           create<MavenPublication>("release") {
             from(components["release"])
             artifact(sourcesJar.get())
-            artifactId = projectName
+            artifactId = "android"
             groupId = "com.github.danbrough.ipfsmobile"
             version = projectVersion
           }
