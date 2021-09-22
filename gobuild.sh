@@ -13,7 +13,7 @@ doDownload(){
 
 doDownload()
 
-DIR=`pwd`
+DIR=$(pwd)
 export PATH=$DIR/go/bin:$PATH
 export GOPATH=$DIR/gopath
 
