@@ -41,8 +41,6 @@ fi
 
 ./gradlew -q projectIncrementVersion
 
-./gradlew publishToMavenLocal  || exit 1
-
 
 git add .
 git commit -am "$VERSION_NAME"

@@ -52,7 +52,7 @@ tasks {
   }
 
 
-  named("assemble"){
+  named("publishToMavenLocal"){
     doFirst {
       println("Running assemble")
     }

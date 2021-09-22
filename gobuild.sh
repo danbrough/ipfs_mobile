@@ -12,7 +12,10 @@ doDownload(){
   tar xvpf $DOWNLOAD > /dev/null 2>&1
 }
 
-doDownload
+if [ ! -d "go" ]; then
+  echo downloading go
+  doDownload
+fi
 
 DIR=$(pwd)
 [ -d gopath ] && mkdir -p gopath/bin
@@ -31,7 +34,7 @@ doBuild(){
   go mod download || exit 1
   go install golang.org/x/mobile/cmd/gomobile
   go install golang.org/x/mobile/cmd/gobind
-  go mobile init
+  gomobile init
   go run golang.org/x/mobile/cmd/gomobile \
     bind -ldflags "-w" -v -target=android -o gokipfs.aar -javapkg kipfs \
     kipfs/repo kipfs/cids kipfs/api kipfs/misc kipfs/core kipfs/node
