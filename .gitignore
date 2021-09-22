@@ -3,3 +3,6 @@ local.properties
 .idea
 */build
 */tmp
+/go
+/*.gz
+/gopath
