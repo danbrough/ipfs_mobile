@@ -7,7 +7,8 @@ echo running in `pwd`
 DOWNLOAD=go1.16.8.linux-amd64.tar.gz
 
 doDownload(){
-  get https://golang.org/dl/$DOWNLOAD > /dev/null 2>&1 || exit 1
+  echo downloading go ..
+  wget -q https://golang.org/dl/$DOWNLOAD || exit 1
   tar xvpf $DOWNLOAD > /dev/null 2>&1
 }
 
