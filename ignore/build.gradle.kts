@@ -3,7 +3,6 @@ plugins {
   `maven-publish`
 }
 
-val projectVersion = "0.9.1_01"
 
 android {
   compileSdk = 31
@@ -12,7 +11,7 @@ android {
     minSdk = 16
     targetSdk = 31
     versionCode = 1
-    versionName = projectVersion
+    versionName = ProjectVersions.VERSION_NAME
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     //consumerProguardFiles("consumer-rules.pro")
   }
@@ -31,7 +30,7 @@ android {
             from(components["release"])
             artifact(sourcesJar.get())
             artifactId = "ignore"
-            groupId = "com.github.danbrough.ipfsmobile"
+            groupId = ProjectVersions.GROUP_ID
             version = ProjectVersions.VERSION_NAME
           }
         }
