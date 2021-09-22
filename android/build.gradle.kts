@@ -1,8 +1,9 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
   id("com.android.library")
   `maven-publish`
 }
-
 
 
 android {
@@ -40,4 +41,23 @@ android {
   }
 
 }
+
+
+
+
+tasks {
+
+  task<Exec>("goBuild"){
+    commandLine("go","version")
+  }
+
+
+  named("assemble"){
+    doFirst {
+      println("Running assemble")
+    }
+    dependsOn("goBuild")
+  }
+}
+//assemble.dependsOn myTask
 
