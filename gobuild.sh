@@ -12,7 +12,7 @@ doDownload(){
   tar xvpf $DOWNLOAD > /dev/null 2>&1
 }
 
-#doDownload
+doDownload
 
 DIR=$(pwd)
 [ -d gopath ] && mkdir -p gopath/bin
@@ -25,6 +25,9 @@ echo running go mod download in `pwd`
 
 
 doBuild(){
+  echo go is at `which go`
+  echo go version `go version`
+  echo building kipfs_go
   go mod download || exit 1
   go install golang.org/x/mobile/cmd/gomobile
   go install golang.org/x/mobile/cmd/gobind
