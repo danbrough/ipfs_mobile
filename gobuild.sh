@@ -11,7 +11,7 @@ doDownload(){
   tar xvpf $DOWNLOAD > /dev/null 2>&1
 }
 
-doDownload()
+doDownload
 
 DIR=$(pwd)
 export PATH=$DIR/go/bin:$PATH
