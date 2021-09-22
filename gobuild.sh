@@ -4,6 +4,11 @@ echo running $0 at `date` at `pwd`
 cd `dirname $0`
 echo running in `pwd`
 
+if [ -d "android/src/main/java/go" ]; then
+  echo android/src/main/java/go exists. skipping build
+  exit 0
+fi
+
 DOWNLOAD=go1.16.8.linux-amd64.tar.gz
 
 doDownload(){
