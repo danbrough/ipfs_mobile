@@ -1,5 +1,5 @@
 rootProject.name = "ipfs_mobile"
 
-include (":android")
+include (":android",":ignore")
 
 
