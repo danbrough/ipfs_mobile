@@ -32,7 +32,7 @@ android {
             from(components["release"])
             artifact(sourcesJar.get())
             artifactId = projectName
-            groupId = "danbroid.ipfsmobile"
+            groupId = "com.github.danbrough.ipfsmobile"
             version = projectVersion
           }
         }
