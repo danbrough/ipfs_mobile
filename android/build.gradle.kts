@@ -52,9 +52,9 @@ tasks {
   }
 
 
-  named("publishToMavenLocal"){
+  named("preBuild"){
     doFirst {
-      println("Running assemble")
+      println("Running preBuild")
     }
     dependsOn("gobuild")
   }
