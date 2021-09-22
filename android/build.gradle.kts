@@ -48,7 +48,7 @@ android {
 tasks {
 
   task<Exec>("goBuild"){
-    commandLine("go","version")
+    commandLine("./gobuild.sh")
   }
 
 
