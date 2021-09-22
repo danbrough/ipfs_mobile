@@ -32,7 +32,7 @@ android {
             artifact(sourcesJar.get())
             artifactId = "ignore"
             groupId = "com.github.danbrough.ipfsmobile"
-            version = projectVersion
+            version = ProjectVersions.VERSION_NAME
           }
         }
       }
