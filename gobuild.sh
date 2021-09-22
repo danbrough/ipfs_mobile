@@ -12,23 +12,23 @@ doDownload(){
   tar xvpf $DOWNLOAD > /dev/null 2>&1
 }
 
-doDownload
+#doDownload
 
 DIR=$(pwd)
-export PATH=$DIR/go/bin:$PATH
+[ -d gopath ] && mkdir -p gopath/bin
 export GOPATH=$DIR/gopath
+export PATH=$DIR/go/bin:$GOPATH/bin:$PATH
 
 cd kipfs_go
 go version
 echo running go mod download in `pwd`
 
-[ ! -d android/src/main/java ] && mkdir -p android/src/main/java
-[ ! -d android/src/main/jniLibs ] && mkdir -p android/src/main/jniLibs
 
 doBuild(){
   go mod download || exit 1
   go install golang.org/x/mobile/cmd/gomobile
   go install golang.org/x/mobile/cmd/gobind
+  go mobile init
   go run golang.org/x/mobile/cmd/gomobile \
     bind -ldflags "-w" -v -target=android -o gokipfs.aar -javapkg kipfs \
     kipfs/repo kipfs/cids kipfs/api kipfs/misc kipfs/core kipfs/node
@@ -36,12 +36,15 @@ doBuild(){
 
 doBuild
 
+[ -d tmp ] && rm -rf tmp
 mkdir tmp
 unzip gokipfs-sources.jar  -d tmp/
-rsync -avHSx --delete tmp/ ../android/src/main/java/
+rm -rf ../android/src/main/java/
+mv tmp ../android/src/main/java
 rm -rf tmp && mkdir tmp
 unzip gokipfs.aar  -d tmp/
-rsync -avHSx --delete tmp/jni/ ../android/src/main/jniLibs/
+rm -rf ../android/src/main/jniLibs
+mv tmp/jni/ ../android/src/main/jniLibs/
 rm -rf tmp
 
 
