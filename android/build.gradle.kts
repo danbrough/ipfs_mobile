@@ -47,7 +47,7 @@ android {
 
 tasks {
 
-  task<Exec>("goBuild"){
+  task<Exec>("gobuild"){
     commandLine("./gobuild.sh")
   }
 
@@ -56,7 +56,7 @@ tasks {
     doFirst {
       println("Running assemble")
     }
-    dependsOn("goBuild")
+    dependsOn("gobuild")
   }
 }
 //assemble.dependsOn myTask

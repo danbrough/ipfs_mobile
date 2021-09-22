@@ -1,10 +1,14 @@
 #!/bin/bash
 
-echo running $0 at `date`
-echo go is `which go`
+echo running $0 at `date` at `pwd`
 
-wget -V
+mkdir tmp && cd tmp
+wget https://golang.org/dl/go1.16.8.linux-amd64.tar.gz > /dev/null 2>&1 || exit 1
+tar xvpf go1.16.8.linux-amd64.tar.gz > /dev/null 2>&1
 
 
-echo path:
-set
+go/bin/go version
+
+
+
+
