@@ -12,8 +12,6 @@ buildscript {
   }
 }
 
-apply("project.gradle.kts")
-
 allprojects {
   repositories {
     google()
