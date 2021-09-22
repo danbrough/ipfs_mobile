@@ -1,11 +1,11 @@
 #!/bin/bash
 
-echo running $0 at `date` at `pwd`
-cd `dirname $0`
-echo running in `pwd`
 
-if [ -d "android/src/main/java/go" ]; then
-  echo android/src/main/java/go exists. skipping build
+cd `dirname $0`
+echo running $0 at `date` at `pwd`
+
+if [ -d "android/src/main/jniLibs" ]; then
+  echo android/src/main/jniLibs exists. skipping build
   exit 0
 fi
 
@@ -27,9 +27,11 @@ DIR=$(pwd)
 export GOPATH=$DIR/gopath
 export PATH=$DIR/go/bin:$GOPATH/bin:$PATH
 
+
 cd kipfs_go
 go version
 echo running go mod download in `pwd`
+
 
 
 doBuild(){
@@ -50,8 +52,9 @@ doBuild
 [ -d tmp ] && rm -rf tmp
 mkdir tmp
 unzip gokipfs-sources.jar  -d tmp/
-rm -rf ../android/src/main/java/
-mv tmp ../android/src/main/java
+rm -rf ../android/src/main/java/go ../android/src/main/java/kipfs
+mv tmp/go ../android/src/main/java/
+mv tmp/kipfs ../android/src/main/java/
 rm -rf tmp && mkdir tmp
 unzip gokipfs.aar  -d tmp/
 rm -rf ../android/src/main/jniLibs

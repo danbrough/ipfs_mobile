@@ -47,17 +47,16 @@ android {
 
 tasks {
 
+  //builds the go library
   task<Exec>("gobuild"){
     commandLine("../gobuild.sh")
   }
 
 
+  //build the library before anything else
   named("preBuild"){
-    doFirst {
-      println("Running preBuild")
-    }
     dependsOn("gobuild")
   }
 }
-//assemble.dependsOn myTask
+
 
