@@ -9,6 +9,7 @@ if [ -d "android/src/main/jniLibs" ]; then
   exit 0
 fi
 
+#DOWNLOAD=go1.17.1.linux-amd64.tar.gz
 DOWNLOAD=go1.16.8.linux-amd64.tar.gz
 
 doDownload(){
@@ -22,11 +23,7 @@ if [ ! -d "go" ]; then
   doDownload
 fi
 
-DIR=$(pwd)
-[ -d gopath ] && mkdir -p gopath/bin
-export GOPATH=$DIR/gopath
-export PATH=$DIR/go/bin:$GOPATH/bin:$PATH
-
+source env.sh
 
 cd kipfs_go
 go version
@@ -44,10 +41,10 @@ doBuild(){
   gomobile init
   go run golang.org/x/mobile/cmd/gomobile \
     bind -ldflags "-w" -v -target=android -o gokipfs.aar -javapkg kipfs \
-    kipfs/repo kipfs/cids kipfs/api kipfs/misc kipfs/core kipfs/node
+    kipfs/core kipfs/node
 }
 
-doBuild
+doBuild || exit 1
 
 [ -d tmp ] && rm -rf tmp
 mkdir tmp

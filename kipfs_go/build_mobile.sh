@@ -9,5 +9,5 @@ cd $(dirname $0)
 TARGET=android
 
 go run golang.org/x/mobile/cmd/gomobile \
-  bind -ldflags "-w" -v -target=$TARGET -o ../app/libs/gokipfs.aar -javapkg kipfs \
-  kipfs/repo kipfs/cids kipfs/api kipfs/misc kipfs/core kipfs/node
+  bind -ldflags "-w" -v -target=$TARGET -o ../app/libs/gokipfs.aar -javapkg kipfs\
+ kipfs/core  kipfs/node
