@@ -1,7 +1,5 @@
 *.h
 *.so
-/zstuff
-/tmp
 *.jar
 *.aar
 

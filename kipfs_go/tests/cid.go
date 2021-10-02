@@ -22,7 +22,7 @@ func main() {
   testing.TestLog.Debug("dag2: %s", dag2)
   var expected = "bafyreigytojczarf4mjwpizi6r2xysikuzgyj7rkpud5ljxubeshddab7q"
   if expected != dag2 {
-    panic("dude" + expected + " not " + dag2)
+    panic("expected: " + expected + " not " + dag2)
   }
 
 }

@@ -10,4 +10,4 @@ TARGET=android
 
 go run golang.org/x/mobile/cmd/gomobile \
   bind -ldflags "-w" -v -target=$TARGET -o ../app/libs/gokipfs.aar -javapkg kipfs\
- kipfs/core  kipfs/node
+ kipfs/core  kipfs/node kipfs/kipfs

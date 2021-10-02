@@ -2,8 +2,11 @@ local.properties
 .gradle
 .idea
 */build
-*/tmp
+#/tmp
 /go
 /*.gz
 /gopath
 /lint.xml
+**/tmp
+/bin
+/pkg
