@@ -1,19 +1,18 @@
-import com.android.build.gradle.internal.tasks.factory.dependsOn
-
 plugins {
   id("com.android.library")
+  kotlin("android")
   `maven-publish`
 }
 
 
 android {
-  compileSdk = 31
+  compileSdk = ProjectVersions.SDK_VERSION
 
   defaultConfig {
     minSdk = 16
-    targetSdk = 31
-    versionCode = ProjectVersions.BUILD_VERSION
-    versionName = ProjectVersions.VERSION_NAME
+    targetSdk = ProjectVersions.SDK_VERSION
+/*    versionCode = ProjectVersions.BUILD_VERSION
+    versionName = ProjectVersions.VERSION_NAME*/
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     //consumerProguardFiles("consumer-rules.pro")
   }
@@ -48,15 +47,28 @@ android {
 tasks {
 
   //builds the go library
-  task<Exec>("gobuild"){
+  task<Exec>("gobuild") {
     commandLine("../gobuild.sh")
   }
 
 
   //build the library before anything else
-  named("preBuild"){
+  named("preBuild") {
     dependsOn("gobuild")
   }
 }
 
 
+dependencies {
+  implementation(AndroidX.core.ktx)
+
+  androidTestImplementation("com.github.danbrough.androidutils:logging:_")
+  androidTestImplementation(KotlinX.coroutines.android)
+
+  androidTestImplementation(AndroidX.test.coreKtx)
+  androidTestImplementation(AndroidX.test.rules)
+  androidTestImplementation(AndroidX.test.runner)
+  androidTestImplementation(AndroidX.test.ext.junitKtx)
+
+
+}

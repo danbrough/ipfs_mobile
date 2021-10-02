@@ -6,4 +6,4 @@ local.properties
 /go
 /*.gz
 /gopath
-
+/lint.xml
