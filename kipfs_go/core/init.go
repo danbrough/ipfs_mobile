@@ -1,15 +1,18 @@
 package core
 
 import (
-  "encoding/base64"
-  "errors"
-  "fmt"
+  // "encoding/base64"
+  //"errors"
+  // "fmt"
+  "github.com/ipfs/interface-go-ipfs-core/options"
   "io"
+  "kipfs/testing"
+  "os"
   "time"
 
   ipfs_config "github.com/ipfs/go-ipfs-config"
-  libp2p_ci "github.com/libp2p/go-libp2p-core/crypto"
-  libp2p_peer "github.com/libp2p/go-libp2p-core/peer"
+  //libp2p_ci "github.com/libp2p/go-libp2p-core/crypto"
+  //libp2p_peer "github.com/libp2p/go-libp2p-core/peer"
 )
 
 func initConfig(out io.Writer, nBitsForKeypair int) (*ipfs_config.Config, error) {
@@ -105,7 +108,7 @@ func addressesConfig() ipfs_config.Addresses {
 // defaultDatastoreConfig is an internal function exported to aid in testing.
 func defaultDatastoreConfig() ipfs_config.Datastore {
   return ipfs_config.Datastore{
-    StorageMax:         "10GB",
+    StorageMax:         "5GB",
     StorageGCWatermark: 90, // 90%
     GCPeriod:           "1h",
     BloomFilterSize:    0,
@@ -141,31 +144,66 @@ func defaultDatastoreConfig() ipfs_config.Datastore {
 // identityConfig initializes a new identity.
 func identityConfig(out io.Writer, nbits int) (ipfs_config.Identity, error) {
   // TODO guard higher up
-  ident := ipfs_config.Identity{}
-  if nbits < 2048 {
-    return ident, errors.New("bitsize less than 2048 is considered unsafe")
+  testing.TestLog.Trace("identityConfig() %d", nbits)
+
+  /*
+  	if conf == nil {
+  		var err error
+  		var identity config.Identity
+  		if nBitsGiven {
+  			identity, err = config.CreateIdentity(os.Stdout, []options.KeyGenerateOption{
+  				options.Key.Size(nBitsForKeypair),
+  				options.Key.Type(algorithm),
+  			})
+  		} else {
+  			identity, err = config.CreateIdentity(os.Stdout, []options.KeyGenerateOption{
+  				options.Key.Type(algorithm),
+  			})
+  		}
+  		if err != nil {
+  			return err
+  		}
+  		conf, err = config.InitWithIdentity(identity)
+  		if err != nil {
+  			return err
+  		}
+  	}
+  */
+  //old
+
+  ident, err := ipfs_config.CreateIdentity(os.Stdout, []options.KeyGenerateOption{
+    options.Key.Type(options.Ed25519Key),
+  })
+
+  if err != nil {
+    panic(err)
   }
 
-  fmt.Fprintf(out, "generating %v-bit RSA keypair...", nbits)
-  sk, pk, err := libp2p_ci.GenerateKeyPair(libp2p_ci.RSA, nbits)
-  if err != nil {
-    return ident, err
-  }
-  fmt.Fprintf(out, "done\n")
+  /*  ident := ipfs_config.Identity{}
+      if nbits < 2048 {
+        return ident, errors.New("bitsize less than 2048 is considered unsafe")
+      }
 
-  // currently storing key unencrypted. in the future we need to encrypt it.
-  // TODO(security)
-  skbytes, err := sk.Raw()
-  if err != nil {
-    return ident, err
-  }
-  ident.PrivKey = base64.StdEncoding.EncodeToString(skbytes)
+      fmt.Fprintf(out, "generating %v-bit RSA keypair...", nbits)
+      sk, pk, err := libp2p_ci.GenerateKeyPair(libp2p_ci.RSA, nbits)
+      if err != nil {
+        return ident, err
+      }
+      fmt.Fprintf(out, "done\n")
 
-  id, err := libp2p_peer.IDFromPublicKey(pk)
-  if err != nil {
-    return ident, err
-  }
-  ident.PeerID = id.Pretty()
-  fmt.Fprintf(out, "libp2p_peer identity: %s\n", ident.PeerID)
+      // currently storing key unencrypted. in the future we need to encrypt it.
+      // TODO(security)
+      skbytes, err := sk.Raw()
+      if err != nil {
+        return ident, err
+      }
+      ident.PrivKey = base64.StdEncoding.EncodeToString(skbytes)
+
+      id, err := libp2p_peer.IDFromPublicKey(pk)
+      if err != nil {
+        return ident, err
+      }
+      ident.PeerID = id.Pretty()
+      fmt.Fprintf(out, "libp2p_peer identity: %s\n", ident.PeerID)*/
   return ident, nil
 }

@@ -68,7 +68,7 @@ func main() {
   log.Debug("created node %s", node)
 
   var port = "5001"
-  log.Trace("starting node with port %d", port)
+  log.Trace("starting node with port %s", port)
   _, err = node.ServeTCPAPI(port)
   if err != nil {
     panic(err)

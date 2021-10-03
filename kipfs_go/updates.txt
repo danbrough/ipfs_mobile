@@ -183,7 +183,7 @@ github.com/ipfs/bbloom v0.0.4
 github.com/ipfs/go-bitswap v0.4.0
 github.com/ipfs/go-block-format v0.0.3
 github.com/ipfs/go-blockservice v0.1.7
-github.com/ipfs/go-cid v0.1.0
+github.com/ipfs/go-cid v0.0.7 [v0.1.0]
 github.com/ipfs/go-cidutil v0.0.2
 github.com/ipfs/go-datastore v0.4.6
 github.com/ipfs/go-detect-race v0.0.1
@@ -273,7 +273,7 @@ github.com/libp2p/go-conn-security-multistream v0.2.1 [v0.3.0]
 github.com/libp2p/go-doh-resolver v0.3.1
 github.com/libp2p/go-eventbus v0.2.1
 github.com/libp2p/go-flow-metrics v0.0.3
-github.com/libp2p/go-libp2p v0.15.1
+github.com/libp2p/go-libp2p v0.15.0 [v0.15.1]
 github.com/libp2p/go-libp2p-asn-util v0.0.0-20200825225859-85005c6cf052 [v0.0.0-20210818120414-1f382a4aa43a]
 github.com/libp2p/go-libp2p-autonat v0.4.2 [v0.5.0]
 github.com/libp2p/go-libp2p-blankhost v0.2.0
@@ -331,7 +331,7 @@ github.com/libp2p/go-testutil v0.1.0
 github.com/libp2p/go-ws-transport v0.5.0
 github.com/libp2p/go-yamux v1.4.1
 github.com/libp2p/go-yamux/v2 v2.2.0
-github.com/libp2p/zeroconf/v2 v2.1.0 [v2.1.1]
+github.com/libp2p/zeroconf/v2 v2.0.0 [v2.1.1]
 github.com/lightstep/lightstep-tracer-common/golang/gogo v0.0.0-20190605223551-bc2310a04743 [v0.0.0-20210210170715-a8dfcb80d3a7]
 github.com/lightstep/lightstep-tracer-go v0.18.1 [v0.25.0]
 github.com/lucas-clemente/quic-go v0.23.0
@@ -514,11 +514,11 @@ go.uber.org/tools v0.0.0-20190618225709-2cfd321de3ee
 go.uber.org/zap v1.19.0 [v1.19.1]
 go4.org v0.0.0-20200411211856-f5505b9728dd [v0.0.0-20201209231011-d4a079459e60]
 golang.org/x/build v0.0.0-20190111050920-041ab4dc3f9d [v0.0.0-20211001051633-80b982a6bd67]
-golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
+golang.org/x/crypto v0.0.0-20210813211128-0a44fdfbc16e [v0.0.0-20210921155107-089bfa567519]
 golang.org/x/exp v0.0.0-20200224162631-6cc2880d07d6 [v0.0.0-20210916165020-5cb4fee858ee]
 golang.org/x/image v0.0.0-20190802002840-cff245a6509b [v0.0.0-20210628002857-a66eb6448b8d]
 golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 [v0.0.0-20210508222113-6edffad5e616]
-golang.org/x/mobile v0.0.0-20210924032853-1c027f395ef7
+golang.org/x/mobile v0.0.0-20190719004257-d2bd2a29d028 [v0.0.0-20210924032853-1c027f395ef7]
 golang.org/x/mod v0.4.2 [v0.5.1]
 golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d [v0.0.0-20210929193557-e81a3d93ecf6]
 golang.org/x/oauth2 v0.0.0-20210514164344-f6687ab2804c [v0.0.0-20210819190943-2bc19b11175f]
@@ -528,7 +528,7 @@ golang.org/x/sys v0.0.0-20210816183151-1e6c022a8912 [v0.0.0-20211003122950-b1ebd
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1 [v0.0.0-20210927222741-03fcf44c2211]
 golang.org/x/text v0.3.7
 golang.org/x/time v0.0.0-20191024005414-555d28b269f0 [v0.0.0-20210723032227-1f47c861a9ac]
-golang.org/x/tools v0.1.2 [v0.1.7]
+golang.org/x/tools v0.1.1 [v0.1.7]
 golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
 google.golang.org/api v0.30.0 [v0.58.0]
 google.golang.org/appengine v1.6.6 [v1.6.7]

@@ -95,13 +95,14 @@ class NodeTests {
   @Test
   fun openRepo() = runTestIf({ varRepo == null }) {
     log.info("openRepo()")
+
     if (deleteExistingRepo && repoDir.exists()) {
       log.warn("deleting existing repo at $repoDir")
       repoDir.deleteRecursively() || error("Failed to delete existing repo at $repoDir")
     }
 
     if (!Core.repoIsInitialized(repoDir.absolutePath)) {
-      log.info("repo is not initialized at $repoDir")
+      log.warn("repo is not initialized at $repoDir")
       if (!repoDir.mkdirs()) error("Failed to create dir $repoDir")
 
       //to initialize from existing initialConfig json
@@ -114,6 +115,8 @@ class NodeTests {
       log.debug("opening repo..")
       varRepo = Core.openRepo(repoDir.absolutePath)
       log.trace("opened repo: $repo is initialized: ${Core.repoIsInitialized(repoDir.absolutePath)}")
+    } else {
+      log.info("repo at $repoDir is already initialized")
     }
   }
 
@@ -159,6 +162,9 @@ class NodeTests {
     createShell()
     log.info("cmdVersion()")
     shell.newRequest("version").send().decodeToString().also {
+      log.debug("version: $it")
+    }
+    shell.newRequest("id").send().decodeToString().also {
       log.debug("id: $it")
     }
   }

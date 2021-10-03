@@ -14,9 +14,11 @@ fi
 DOWNLOAD=go1.16.8.linux-amd64.tar.gz
 
 doDownload(){
-  echo downloading go ..
-  wget -q https://golang.org/dl/$DOWNLOAD || exit 1
-  tar xvpf $DOWNLOAD > /dev/null 2>&1
+  if [ ! -f $DOWNLOAD ]; then
+    echo downloading go ..
+    wget -q https://golang.org/dl/$DOWNLOAD || exit 1
+    tar xvpf $DOWNLOAD > /dev/null 2>&1
+  fi
 }
 
 if [ ! -d "go" ]; then

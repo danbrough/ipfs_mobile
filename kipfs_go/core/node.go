@@ -9,6 +9,7 @@ package core
 
 import (
   "context"
+  "kipfs/testing"
   "log"
   "net"
   "sync"
@@ -36,7 +37,9 @@ func NewNode(r *Repo) (*Node, error) {
     return nil, err
   }
 
+  testing.TestLog.Trace("creating IpfsConfig")
   ipfscfg := &ipfs_mobile.IpfsConfig{
+    Online:     true,
     RepoMobile: r.mr,
     ExtraOpts: map[string]bool{
       "pubsub": true, // enable experimental pubsub feature by default
@@ -44,11 +47,14 @@ func NewNode(r *Repo) (*Node, error) {
     },
   }
 
+  testing.TestLog.Trace(" ipfs_mobile.NewNode(ctx, ipfscfg)")
   mnode, err := ipfs_mobile.NewNode(ctx, ipfscfg)
   if err != nil {
+    testing.TestLog.Error("Failed in ipfs_mobile.NewNode(ctx, ipfscfg)")
     return nil, err
   }
 
+  testing.TestLog.Trace("mnode.IpfsNode.Bootstrap(ipfs_bs.DefaultBootstrapConfig)")
   if err := mnode.IpfsNode.Bootstrap(ipfs_bs.DefaultBootstrapConfig); err != nil {
     log.Printf("failed to bootstrap node: `%s`", err)
   }
