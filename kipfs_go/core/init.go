@@ -61,7 +61,7 @@ func initConfig(out io.Writer, nBitsForKeypair int) (*ipfs_config.Config, error)
     },
 
     Reprovider: ipfs_config.Reprovider{
-      Interval: "12h",
+      Interval: "0",
       Strategy: "all",
     },
     Swarm: ipfs_config.SwarmConfig{
@@ -79,15 +79,15 @@ func initConfig(out io.Writer, nBitsForKeypair int) (*ipfs_config.Config, error)
 
 // defaultConnMgrHighWater is the default value for the connection managers
 // 'high water' mark
-const defaultConnMgrHighWater = 200
+const defaultConnMgrHighWater = 40
 
 // defaultConnMgrLowWater is the default value for the connection managers 'low
 // water' mark
-const defaultConnMgrLowWater = 100
+const defaultConnMgrLowWater = 20
 
 // defaultConnMgrGracePeriod is the default value for the connection managers
 // grace period
-const defaultConnMgrGracePeriod = time.Second * 20
+const defaultConnMgrGracePeriod = time.Second * 60
 
 func addressesConfig() ipfs_config.Addresses {
   return ipfs_config.Addresses{
@@ -108,7 +108,7 @@ func addressesConfig() ipfs_config.Addresses {
 // defaultDatastoreConfig is an internal function exported to aid in testing.
 func defaultDatastoreConfig() ipfs_config.Datastore {
   return ipfs_config.Datastore{
-    StorageMax:         "5GB",
+    StorageMax:         "500MB",
     StorageGCWatermark: 90, // 90%
     GCPeriod:           "1h",
     BloomFilterSize:    0,
