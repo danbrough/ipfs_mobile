@@ -36,7 +36,7 @@ github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da [v0.3.9]
 github.com/armon/go-radix v0.0.0-20180808171621-7fddfc383310 [v1.0.0]
 github.com/aryann/difflib v0.0.0-20170710044230-e206f873d14a [v0.0.0-20210328193216-ff5ff6dc229b]
 github.com/aws/aws-lambda-go v1.13.3 [v1.27.0]
-github.com/aws/aws-sdk-go v1.27.0 [v1.40.54]
+github.com/aws/aws-sdk-go v1.27.0 [v1.40.56]
 github.com/aws/aws-sdk-go-v2 v0.18.0 [v1.9.1]
 github.com/benbjohnson/clock v1.1.0
 github.com/beorn7/perks v1.0.1
@@ -70,7 +70,7 @@ github.com/cncf/udpa/go v0.0.0-20201120205902-5459f2c99403 [v0.0.0-2021093003192
 github.com/cncf/xds/go v0.0.0-20210312221358-fbca930ec8ed [v0.0.0-20211001041855-01bcc9b48dfe]
 github.com/cockroachdb/datadriven v0.0.0-20190809214429-80d97fb3cbaa [v1.0.0]
 github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd [v1.1.2]
-github.com/coreos/etcd v3.3.10+incompatible [v3.3.25+incompatible]
+github.com/coreos/etcd v3.3.10+incompatible [v3.3.26+incompatible]
 github.com/coreos/go-etcd v2.0.0+incompatible
 github.com/coreos/go-semver v0.3.0
 github.com/coreos/go-systemd v0.0.0-20181012123002-c6f51f82210d [v0.0.0-20191104093116-d3cd4ed1dbcf]
@@ -141,7 +141,7 @@ github.com/google/renameio v0.1.0 [v1.0.1]
 github.com/google/uuid v1.3.0
 github.com/googleapis/gax-go v2.0.0+incompatible [v2.0.2+incompatible]
 github.com/googleapis/gax-go/v2 v2.0.5 [v2.1.1]
-github.com/gopherjs/gopherjs v0.0.0-20190812055157-5d271430af9f [v0.0.0-20211002144500-51d3295ec039]
+github.com/gopherjs/gopherjs v0.0.0-20190812055157-5d271430af9f [v0.0.0-20211004101933-6b77bd30416d]
 github.com/gorilla/context v1.1.1
 github.com/gorilla/mux v1.7.3 [v1.8.0]
 github.com/gorilla/websocket v1.4.2
@@ -194,7 +194,7 @@ github.com/ipfs/go-ds-measure v0.1.0
 github.com/ipfs/go-fetcher v1.5.0
 github.com/ipfs/go-filestore v0.0.3 [v1.0.0]
 github.com/ipfs/go-fs-lock v0.0.7
-github.com/ipfs/go-graphsync v0.8.0 [v0.9.3]
+github.com/ipfs/go-graphsync v0.8.0 [v0.10.0]
 github.com/ipfs/go-ipfs v0.10.0
 github.com/ipfs/go-ipfs-api v0.2.1-0.20210927222059-39cfea2d66ec
 github.com/ipfs/go-ipfs-blockstore v0.1.6 [v1.0.4]
@@ -206,7 +206,7 @@ github.com/ipfs/go-ipfs-delay v0.0.1
 github.com/ipfs/go-ipfs-ds-help v0.1.1 [v1.0.0]
 github.com/ipfs/go-ipfs-exchange-interface v0.0.1
 github.com/ipfs/go-ipfs-exchange-offline v0.0.1
-github.com/ipfs/go-ipfs-files v0.0.8
+github.com/ipfs/go-ipfs-files v0.0.8 [v0.0.9]
 github.com/ipfs/go-ipfs-keystore v0.0.2
 github.com/ipfs/go-ipfs-pinner v0.1.2
 github.com/ipfs/go-ipfs-posinfo v0.0.1
@@ -236,7 +236,7 @@ github.com/ipfs/interface-go-ipfs-core v0.5.1 [v0.5.2]
 github.com/ipfs/tar-utils v0.0.1
 github.com/ipld/go-car v0.3.1
 github.com/ipld/go-codec-dagpb v1.3.0
-github.com/ipld/go-ipld-prime v0.12.2
+github.com/ipld/go-ipld-prime v0.12.2 [v0.12.3]
 github.com/jackpal/gateway v1.0.5 [v1.0.7]
 github.com/jackpal/go-nat-pmp v1.0.2
 github.com/jbenet/go-cienv v0.1.0
@@ -479,7 +479,7 @@ github.com/urfave/cli/v2 v2.0.0 [v2.3.0]
 github.com/viant/assertly v0.4.8 [v0.9.0]
 github.com/viant/toolbox v0.24.0 [v0.34.5]
 github.com/wangjia184/sortedset v0.0.0-20160527075905-f5d03557ba30 [v0.0.0-20210325043434-64dd27e173e2]
-github.com/warpfork/go-testmark v0.3.0 [v0.6.0]
+github.com/warpfork/go-testmark v0.3.0 [v0.7.0]
 github.com/warpfork/go-wish v0.0.0-20200122115046-b9ea61034e4a
 github.com/whyrusleeping/base32 v0.0.0-20170828182744-c30ac30633cc
 github.com/whyrusleeping/cbor-gen v0.0.0-20210219115102-f37d292932f2 [v0.0.0-20210713220151-be142a5ae1a8]
@@ -498,7 +498,7 @@ github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2
 github.com/xordataexchange/crypt v0.0.3-0.20170626215501-b2862e3d0a77
 github.com/yuin/goldmark v1.3.5 [v1.4.1]
 go.etcd.io/bbolt v1.3.3 [v1.3.6]
-go.etcd.io/etcd v0.0.0-20191023171146-3cf2f69b5738 [v3.3.25+incompatible]
+go.etcd.io/etcd v0.0.0-20191023171146-3cf2f69b5738 [v3.3.26+incompatible]
 go.opencensus.io v0.23.0
 go.opentelemetry.io/otel v0.20.0 [v1.0.1]
 go.opentelemetry.io/otel/metric v0.20.0 [v0.24.0]
@@ -508,31 +508,31 @@ go.opentelemetry.io/proto/otlp v0.7.0 [v0.9.0]
 go.uber.org/atomic v1.9.0
 go.uber.org/dig v1.10.0 [v1.13.0]
 go.uber.org/fx v1.13.1 [v1.14.2]
-go.uber.org/goleak v1.1.10 [v1.1.11]
+go.uber.org/goleak v1.1.10 [v1.1.12]
 go.uber.org/multierr v1.7.0
 go.uber.org/tools v0.0.0-20190618225709-2cfd321de3ee
 go.uber.org/zap v1.19.0 [v1.19.1]
 go4.org v0.0.0-20200411211856-f5505b9728dd [v0.0.0-20201209231011-d4a079459e60]
-golang.org/x/build v0.0.0-20190111050920-041ab4dc3f9d [v0.0.0-20211001051633-80b982a6bd67]
+golang.org/x/build v0.0.0-20190111050920-041ab4dc3f9d [v0.0.0-20211004200457-1409edded2e8]
 golang.org/x/crypto v0.0.0-20210813211128-0a44fdfbc16e [v0.0.0-20210921155107-089bfa567519]
 golang.org/x/exp v0.0.0-20200224162631-6cc2880d07d6 [v0.0.0-20210916165020-5cb4fee858ee]
 golang.org/x/image v0.0.0-20190802002840-cff245a6509b [v0.0.0-20210628002857-a66eb6448b8d]
 golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 [v0.0.0-20210508222113-6edffad5e616]
-golang.org/x/mobile v0.0.0-20190719004257-d2bd2a29d028 [v0.0.0-20210924032853-1c027f395ef7]
+golang.org/x/mobile v0.0.0-20210924032853-1c027f395ef7
 golang.org/x/mod v0.4.2 [v0.5.1]
-golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d [v0.0.0-20210929193557-e81a3d93ecf6]
-golang.org/x/oauth2 v0.0.0-20210514164344-f6687ab2804c [v0.0.0-20210819190943-2bc19b11175f]
+golang.org/x/net v0.0.0-20210813160813-60bc85c4be6d [v0.0.0-20211005215030-d2e5035098b3]
+golang.org/x/oauth2 v0.0.0-20210514164344-f6687ab2804c [v0.0.0-20211005180243-6b3c2da341f1]
 golang.org/x/perf v0.0.0-20180704124530-6e6d33e29852 [v0.0.0-20210220033136-40a54f11e909]
 golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-golang.org/x/sys v0.0.0-20210816183151-1e6c022a8912 [v0.0.0-20211003122950-b1ebd4e1001c]
+golang.org/x/sys v0.0.0-20210816183151-1e6c022a8912 [v0.0.0-20211004093028-2c5d950f24ef]
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1 [v0.0.0-20210927222741-03fcf44c2211]
 golang.org/x/text v0.3.7
 golang.org/x/time v0.0.0-20191024005414-555d28b269f0 [v0.0.0-20210723032227-1f47c861a9ac]
-golang.org/x/tools v0.1.1 [v0.1.7]
+golang.org/x/tools v0.1.2 [v0.1.7]
 golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
 google.golang.org/api v0.30.0 [v0.58.0]
 google.golang.org/appengine v1.6.6 [v1.6.7]
-google.golang.org/genproto v0.0.0-20200825200019-8632dd797987 [v0.0.0-20211001223012-bfb93cce50d9]
+google.golang.org/genproto v0.0.0-20200825200019-8632dd797987 [v0.0.0-20211005153810-c76a74d43a8e]
 google.golang.org/grpc v1.40.0 [v1.41.0]
 google.golang.org/protobuf v1.27.1
 gopkg.in/alecthomas/kingpin.v2 v2.2.6
