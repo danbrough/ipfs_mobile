@@ -1,4 +1,4 @@
-module kipfs
+module github.com/danbrough/ipfs_mobile/kipfs_go
 
 go 1.16
 

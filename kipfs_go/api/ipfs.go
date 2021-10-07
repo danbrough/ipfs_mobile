@@ -1,8 +1,8 @@
 package api
 
 import (
-  "kipfs/ipfs"
-  "kipfs/misc"
+  "github.com/danbrough/ipfs_mobile/kipfs_go/ipfs"
+  "github.com/danbrough/ipfs_mobile/kipfs_go/misc"
 )
 
 func StartIPFS(sink misc.LogSink) {

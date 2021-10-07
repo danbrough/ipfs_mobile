@@ -1,9 +1,9 @@
 package main
 
 import (
-  "kipfs/misc"
-  "kipfs/repo"
-  "kipfs/testing"
+  "github.com/danbrough/ipfs_mobile/kipfs_go/misc"
+  "github.com/danbrough/ipfs_mobile/kipfs_go/repo"
+  "github.com/danbrough/ipfs_mobile/kipfs_go/testing"
   "os"
   "path/filepath"
 )
