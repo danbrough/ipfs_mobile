@@ -49,6 +49,10 @@ func main() {
   flag.Parse()
   log.Info("running demo.. offline: %t", offline)
 
+  if offline {
+    log.Warn("If this demo fails, retry with the -offline flag")
+  }
+
   if !core.RepoIsInitialized(repoPath) {
     log.Info("%s is not initialized", repoPath)
     initRepo()
@@ -97,17 +101,32 @@ func main() {
   resp, err = req.Send()
   if err != nil {
     log.Error("dag/get failed: %s", err)
+    if offline {
+      log.Warn("Try running without the -offline flag")
+    }
   } else {
+    //should be "Hello World"
     log.Debug("got dag/get response: %s", string(resp))
+
   }
 
+  log.Trace("calling cat QmVdiu6wH89Cg6rcQZHidJqxQAeRktSVGP2QUGqghaxUsp")
   req = shell.NewRequest("cat")
   req.Argument("QmVdiu6wH89Cg6rcQZHidJqxQAeRktSVGP2QUGqghaxUsp")
   resp, err = req.Send()
   if err != nil {
     log.Error("cat QmVdiu6wH89Cg6rcQZHidJqxQAeRktSVGP2QUGqghaxUsp failed: %s", err)
+    if offline {
+      log.Warn("Try running without the -offline flag")
+    }
   } else {
+
+    //should be "Hello World"
     log.Debug("got cat response: %s", string(resp))
+  }
+
+  if !offline {
+    log.Warn("You should now be able to run this with the -offline flag")
   }
 
   /*  err = node.Close()
