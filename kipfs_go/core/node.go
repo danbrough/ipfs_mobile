@@ -30,7 +30,7 @@ type Node struct {
   ipfsMobile *ipfs_mobile.IpfsMobile
 }
 
-func NewNode(r *Repo) (*Node, error) {
+func NewNode(r *Repo, online bool) (*Node, error) {
   ctx := context.Background()
 
   if _, err := loadPlugins(r.mr.Path); err != nil {
@@ -39,11 +39,11 @@ func NewNode(r *Repo) (*Node, error) {
 
   testing.TestLog.Trace("creating IpfsConfig")
   ipfscfg := &ipfs_mobile.IpfsConfig{
-    Online:     true,
+    Online:     online,
     RepoMobile: r.mr,
     ExtraOpts: map[string]bool{
-      "pubsub": true, // enable experimental pubsub feature by default
-      "ipnsps": true, // Enable IPNS record distribution through pubsub by default
+      "pubsub": online, // enable experimental pubsub feature by default
+      "ipnsps": online, // Enable IPNS record distribution through pubsub by default
     },
   }
 
@@ -54,9 +54,11 @@ func NewNode(r *Repo) (*Node, error) {
     return nil, err
   }
 
-  testing.TestLog.Trace("mnode.IpfsNode.Bootstrap(ipfs_bs.DefaultBootstrapConfig)")
-  if err := mnode.IpfsNode.Bootstrap(ipfs_bs.DefaultBootstrapConfig); err != nil {
-    log.Printf("failed to bootstrap node: `%s`", err)
+  if online {
+    testing.TestLog.Trace("mnode.IpfsNode.Bootstrap(ipfs_bs.DefaultBootstrapConfig)")
+    if err := mnode.IpfsNode.Bootstrap(ipfs_bs.DefaultBootstrapConfig); err != nil {
+      log.Printf("failed to bootstrap node: `%s`", err)
+    }
   }
 
   return &Node{

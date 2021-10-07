@@ -1,7 +1,6 @@
 package main
 
 import (
-  "flag"
   "kipfs/core"
   "kipfs/testing"
   "os"
@@ -44,10 +43,7 @@ func initRepo() {
 }
 
 func main() {
-  var offline bool
-  flag.BoolVar(&offline, "offline", false, "run node offline")
-  flag.Parse()
-  log.Info("running demo.. offline: %t", offline)
+  log.Info("running demo..")
 
   if !core.RepoIsInitialized(repoPath) {
     log.Info("%s is not initialized", repoPath)
@@ -65,7 +61,7 @@ func main() {
   log.Debug("opened repo %s", repo)
 
   log.Trace("creating node ..")
-  node, err := core.NewNode(repo, !offline)
+  node, err := core.NewNode(repo, false)
   if err != nil {
     panic(err)
   }
@@ -81,34 +77,26 @@ func main() {
 
   shell := core.NewTCPShell(port)
   log.Trace("created shell %s", shell)
-
-  log.Trace("getting id..")
-  resp, err := shell.NewRequest("id").Send()
   if err != nil {
     panic(err)
   }
-  log.Debug("got response: %s", string(resp))
+  /*log.Trace("getting id..")
+    resp, err := shell.NewRequest("id").Send()
+    if err != nil {
+      panic(err)
+    }
+    log.Trace("got response: %s", string(resp))
+  */
 
-  var req *core.RequestBuilder
-  req = shell.NewRequest("dag/get")
-  req.Argument("bafyreidfq7gnjnpi7hllpwowrphojoy6hgdgrsgitbnbpty6f2yirqhkom")
-  log.Trace("getting dag: bafyreidfq7gnjnpi7hllpwowrphojoy6hgdgrsgitbnbpty6f2yirqhkom")
-
-  resp, err = req.Send()
-  if err != nil {
-    log.Error("dag/get failed: %s", err)
-  } else {
-    log.Debug("got dag/get response: %s", string(resp))
-  }
-
-  req = shell.NewRequest("cat")
+  req := shell.NewRequest("cat")
   req.Argument("QmVdiu6wH89Cg6rcQZHidJqxQAeRktSVGP2QUGqghaxUsp")
-  resp, err = req.Send()
-  if err != nil {
-    log.Error("cat QmVdiu6wH89Cg6rcQZHidJqxQAeRktSVGP2QUGqghaxUsp failed: %s", err)
-  } else {
-    log.Debug("got cat response: %s", string(resp))
-  }
+  resp, err := req.Send()
+  log.Trace("got cat response: %s", string(resp))
+
+  /*req := shell.NewRequest("dag/get")
+    req.Argument("bafyreidfq7gnjnpi7hllpwowrphojoy6hgdgrsgitbnbpty6f2yirqhkom")
+    resp, err := req.Send()
+    log.Trace("got dag/get response: %s", string(resp))*/
 
   /*  err = node.Close()
       if err != nil {
@@ -118,10 +106,4 @@ func main() {
       if err != nil {
         panic(err)
       }*/
-
-  /*  err = node.Close()
-      if err != nil {
-        panic(err)
-      }*/
-
 }

@@ -17,8 +17,8 @@ doDownload(){
   if [ ! -f $DOWNLOAD ]; then
     echo downloading go ..
     wget -q https://golang.org/dl/$DOWNLOAD || exit 1
-    tar xvpf $DOWNLOAD > /dev/null 2>&1
   fi
+  tar xvpf $DOWNLOAD > /dev/null 2>&1
 }
 
 if [ ! -d "go" ]; then
