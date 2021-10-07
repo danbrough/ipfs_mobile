@@ -9,12 +9,12 @@ package core
 
 import (
   "context"
-  "github.com/danbrough/ipfs_mobile/kipfs_go/testing"
+  "kipfs/testing"
   "log"
   "net"
   "sync"
 
-  ipfs_mobile "github.com/danbrough/ipfs_mobile/kipfs_go/node"
+  ipfs_mobile "kipfs/node"
 
   ma "github.com/multiformats/go-multiaddr"
   manet "github.com/multiformats/go-multiaddr/net"

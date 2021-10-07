@@ -1,8 +1,8 @@
 package main
 
 import (
-  "github.com/danbrough/ipfs_mobile/kipfs_go/cids"
-  "github.com/danbrough/ipfs_mobile/kipfs_go/testing"
+  "kipfs/cids"
+  "kipfs/testing"
 )
 
 func main() {

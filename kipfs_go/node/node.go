@@ -3,7 +3,7 @@ package node
 import (
   "context"
   "fmt"
-  "github.com/danbrough/ipfs_mobile/kipfs_go/testing"
+  "kipfs/testing"
   "net"
 
   ipfs_config "github.com/ipfs/go-ipfs-config"

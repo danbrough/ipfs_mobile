@@ -4,7 +4,7 @@ import (
   "path/filepath"
   "sync"
 
-  ipfs_mobile "github.com/danbrough/ipfs_mobile/kipfs_go/node"
+  ipfs_mobile "kipfs/node"
   ipfs_loader "github.com/ipfs/go-ipfs/plugin/loader"
   ipfs_repo "github.com/ipfs/go-ipfs/repo"
   ipfs_fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
