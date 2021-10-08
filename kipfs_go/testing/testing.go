@@ -3,7 +3,7 @@ package testing
 import (
   "bytes"
   "fmt"
-  . "github.com/danbroid/ipfs_mobile/misc"
+  . "github.com/danbroid/ipfs_mobile/kipfs_go/misc"
 )
 
 type NoopLogSink struct {

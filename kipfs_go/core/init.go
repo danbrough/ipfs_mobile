@@ -6,7 +6,7 @@ import (
   // "fmt"
   "github.com/ipfs/interface-go-ipfs-core/options"
   "io"
-  "github.com/danbroid/ipfs_mobile/testing"
+  "github.com/danbroid/ipfs_mobile/kipfs_go/testing"
   "os"
   "time"
 

@@ -2,8 +2,8 @@ package main
 
 import (
   "flag"
-  "github.com/danbroid/ipfs_mobile/core"
-  "github.com/danbroid/ipfs_mobile/testing"
+  "github.com/danbroid/ipfs_mobile/kipfs_go/core"
+  "github.com/danbroid/ipfs_mobile/kipfs_go/testing"
   "os"
   "path/filepath"
 )
