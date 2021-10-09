@@ -4,7 +4,7 @@
 cd `dirname $0`
 echo running $0 at `date` at `pwd`
 
-if [ -d "android/src/main/jniLibs" ]; then
+if [ -d "android/src/main/jniLibs" ] && [ "$1" != "force" ]; then
   echo android/src/main/jniLibs exists. skipping go build.
   exit 0
 fi
@@ -18,17 +18,17 @@ doDownload(){
     echo downloading go ..
     wget -q https://golang.org/dl/$DOWNLOAD || exit 1
   fi
-  tar xvpf $DOWNLOAD > /dev/null 2>&1
+  tar xvpf $DOWNLOAD -C ~/ > /dev/null 2>&1
 }
 
-if [ ! -d "go" ]; then
+if [ ! -d "~/go" ]; then
   echo downloading go
   doDownload
 fi
 
 source goenv.sh
 
-cd kipfs_go
+cd go
 go version
 echo running go mod download in `pwd`
 
@@ -37,7 +37,7 @@ echo running go mod download in `pwd`
 doBuild(){
   echo go is at `which go`
   echo go version `go version`
-  echo building kipfs_go
+  echo building kipfs
   go mod download || exit 1
   go install golang.org/x/mobile/cmd/gomobile
   go install golang.org/x/mobile/cmd/gobind
