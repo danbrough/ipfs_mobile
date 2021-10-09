@@ -3,7 +3,6 @@ package main
 import (
   "bufio"
   "flag"
-  "fmt"
   "kipfs/core"
   "kipfs/testing"
   "os"
@@ -93,16 +92,7 @@ func subscribe(topic string, shell *core.Shell) {
 
 }
 
-func say(s string) {
-  for i := 0; i < 5; i++ {
-    time.Sleep(100 * time.Millisecond)
-    fmt.Println(s)
-  }
-}
-
 func main() {
-  go say("Hello")
-  say("world")
   var offline bool
   flag.BoolVar(&offline, "offline", false, "run node offline")
   var dagToGet string
