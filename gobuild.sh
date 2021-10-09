@@ -10,32 +10,13 @@ if [ -d "android/src/main/jniLibs" ] && [ "$1" != "force" ]; then
 fi
 
 
-#DOWNLOAD=go1.17.1.linux-amd64.tar.gz
-DOWNLOAD=go1.16.8.linux-amd64.tar.gz
 
-doDownload(){
-  if [ ! -f $DOWNLOAD ]; then
-    echo downloading go ..
-    wget -q https://golang.org/dl/$DOWNLOAD || exit 1
-  fi
-  tar xvpf $DOWNLOAD -C ~/ > /dev/null 2>&1
-}
-
-if [ ! -d "~/go" ]; then
-  doDownload
-fi
 
 source goenv.sh
 
 cd go
-go version
-echo running go mod download in `pwd`
-
-
 
 doBuild(){
-  echo go is at `which go`
-  echo go version `go version`
   echo building kipfs
   go mod download || exit 1
   go install golang.org/x/mobile/cmd/gomobile

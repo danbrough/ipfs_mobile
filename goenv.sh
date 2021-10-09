@@ -7,6 +7,25 @@ else
 fi
 
 
+#DOWNLOAD=go1.17.1.linux-amd64.tar.gz
+DOWNLOAD=go1.16.8.linux-amd64.tar.gz
+
+doDownload(){
+  if [ ! -f $DOWNLOAD ]; then
+    echo downloading go ..
+    wget -q https://golang.org/dl/$DOWNLOAD || exit 1
+  fi
+  tar xvpf $DOWNLOAD -C ~/ > /dev/null 2>&1
+}
+
+if [ ! -d "~/go" ]; then
+  doDownload
+else
+  echo "using existing go installation at ~/go"
+fi
 
 export PATH=~/go/bin:$GOPATH/bin:$PATH
 PACKAGES="kipfs/core kipfs/cids"
+
+echo go is at `which go`
+echo go version `go version`
