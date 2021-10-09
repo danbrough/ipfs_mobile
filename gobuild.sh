@@ -22,7 +22,6 @@ doDownload(){
 }
 
 if [ ! -d "~/go" ]; then
-  echo downloading go
   doDownload
 fi
 
