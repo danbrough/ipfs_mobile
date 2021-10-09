@@ -5,7 +5,7 @@ cd `dirname $0`
 echo running $0 at `date` at `pwd`
 
 if [ -d "android/src/main/jniLibs" ]; then
-  echo android/src/main/jniLibs exists. skipping build
+  echo android/src/main/jniLibs exists. skipping go build.
   exit 0
 fi
 

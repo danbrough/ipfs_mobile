@@ -3,7 +3,7 @@ package danbroid.ipfsmobile.test
 import go.kipfs.cids.Cids
 import org.junit.Test
 
-class CidTests {
+class CidTests : Tests(){
 
   @Test
   fun cidTest() {

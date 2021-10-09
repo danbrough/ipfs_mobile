@@ -16,7 +16,7 @@ open class Tests() {
   //http api port of the node
   var nodePort = 5002
 
-  open var repoPath: File = File(System.getProperty("user.home"), ".kipfs/repo")
+  open var repoPath: File = File(context.filesDir, "kipfs/repo")
 
   private var _repo: Repo? = null
   val repo: Repo by lazy {
@@ -71,16 +71,21 @@ open class Tests() {
   }
 
   open fun createNode(): Node = _node ?: Core.newNode(repo, !offlineMode).also {
+    log.info("starting node on $nodePort")
+    it.serveTCPAPI(nodePort.toString())
     _node = it
   }
 
-  open fun createShell(): Shell = _shell ?: Core.newTCPShell(nodePort.toString()).also {
-    _shell = it
+  open fun createShell(): Shell = _shell ?: run {
+    node
+    Core.newTCPShell(nodePort.toString()).also {
+      _shell = it
+    }
   }
-
 
   fun randomUUID() = UUID.randomUUID().toString()
 }
+
 
 
 

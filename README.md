@@ -31,4 +31,7 @@ dependencies {
 
 ## Example code
 
-There is plenty in my [KIPFS](https://github.com/danbrough/kipfs/tree/main/impl/android)  project
+Run the test code with `./gradlew connectedDebugAndroidTest`. To run the code at [android/src/androidTest/java/danbroid/ipfsmobile/test/](android/src/androidTest/java/danbroid/ipfsmobile/test/).
+
+There is plenty more in my [KIPFS](https://github.com/danbrough/kipfs/tree/main/impl/android)  project.
+
