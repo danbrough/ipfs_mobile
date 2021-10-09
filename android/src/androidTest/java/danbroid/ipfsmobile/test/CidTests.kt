@@ -1,6 +1,6 @@
 package danbroid.ipfsmobile.test
 
-import kipfs.cids.Cids
+import go.kipfs.cids.Cids
 import org.junit.Test
 
 class CidTests {
