@@ -23,5 +23,6 @@ require (
 	github.com/multiformats/go-multiaddr v0.4.0
 	github.com/multiformats/go-multihash v0.0.15
 	github.com/pkg/errors v0.9.1
+	golang.org/x/mobile v0.0.0-20210924032853-1c027f395ef7 // indirect
 	golang.org/x/tools v0.1.2 // indirect
 )
