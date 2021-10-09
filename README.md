@@ -34,7 +34,7 @@ dependencies {
 To run the code at [android/src/androidTest/java/danbroid/ipfsmobile/test/](android/src/androidTest/java/danbroid/ipfsmobile/test/)
 on you connected android device,  run `./gradlew connectedDebugAndroidTest`
 
-There is plenty more in my [KIPFS](https://github.com/danbrough/kipfs/tree/main/impl/android)  project.
+There is plenty more in my [KIPFS](https://github.com/danbrough/kipfs/tree/master/impl/android)  project.
 
 For an introduction to how the go code works, `cd kipfs_go && go run demo/kipfs_demo.go`.
 
