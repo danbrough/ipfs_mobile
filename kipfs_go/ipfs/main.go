@@ -4,7 +4,7 @@ import (
   "context"
   logging "github.com/ipfs/go-log"
   loggables "github.com/libp2p/go-libp2p-loggables"
-  "github.com/danbroid/ipfs_mobile/kipfs_go/misc"
+  "kipfs/misc"
   "math/rand"
   "time"
 )

@@ -9,12 +9,12 @@ package core
 
 import (
   "context"
-  "github.com/danbroid/ipfs_mobile/kipfs_go/testing"
+  "kipfs/testing"
   "log"
   "net"
   "sync"
 
-  ipfs_mobile "github.com/danbroid/ipfs_mobile/kipfs_go/node"
+  ipfs_mobile "kipfs/node"
 
   ma "github.com/multiformats/go-multiaddr"
   manet "github.com/multiformats/go-multiaddr/net"
@@ -42,8 +42,8 @@ func NewNode(r *Repo, online bool) (*Node, error) {
     Online:     online,
     RepoMobile: r.mr,
     ExtraOpts: map[string]bool{
-      "pubsub": online, // enable experimental pubsub feature by default
-      "ipnsps": online, // Enable IPNS record distribution through pubsub by default
+      "pubsub": true, // enable experimental pubsub feature by default
+      "ipnsps": true, // Enable IPNS record distribution through pubsub by default
     },
   }
 

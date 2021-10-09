@@ -1,11 +1,14 @@
 package main
 
 import (
+  "bufio"
   "flag"
-  "github.com/danbroid/ipfs_mobile/kipfs_go/core"
-  "github.com/danbroid/ipfs_mobile/kipfs_go/testing"
+  "fmt"
+  "kipfs/core"
+  "kipfs/testing"
   "os"
   "path/filepath"
+  "time"
 )
 
 //whether to initialize the ipfs repo using internal storage or sdcard
@@ -43,18 +46,72 @@ func initRepo() {
   log.Trace("initialized repo at %s", repoPath)
 }
 
+func subscribe(topic string, shell *core.Shell) {
+  log.Warn("topic: %s", topic)
+  var req *core.RequestBuilder
+  time.Sleep(10 * time.Second)
+  req = shell.NewRequest("pubsub/pub")
+  req.Argument(topic)
+  req.Argument("Hello from kipfs!")
+  //req.BoolOptions("discover", true)
+  log.Trace("sending pub ..")
+  resp, err := req.Send()
+  if err != nil {
+    panic(err)
+  }
+  log.Info("pub response: %s", string(resp))
+
+  time.Sleep(2 * time.Second)
+  req = shell.NewRequest("pubsub/sub")
+  req.Argument(topic)
+  log.Trace("subscribing to %s", topic)
+  response, err := req.Send2()
+  if err != nil {
+    panic(err)
+  }
+
+  var doClose = func() {
+    testing.TestLog.Warn("Closing response")
+    err := response.Close()
+    if err != nil {
+      testing.TestLog.Error("Error closing response: %s", err)
+    }
+  }
+
+  defer doClose()
+
+  log.Trace("reading response %s", response)
+  scanner := bufio.NewScanner(response.Output)
+  // optionally, resize scanner's capacity for lines over 64K, see next example
+  for scanner.Scan() {
+    log.Info("response line: %s", scanner.Text())
+  }
+
+  if err := scanner.Err(); err != nil {
+    log.Error("failed reading response: %s", err)
+  }
+
+}
+
+func say(s string) {
+  for i := 0; i < 5; i++ {
+    time.Sleep(100 * time.Millisecond)
+    fmt.Println(s)
+  }
+}
+
 func main() {
+  go say("Hello")
+  say("world")
   var offline bool
   flag.BoolVar(&offline, "offline", false, "run node offline")
   var dagToGet string
   flag.StringVar(&dagToGet, "dag", "", "dag to retrieve")
-
+  var topic string
+  flag.StringVar(&topic, "subscribe", "", "pubsub topic to subscribe to")
   flag.Parse()
-  log.Info("running demo.. offline: %t", offline)
 
-  if offline {
-    log.Warn("If this demo fails, retry without the -offline flag")
-  }
+  log.Info("running demo.. offline: %t", offline)
 
   if !core.RepoIsInitialized(repoPath) {
     log.Info("%s is not initialized", repoPath)
@@ -62,8 +119,6 @@ func main() {
   } else {
     log.Warn("using existing repo at %s", repoPath)
   }
-
-  //var repo = core.Repo{}
 
   repo, err := core.OpenRepo(repoPath)
   if err != nil {
@@ -88,6 +143,11 @@ func main() {
 
   shell := core.NewTCPShell(port)
   log.Trace("created shell %s", shell)
+
+  if topic != "" {
+    subscribe(topic, shell)
+    return
+  }
 
   var req *core.RequestBuilder
   var resp []byte
