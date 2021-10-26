@@ -3,6 +3,7 @@ module kipfs
 go 1.16
 
 require (
+	github.com/danbrough/mobile v0.0.1-beta01 // indirect
 	github.com/ipfs/go-cid v0.1.0
 	github.com/ipfs/go-datastore v0.4.6
 	github.com/ipfs/go-filestore v1.0.0 // indirect
@@ -23,6 +24,5 @@ require (
 	github.com/multiformats/go-multiaddr v0.4.0
 	github.com/multiformats/go-multihash v0.0.15
 	github.com/pkg/errors v0.9.1
-	golang.org/x/mobile v0.0.0-20210924032853-1c027f395ef7 // indirect
 	golang.org/x/tools v0.1.2 // indirect
 )

@@ -1,16 +1,16 @@
-# IPFS Node implementation for Android
+# IPFS Node implementation for Android (and JVM)
 
 ## Description
 
-This is currently an android only library for embedding an ipfs node in your mobile app.
+This library allows you to embed an IPFS node into your android or JVM based application.
 
-If you are want to run an ipfs node on your android device then have a look at [KIPFS](https://github.com/danbrough/kipfs/tree/main/impl/android) 
-which builds upon this library.
+For a higher level implementation have a look at [KIPFS](https://github.com/danbrough/kipfs/tree/main/android)
+which builds upon this library and also provides a client for accessing remote nodes.
 
 It's based on the [gomobile-ipfs](https://github.com/ipfs-shipyard/gomobile-ipfs) project and uses the 
 [gomobile](https://github.com/golang/go/wiki/Mobile) tool to generate an android bundle.
 
-You can build the library to your local maven repo with:
+You can publish the library to your local maven repo with:
 ```bash
 ./gradlew publishToMavenLocal
 ```
@@ -36,6 +36,6 @@ on you connected android device,  run `./gradlew connectedDebugAndroidTest`
 
 There is plenty more in my [KIPFS](https://github.com/danbrough/kipfs/tree/master/impl/android)  project.
 
-For an introduction to how the go code works, `cd kipfs_go && go run demo/kipfs_demo.go`.
+For an introduction to how the go code works, `cd go && go run demo/kipfs_demo.go`.
 
 

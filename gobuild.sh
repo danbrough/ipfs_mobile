@@ -19,15 +19,18 @@ cd go
 doBuild(){
   echo building kipfs
   go mod download || exit 1
-  if ! which gomobile 2> /dev/null; then
-    go install golang.org/x/mobile/cmd/gomobile
-    go install golang.org/x/mobile/cmd/gobind
-  fi 
+  go get -d  github.com/danbrough/mobile
+  go install  github.com/danbrough/mobile/cmd/gomobile
+  go install  github.com/danbrough/mobile/cmd/gobind
+
+  #go install golang.org/x/mobile/cmd/gomobile
+  #go install golang.org/x/mobile/cmd/gobind
+
   echo running "gomobile init" using `which gomobile`
-  gomobile init
+  gomobile init || exit 1
   #go run golang.org/x/mobile/cmd/gomobile \
   gomobile \
-    bind -ldflags "-w" -v -target=android/386 -o gokipfs.aar -javapkg go.kipfs \
+    bind -ldflags "-w" -v -target=android -o gokipfs.aar -javapkg go.kipfs \
    $PACKAGES
 }
 

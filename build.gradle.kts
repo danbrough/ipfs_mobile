@@ -21,4 +21,17 @@ allprojects {
     mavenCentral()
     maven("https://jitpack.io")
   }
+
+  tasks {
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
+      kotlinOptions {
+        jvmTarget = ProjectVersions.KOTLIN_JVM_VERSION
+      }
+    }
+
+    withType<JavaCompile>() {
+      sourceCompatibility = ProjectVersions.JAVA_VERSION.toString()
+      targetCompatibility = ProjectVersions.JAVA_VERSION.toString()
+    }
+  }
 }
