@@ -36,7 +36,7 @@ doBuild(){
 
 doBuild || exit 1
 
-[ -d tmp ] && rm -rf tmpS
+[ -d tmp ] && rm -rf tmp
 mkdir tmp
 unzip kipfs-sources.jar  -d tmp/
 rm -rf ../android/src/main/java/go   > /dev/null
