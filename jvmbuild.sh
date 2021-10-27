@@ -40,6 +40,9 @@ doBuild || exit 1
 
 
 
+rm -rf ../jvm/src/main/java/go 2> /dev/null
+unzip  core-sources.jar  -d ../jvm/src/main/java/
+mv libs ../jvm/libs
 
 
 

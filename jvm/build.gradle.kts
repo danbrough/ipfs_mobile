@@ -6,8 +6,7 @@ plugins {
 
 
 dependencies {
-
-
+  implementation(Testing.junit4)
 }
 
 

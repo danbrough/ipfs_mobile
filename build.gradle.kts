@@ -33,5 +33,20 @@ allprojects {
       sourceCompatibility = ProjectVersions.JAVA_VERSION.toString()
       targetCompatibility = ProjectVersions.JAVA_VERSION.toString()
     }
+
+    withType<Test> {
+      useJUnit()
+
+      testLogging {
+        events("standardOut", "started", "passed", "skipped", "failed")
+        showStandardStreams = true
+        outputs.upToDateWhen {
+          false
+        }
+        exceptionFormat = TestExceptionFormat.FULL
+      }
+
+    }
+
   }
 }
