@@ -10,7 +10,7 @@ import go.Seq;
 public abstract class Cids {
 	static {
 		Seq.touch(); // for loading the native library
-		System.out.println("Java: calling _init()");_init();System.out.println("Java: _init() done.");
+		_init();
 	}
 	
 	private Cids() {} // uninstantiable
