@@ -1,14 +1,16 @@
 package danbroid.jvmlib.test
 
-import danbroid.jvmlib.HelloWorld
 import org.junit.Test
 
-class Test {
+class Test : Tests() {
 
   @Test
   fun test() {
     log.info("test()")
-    log.info("the message is ${HelloWorld().stringFromJNI()}")
+
+    /*   shell.newRequest("id").send().decodeToString().also {
+         log.info("id: $it")
+       }*/
   }
 }
 

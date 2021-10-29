@@ -62,7 +62,7 @@ tasks {
 dependencies {
   implementation(AndroidX.core.ktx)
 
-  androidTestImplementation("com.github.danbrough.androidutils:logging:_")
+  androidTestImplementation(AndroidUtils.logging)
   androidTestImplementation(KotlinX.coroutines.android)
 
   androidTestImplementation(AndroidX.test.coreKtx)

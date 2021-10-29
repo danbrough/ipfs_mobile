@@ -40,10 +40,10 @@ allprojects {
       testLogging {
         events("standardOut", "started", "passed", "skipped", "failed")
         showStandardStreams = true
-        outputs.upToDateWhen {
+    /*    outputs.upToDateWhen {
           false
-        }
-        exceptionFormat = TestExceptionFormat.FULL
+        }*/
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
       }
 
     }

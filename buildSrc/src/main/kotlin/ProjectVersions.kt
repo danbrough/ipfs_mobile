@@ -32,3 +32,16 @@ object ProjectVersions {
 
 
 }
+
+object AndroidUtils {
+  private const val version = "_"
+  private const val group = "com.github.danbrough.androidutils"
+
+  const val misc = "$group:misc:$version"
+  const val compose = "$group:compose:$version"
+  const val permissions = "$group:permissions:$version"
+  const val menu = "$group:menu:$version"
+  const val logging = "$group:logging:$version"
+
+
+}
