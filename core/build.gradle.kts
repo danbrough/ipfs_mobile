@@ -47,8 +47,8 @@ tasks {
 
     classpath = sourceSets["main"].runtimeClasspath
     dependsOn("jvmbuild")
-    systemProperties["java.library.path"] = file("libs/amd64")
-    systemProperties["offline"] = project.findProperty("offline") ?: false
+    systemProperties["java.library.path"] =file("libs/amd64")
+    systemProperties["offline"] = project.findProperty("offline") ?: false 
   }
 
 /*
@@ -117,8 +117,4 @@ publishing {
     }*/
 
   }
-}
-
-dependencies {
-  api(project(":core"))
 }

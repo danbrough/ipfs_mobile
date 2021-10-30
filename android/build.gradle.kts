@@ -60,6 +60,7 @@ tasks {
 
 
 dependencies {
+  implementation(project(":core"))
   implementation(AndroidX.core.ktx)
 
   androidTestImplementation(AndroidUtils.logging)

@@ -30,7 +30,7 @@ doBuild(){
   gomobile init || exit 1
   #go run golang.org/x/mobile/cmd/gomobile \
   gomobile \
-    bind -ldflags "-w" -v -target=android -o kipfs.aar -javapkg go.kipfs  \
+    bind -ldflags "-w" -v -x  -work -target=android/386 -o kipfs.aar -javapkg go.kipfs  \
    $PACKAGES
 }
 
@@ -39,8 +39,8 @@ doBuild || exit 1
 [ -d tmp ] && rm -rf tmp
 mkdir tmp
 unzip kipfs-sources.jar  -d tmp/
-rm -rf ../android/src/main/java/go   > /dev/null
-mv tmp/go ../android/src/main/java/
+rm -rf ../core/src/main/java/go   > /dev/null
+mv tmp/go ../core/src/main/java/
 rm -rf tmp && mkdir tmp
 unzip kipfs.aar  -d tmp/
 rm -rf ../android/src/main/jniLibs
