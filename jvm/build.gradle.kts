@@ -64,8 +64,6 @@ tasks {
       }
     }
   }
-
-
 }
 
 
@@ -86,10 +84,10 @@ val libarm by tasks.registering(Jar::class) {
 publishing {
 
   publications {
-/*    create<MavenPublication>("default") {
+    create<MavenPublication>("default") {
       from(components["java"])
       artifact(sourcesJar)
-    }*/
+    }
 
     /*create<MavenPublication>("lib386") {
       artifactId = "lib386"
