@@ -33,6 +33,7 @@ doBuild(){
   echo running "gomobile init" using `which gomobile`
   gomobile init || exit 1
   #go run golang.org/x/mobile/cmd/gomobile \
+  echo running gomobile bind
   gomobile \
     bind -ldflags "-w" -x -v -work  -target=linux/amd64 -javapkg go.kipfs -o build \
    $PACKAGES || exit 1
