@@ -68,6 +68,7 @@ tasks {
 
 }
 
+
 val lib386 by tasks.registering(Jar::class) {
   from(file("libs/386"))
 }
@@ -85,30 +86,30 @@ val libarm by tasks.registering(Jar::class) {
 publishing {
 
   publications {
-    create<MavenPublication>("default") {
+/*    create<MavenPublication>("default") {
       from(components["java"])
       artifact(sourcesJar)
-    }
+    }*/
 
-    create<MavenPublication>("lib386") {
+    /*create<MavenPublication>("lib386") {
       artifactId = "lib386"
       artifact(lib386)
-    }
+    }*/
 
-    create<MavenPublication>("libamd64") {
+/*    create<MavenPublication>("libamd64") {
       artifactId = "libamd64"
       artifact(libamd64)
-    }
+    }*/
 
-    create<MavenPublication>("libarm64") {
+/*    create<MavenPublication>("libarm64") {
       artifactId = "libarm64"
       artifact(libarm64)
-    }
+    }*/
 
-    create<MavenPublication>("libarm") {
+/*    create<MavenPublication>("libarm") {
       artifactId = "libarm"
       artifact(libarm64)
-    }
+    }*/
 /*    listOf("386", "amd64", "arm", "arm64").forEach { libName ->
       create<MavenPublication>("lib$libName") {
         artifact(artifacts.artifact("libs/$libName/libgojni.so"))
