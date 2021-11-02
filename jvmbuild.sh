@@ -8,7 +8,7 @@ CC_CLANG=`which clang`
 echo "CC is $CC clang: $CC_CLANG"
 cat /etc/os-release
 find /usr/lib
-find /usr/local  
+find /usr/local
 which cmake
 exit 0
 
