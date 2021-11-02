@@ -30,7 +30,7 @@ doBuild(){
   gomobile init || exit 1
   #go run golang.org/x/mobile/cmd/gomobile \
   gomobile \
-    bind -ldflags "-w" -v  -work -target=android/386 -o kipfs.aar -javapkg go.kipfs  \
+    bind -ldflags "-w" -v  -tags=openssl  -target=android/386 -o kipfs.aar -javapkg go.kipfs  \
    $PACKAGES
 }
 
