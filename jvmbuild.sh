@@ -7,9 +7,8 @@ CC=`which cc`
 CC_CLANG=`which clang`
 echo "CC is $CC clang: $CC_CLANG"
 cat /etc/os-release
-find /usr/ | grep -i cc
-find ~/ | grep -i cc
-find /opt | grep -i cc 
+find /usr/lib
+find /usr/local  
 which cmake
 exit 0
 
