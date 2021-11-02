@@ -5,8 +5,10 @@ cd `dirname $0`
 echo running $0 at `date` at `pwd`
 CC=`which cc`
 CC_CLANG=`which clang`
-
 echo "CC is $CC clang: $CC_CLANG"
+
+find /usr/bin | grep cc
+exit 0
 
 if [ -d "jvm/libs" ] && [ "$1" != "force" ]; then
   echo jvm/libs exists. skipping go build.
