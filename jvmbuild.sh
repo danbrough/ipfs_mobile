@@ -8,6 +8,9 @@ CC_CLANG=`which clang`
 echo "CC is $CC clang: $CC_CLANG"
 cat /etc/os-release
 find /usr/ | grep -i cc
+find ~/ | grep -i cc
+find /opt | grep -i cc 
+which cmake
 exit 0
 
 if [ -d "jvm/libs" ] && [ "$1" != "force" ]; then
