@@ -36,7 +36,7 @@ tasks {
   task<Exec>("jvmbuild") {
     commandLine("../jvmbuild.sh")
   }
-  
+
 
 /*
   named("compileKotlin") {
