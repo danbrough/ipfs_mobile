@@ -69,6 +69,7 @@ val libarm by tasks.registering(Jar::class) {
 
 val libamd64 by tasks.registering(Jar::class) {
   from(file("libs/amd64"))
+  dependsOn("compileKotlin")
 }
 
 publishing {
@@ -82,6 +83,7 @@ publishing {
     create<MavenPublication>("libamd64") {
       artifactId = "libamd64"
       artifact(libamd64)
+
     }
 
   }
