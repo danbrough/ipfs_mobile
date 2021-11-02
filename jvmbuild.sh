@@ -6,8 +6,8 @@ echo running $0 at `date` at `pwd`
 CC=`which cc`
 CC_CLANG=`which clang`
 echo "CC is $CC clang: $CC_CLANG"
-
-find /usr/bin | grep cc
+cat /etc/os-release
+find /usr/ | grep -i cc
 exit 0
 
 if [ -d "jvm/libs" ] && [ "$1" != "force" ]; then
