@@ -16,8 +16,10 @@ source goenv.sh
 
 cd go
 unset ANDROID_HOME
-export CGO_CFLAGS="-I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux"
-
+#export CGO_CFLAGS="-fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux"
+#export CGO_CXXFLAGS="-fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux"
+#export CFLAGS="-fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux"
+#export CXXFLAGS="-fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux"
 
 
 doBuild(){
@@ -35,7 +37,7 @@ doBuild(){
   #go run golang.org/x/mobile/cmd/gomobile \
   echo running gomobile bind
   gomobile \
-    bind -ldflags "-w"  -v -target=linux -javapkg go.kipfs -o build \
+    bind -ldflags "-w"  -v -target=linux/amd64 -tags=openssl  -javapkg go.kipfs  -o build \
    $PACKAGES || exit 1
 }
 

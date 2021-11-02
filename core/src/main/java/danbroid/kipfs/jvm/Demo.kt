@@ -94,7 +94,7 @@ open class Demo {
   private fun dagTest(){
     log.debug("dagTest()")
 
-    val dag = "bafyreicmc66yicegehjfvchjcixweizk6es3epxymcf6s6vrt7aasuqoqu"
+    val dag = "bafyreidfq7gnjnpi7hllpwowrphojoy6hgdgrsgitbnbpty6f2yirqhkom"
     log.trace("looking up dag: $dag")
     shell.newRequest("dag/get").also {
       it.argument(dag)
@@ -105,7 +105,7 @@ open class Demo {
   }
 
   fun run() {
-    log.info("run()")
+    log.info("run(): offlineMode:$offlineMode")
 
     shell.newRequest("id").send().decodeToString().also {
       log.trace("RESPONSE: $it")

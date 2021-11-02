@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
-
 plugins {
   kotlin("jvm")
   `maven-publish`
@@ -9,7 +7,6 @@ plugins {
 repositories {
   mavenLocal()
 }
-
 
 dependencies {
   implementation(AndroidUtils.logging)
@@ -39,17 +36,7 @@ tasks {
   task<Exec>("jvmbuild") {
     commandLine("../jvmbuild.sh")
   }
-
-
-  task<JavaExec>("run") {
-    mainClass.set("danbroid.kipfs.jvm.Demo")
-    //allJvmArgs = allJvmArgs + "-Djava.library.path=${file("libs/amd64")}"
-
-    classpath = sourceSets["main"].runtimeClasspath
-    dependsOn("jvmbuild")
-    systemProperties["java.library.path"] = file("libs/amd64")
-    systemProperties["offline"] = project.findProperty("offline") ?: false
-  }
+  
 
 /*
   named("compileKotlin") {
@@ -67,18 +54,21 @@ tasks {
 }
 
 
-val lib386 by tasks.registering(Jar::class) {
+/*val lib386 by tasks.registering(Jar::class) {
   from(file("libs/386"))
 }
-val libamd64 by tasks.registering(Jar::class) {
-  from(file("libs/amd64"))
-}
+
 
 val libarm64 by tasks.registering(Jar::class) {
   from(file("libs/arm64"))
 }
 val libarm by tasks.registering(Jar::class) {
   from(file("libs/arm"))
+}*/
+
+
+val libamd64 by tasks.registering(Jar::class) {
+  from(file("libs/amd64"))
 }
 
 publishing {
@@ -89,31 +79,10 @@ publishing {
       artifact(sourcesJar)
     }
 
-    /*create<MavenPublication>("lib386") {
-      artifactId = "lib386"
-      artifact(lib386)
-    }*/
-
-/*    create<MavenPublication>("libamd64") {
+    create<MavenPublication>("libamd64") {
       artifactId = "libamd64"
       artifact(libamd64)
-    }*/
-
-/*    create<MavenPublication>("libarm64") {
-      artifactId = "libarm64"
-      artifact(libarm64)
-    }*/
-
-/*    create<MavenPublication>("libarm") {
-      artifactId = "libarm"
-      artifact(libarm64)
-    }*/
-/*    listOf("386", "amd64", "arm", "arm64").forEach { libName ->
-      create<MavenPublication>("lib$libName") {
-        artifact(artifacts.artifact("libs/$libName/libgojni.so"))
-        artifactId = "lib$libName"
-      }
-    }*/
+    }
 
   }
 }
