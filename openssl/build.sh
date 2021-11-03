@@ -1,44 +1,45 @@
 #!/bin/bash
 
-SCRIPTDIR=`dirname $0`
-SCRIPTDIR=`realpath $SCRIPTDIR`
+cd `dirname $0`
+SCRIPTDIR=`realpath .`
 
 echo $SCRIPTDIR
-
 LIBS=`realpath libs`
 SRC=`realpath src`
 
-echo LIBS $LIBS
-echo SRC $SRC 
+echo LIBS: $LIBS
+echo SRC: $SRC
 
+ANDROID_API=21
 OPENSSL_TAG=OpenSSL_1_1_1l
+CFLAGS="-Wno-macro-redefined"
 
+if [ -z "$ANDROID_NDK_HOME" ]; then
+  export ANDROID_NDK_HOME=/mnt/files/sdk/android/ndk/23.0.7599858/
+  echo ANDROID_NDK_HOME not set. Using the default: $ANDROID_NDK_HOME
+fi
 
-rm -rf $LIBS && mkdir $LIBS
+PATH=$ANDROID_NDK_HOME/bin:$PATH
+
 
 if [ ! -d $SRC ]; then
   echo "downloading source .."
   git clone git@github.com:openssl/openssl.git $SRC || exit 1
   cd $SRC
   git checkout $TAG  || exit 1
-else
-  echo "updating source"
-  cd $SRC
-  git reset --hard
-
-  git pull
-  git checkout $OPENSSL_TAG
 fi
 
 echo
 
-for arch in "x86_64"; do
+for arch in x86 x86_64 arm arm64; do
   echo compiling $arch
   cd $SRC
   git clean -xdf
-  ./Configure android-$arch no-shared -D__ANDROID_API__=21 --prefix="$LIBS/$arch" || exit 1
+  INSTALLDIR="$LIBS/$arch"
+  [ -d $INSTALLDIR ] && rm -rf $INSTALLDIR
+  ./Configure android-$arch no-shared -D__ANDROID_API__=$ANDROID_API --prefix="$INSTALLDIR" || exit 1
   make || exit 1
-  make install || exit 1
+  make install_sw || exit 1
 done
 
 

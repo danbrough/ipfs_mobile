@@ -3,7 +3,7 @@ import org.gradle.api.JavaVersion
 
 object ProjectVersions {
   const val SDK_VERSION = 31
-  const val MIN_SDK_VERSION = 16
+  const val MIN_SDK_VERSION = 21
   const val BUILD_TOOLS_VERSION = "31.0.0"
   val JAVA_VERSION = JavaVersion.VERSION_1_8
   var VERSION_FORMAT = ""
