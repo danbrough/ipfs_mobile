@@ -11,6 +11,7 @@ object ProjectVersions {
   val NDK_VERSION = if (System.getenv().containsKey("JITPACK")) "21.1.6352462" else "23.0.7599858"
   const val COMPOSE_VERSION = "1.1.0-alpha04"
 
+  val JITPACK_BUILD = System.getenv().containsKey("JITPACK")
   var BUILD_VERSION = 1
   var VERSION_OFFSET = 1
   var GROUP_ID = "com.github.danbrough.ipfs_mobile"
