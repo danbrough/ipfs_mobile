@@ -12,14 +12,14 @@ echo SRC: $SRC
 
 ANDROID_API=21
 OPENSSL_TAG=OpenSSL_1_1_1l
-CFLAGS="-Wno-macro-redefined"
+export CFLAGS="-Wno-macro-redefined"
 
 if [ -z "$ANDROID_NDK_HOME" ]; then
-  export ANDROID_NDK_HOME=/mnt/files/sdk/android/ndk/23.0.7599858/
+  export ANDROID_NDK_HOME=/mnt/files/sdk/android/ndk/23.0.7599858
   echo ANDROID_NDK_HOME not set. Using the default: $ANDROID_NDK_HOME
 fi
 
-PATH=$ANDROID_NDK_HOME/bin:$PATH
+PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
 
 
 if [ ! -d $SRC ]; then
