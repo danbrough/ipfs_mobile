@@ -18,7 +18,7 @@ doDownload(){
   tar xvpf $DOWNLOAD -C ~/ > /dev/null 2>&1
 }
 
-if [ ! -d "~/go" ]; then
+if [[ ! -d ~/go ]]; then
   doDownload
 else
   echo "using existing go installation at ~/go"
