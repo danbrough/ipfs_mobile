@@ -10,7 +10,6 @@ SRC=`realpath src`
 echo LIBS: $LIBS
 echo SRC: $SRC
 
-ANDROID_API=21
 OPENSSL_TAG=OpenSSL_1_1_1l
 export CFLAGS="-Wno-macro-redefined"
 
@@ -31,13 +30,20 @@ fi
 
 echo
 
-for arch in x86 x86_64 arm arm64; do
+
+for arch in arm64:21:arm64 arm:16:arm x86:16:386 x86_64:21:x86_64; do
+#for arch in x86_64:21:x86_64; do
   echo compiling $arch
   cd $SRC
   git clean -xdf
-  INSTALLDIR="$LIBS/$arch"
+
+  ARGS=(${arch//:/ })
+  ARCH=${ARGS[0]}
+  ANDROID_API=${ARGS[1]}
+  INSTALLDIR="$LIBS/${ARGS[2]}"
+  echo "ARCH $ARCH ANDROID_API: $ANDROID_API INSTALLDIR: $INSTALLDIR"
   [ -d $INSTALLDIR ] && rm -rf $INSTALLDIR
-  ./Configure android-$arch no-shared -D__ANDROID_API__=$ANDROID_API --prefix="$INSTALLDIR" || exit 1
+  ./Configure android-$ARCH no-shared -D__ANDROID_API__=$ANDROID_API --prefix="$INSTALLDIR" || exit 1
   make || exit 1
   make install_sw || exit 1
 done
