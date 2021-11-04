@@ -49,11 +49,8 @@ git tag "$VERSION_NAME" && git push && git push origin "$VERSION_NAME"
 
 curl https://jitpack.io/com/github/danbrough/ipfs_mobile/android/$VERSION_NAME/android-$VERSION_NAME-sources.jar -o /dev/null &
 
-while :; do 
-sleep 5
-echo getting "https://jitpack.io/com/github/danbrough/ipfs_mobile/$VERSION_NAME/build.log"
-curl "https://jitpack.io/com/github/danbrough/ipfs_mobile/$VERSION_NAME/build.log"  && exit 0
-done
+
+
 
 
 

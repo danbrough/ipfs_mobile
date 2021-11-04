@@ -31,7 +31,7 @@ fi
 echo
 
 
-for arch in arm64:21:arm64 arm:16:arm x86:16:386 x86_64:21:x86_64; do
+for arch in arm64:21:arm64-v8a arm:16:armeabi-v7a x86:16:x86 x86_64:21:x86_64; do
 #for arch in x86_64:21:x86_64; do
   echo compiling $arch
   cd $SRC

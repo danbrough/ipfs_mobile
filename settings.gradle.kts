@@ -5,7 +5,7 @@ plugins {
 
 rootProject.name = "ipfs_mobile"
 
-//include(":core", ":android", ":jvm")
-include(":core", ":jvm")
+include(":core", ":android", ":jvm")
+
 
 

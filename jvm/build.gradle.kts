@@ -51,6 +51,18 @@ tasks {
       }
     }
   }
+
+
+  register<Jar>("libamd64") {
+    from(file("libs/amd64"))
+    dependsOn("jar")
+  }
+
+  named("publishToMavenLocal") {
+  //  dependsOn("libamd64")
+  }
+
+
 }
 
 
@@ -67,10 +79,7 @@ val libarm by tasks.registering(Jar::class) {
 }*/
 
 
-val libamd64 by tasks.registering(Jar::class) {
-  from(file("libs/amd64"))
-  dependsOn("compileKotlin")
-}
+
 
 publishing {
 
@@ -82,11 +91,14 @@ publishing {
 
     create<MavenPublication>("libamd64") {
       artifactId = "libamd64"
-      artifact(libamd64)
-
+      artifact(tasks.named("libamd64"))
     }
 
   }
+}
+
+tasks.named("generateMetadataFileForDefaultPublication") {
+  dependsOn("libamd64")
 }
 
 dependencies {
