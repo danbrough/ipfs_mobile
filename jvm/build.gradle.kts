@@ -73,16 +73,15 @@ tasks {
 
 publishing {
   publications {
+
     create<MavenPublication>("default") {
       from(components["java"])
     }
-
 
     register<MavenPublication>("jniAmd64") {
       artifactId = "jniAmd64"
       artifact(tasks.named("jniAmd64Jar"))
     }
-
   }
 }
 

@@ -76,7 +76,7 @@ open class Demo {
     }
   }
 
-  fun cidTest() {
+  private fun cidTest() {
     log.info("cidTest()")
 
     val dag1 = Cids.dagCid(TestData.Wally.json)
@@ -124,13 +124,17 @@ open class Demo {
 
     val log = danbroid.logging.configure("TEST", coloured = true)
 
+    init {
+      log.trace("loading library ...")
+      NativeLoader.loadLibrary(this::class.java.classLoader,"gojni")
+      log.warn("library loaded")
+    }
 
     @JvmStatic
     fun main(args: Array<String>) {
       log.debug("main()")
-      log.trace("loading library ...")
-      NativeLoader.loadLibrary(Demo::class.java.classLoader,"gojni")
-      log.warn("library loaded")
+
+      val demo = Demo()
       Demo().run()
     }
   }
