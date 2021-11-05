@@ -67,7 +67,10 @@ tasks {
     //this.dependsOn("jvmbuild")
     from(file("libs/amd64"))
   }
-
+  create<Jar>("jniArm64Jar") {
+    //this.dependsOn("jvmbuild")
+    from(file("libs/arm64"))
+  }
 }
 
 
@@ -81,6 +84,11 @@ publishing {
     register<MavenPublication>("jniAmd64") {
       artifactId = "jniAmd64"
       artifact(tasks.named("jniAmd64Jar"))
+    }
+
+    register<MavenPublication>("jniArm64") {
+      artifactId = "jniArm64Jar"
+      artifact(tasks.named("jniArm64Jar"))
     }
   }
 }
