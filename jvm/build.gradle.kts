@@ -25,10 +25,10 @@ val sourcesJar by tasks.registering(Jar::class) {
 }
 */
 
-val libamd64Jar by tasks.registering(Jar::class) {
+/*val libamd64Jar by tasks.registering(Jar::class) {
   dependsOn("compileKotlin")
   from(file("libs/amd64").absolutePath)
-}
+}*/
 
 /*val libarm64Jar by tasks.registering(Jar::class) {
   dependsOn("compileKotlin")
@@ -50,6 +50,7 @@ tasks {
   //builds the go library
   task<Exec>("jvmbuild") {
     commandLine("../jvmbuild.sh")
+    // dependsOn("classes")
   }
 
   compileKotlin {
@@ -60,6 +61,13 @@ tasks {
         }
       }*/
   }
+
+
+  create<Jar>("jniAmd64Jar") {
+    //this.dependsOn("jvmbuild")
+    from(file("libs/amd64/*"))
+  }
+
 }
 
 
@@ -70,9 +78,9 @@ publishing {
     }
 
 
-    register<MavenPublication>("libamd64") {
-      artifactId = "libamd64"
-      artifact(libamd64Jar)
+    register<MavenPublication>("jniAmd64") {
+      artifactId = "jniAmd64"
+      artifact(tasks.named("jniAmd64Jar"))
     }
 
   }

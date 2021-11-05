@@ -8,7 +8,7 @@ ARCH=`uname -m`
 if [ "$ARCH" == "x86_64" ]; then
   ARCH=amd64
 elif [ "$ARCH" == "aarch64" ]; then
-    ARCH=amd64
+    ARCH=arm64
 fi
 
 if [ -d "jvm/libs/$ARCH" ] && [ "$1" != "force" ]; then
