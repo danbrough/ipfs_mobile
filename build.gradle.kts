@@ -17,9 +17,10 @@ apply("project.gradle.kts")
 
 allprojects {
   repositories {
+    mavenLocal()
     google()
     mavenCentral()
-    maven("https://jitpack.io")
+   // maven("https://jitpack.io")
   }
 
   tasks {

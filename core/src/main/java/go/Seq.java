@@ -7,23 +7,25 @@ package go;
 //import android.content.Context;
 
 import java.lang.ref.PhantomReference;
-import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.IdentityHashMap;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.IdentityHashMap;
 import java.util.logging.Logger;
-
-import go.Universe;
 
 // Seq is a sequence of machine-dependent encoded values.
 // Used by automatically generated language bindings to talk to Go.
 public class Seq {
 	private static Logger log = Logger.getLogger("GoSeq");
 
+	@FunctionalInterface
+	public interface NativeLoader {
+		void loadLibrary(String libName);
+	}
+
+	public static NativeLoader nativeLoader = System::loadLibrary;
 	// also known to bind/seq/ref.go and bind/objc/seq_darwin.m
 	private static final int NULL_REFNUM = 41;
 
@@ -34,7 +36,7 @@ public class Seq {
 	private static final GoRefQueue goRefQueue = new GoRefQueue();
 
 	static {
-		System.loadLibrary("gojni");
+		nativeLoader.loadLibrary("gojni");
 		init();
 		Universe.touch();
 	}

@@ -164,6 +164,13 @@ github.com/danbrough/mobile v0.0.1-beta05/go.mod h1:EjgQN1Z3AjER+L3y68Prfma78mBD
 github.com/danbrough/mobile v0.0.1-beta09/go.mod h1:9/kDvrEgWZIXajY9LpIoBhHCSoJM30JBTVRyBSxIrbU=
 github.com/danbrough/mobile v0.0.1-beta10 h1:TwFwOk56AIgFKxtkcd0Bd5w2ERy+2DDaUUiFz+bQ9YY=
 github.com/danbrough/mobile v0.0.1-beta10/go.mod h1:9/kDvrEgWZIXajY9LpIoBhHCSoJM30JBTVRyBSxIrbU=
+github.com/danbrough/mobile v0.0.1-beta11/go.mod h1:9/kDvrEgWZIXajY9LpIoBhHCSoJM30JBTVRyBSxIrbU=
+github.com/danbrough/mobile v0.0.1-beta14 h1:NSnjsrKEkAp2L7q9Dk7bYIbHEBsvppjjFwdVhZu6P/M=
+github.com/danbrough/mobile v0.0.1-beta14/go.mod h1:9/kDvrEgWZIXajY9LpIoBhHCSoJM30JBTVRyBSxIrbU=
+github.com/danbrough/mobile v0.0.1-beta15 h1:Rwh0XDlgMrXFs7hW6HFodQ8WAkEaUoXx0lcWGMTMRVY=
+github.com/danbrough/mobile v0.0.1-beta15/go.mod h1:9/kDvrEgWZIXajY9LpIoBhHCSoJM30JBTVRyBSxIrbU=
+github.com/danbrough/mobile v0.0.1-beta16 h1:FUZVc/Wizn6O0J/6ErU2R2ovP0kiRwVScyIFW4iGQsc=
+github.com/danbrough/mobile v0.0.1-beta16/go.mod h1:9/kDvrEgWZIXajY9LpIoBhHCSoJM30JBTVRyBSxIrbU=
 github.com/davecgh/go-spew v0.0.0-20171005155431-ecdeabc65495/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=

@@ -14,11 +14,26 @@ dependencies {
   // testImplementation("com.github.danbrough.ipfs_mobile:libamd64:0.10.0_06")
 }
 
+java {
+  withSourcesJar()
+}
 
+/*
 val sourcesJar by tasks.registering(Jar::class) {
   archiveClassifier.set("sources")
   from(sourceSets.getByName("main").java.srcDirs)
 }
+*/
+
+val libamd64Jar by tasks.registering(Jar::class) {
+  dependsOn("compileKotlin")
+  from(file("libs/amd64").absolutePath)
+}
+
+/*val libarm64Jar by tasks.registering(Jar::class) {
+  dependsOn("compileKotlin")
+  from(file("libs/arm64/").absolutePath)
+}*/
 
 group = ProjectVersions.GROUP_ID
 version = ProjectVersions.VERSION_NAME
@@ -37,69 +52,33 @@ tasks {
     commandLine("../jvmbuild.sh")
   }
 
-
-/*
-  named("compileKotlin") {
-    dependsOn("jvmbuild")
-  }
-*/
-
   compileKotlin {
-    doLast {
-      named("jvmbuild").get().apply {
-        actions.first().execute(this)
-      }
-    }
+    dependsOn("jvmbuild")
+    /*  doLast {
+        named("jvmbuild").get().apply {
+          actions.first().execute(this)
+        }
+      }*/
   }
-
-
-  register<Jar>("libamd64") {
-    from(file("libs/amd64"))
-    dependsOn("jar")
-  }
-
-  named("publishToMavenLocal") {
-  //  dependsOn("libamd64")
-  }
-
-
 }
-
-
-/*val lib386 by tasks.registering(Jar::class) {
-  from(file("libs/386"))
-}
-
-
-val libarm64 by tasks.registering(Jar::class) {
-  from(file("libs/arm64"))
-}
-val libarm by tasks.registering(Jar::class) {
-  from(file("libs/arm"))
-}*/
-
-
 
 
 publishing {
-
   publications {
     create<MavenPublication>("default") {
       from(components["java"])
-      artifact(sourcesJar)
     }
 
-    create<MavenPublication>("libamd64") {
+
+    register<MavenPublication>("libamd64") {
       artifactId = "libamd64"
-      artifact(tasks.named("libamd64"))
+      artifact(libamd64Jar)
     }
 
   }
 }
 
-tasks.named("generateMetadataFileForDefaultPublication") {
-  dependsOn("libamd64")
-}
+
 
 dependencies {
   api(project(":core"))

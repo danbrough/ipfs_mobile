@@ -1,5 +1,8 @@
-package danbroid.kipfs.jvm
+package danbroid.kipfs.demo
 
+import danbroid.kipfs.jvm.NativeLoader
+import danbroid.kipfs.jvm.TestData
+import go.Seq
 import go.kipfs.cids.Cids
 import go.kipfs.core.*
 import java.io.File
@@ -91,14 +94,14 @@ open class Demo {
     }
   }
 
-  private fun dagTest(){
+  private fun dagTest() {
     log.debug("dagTest()")
 
     val dag = "bafyreidfq7gnjnpi7hllpwowrphojoy6hgdgrsgitbnbpty6f2yirqhkom"
     log.trace("looking up dag: $dag")
     shell.newRequest("dag/get").also {
       it.argument(dag)
-      it.send().decodeToString().also { data->
+      it.send().decodeToString().also { data ->
         log.info("response: $data")
       }
     }
@@ -118,7 +121,15 @@ open class Demo {
 
   companion object {
 
+
     val log = danbroid.logging.configure("TEST", coloured = true)
+
+    init {
+      log.warn("loading gojni..")
+
+      NativeLoader.loadLibrary(Demo::class.java.classLoader, "gojni")
+      log.info("finished load")
+    }
 
     @JvmStatic
     fun main(args: Array<String>) {
