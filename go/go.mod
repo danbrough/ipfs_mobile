@@ -2,7 +2,7 @@ module kipfs
 
 go 1.16
 
-//replace github.com/danbrough/mobile => /home/dan/workspace/go/src/github.com/danbrough/mobile
+replace github.com/danbrough/mobile => /home/dan/workspace/go/src/github.com/danbrough/mobile
 
 require (
 	github.com/danbrough/mobile v0.0.1-beta16 // indirect

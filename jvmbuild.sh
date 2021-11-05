@@ -4,14 +4,18 @@
 cd `dirname $0`
 echo running $0 at `date` at `pwd`
 
+ARCH=`uname -m`
+if [ "$ARCH" == "x86_64" ]; then
+  ARCH=amd64
+fi
 
-if [ -d "jvm/libs" ] && [ "$1" != "force" ]; then
-  echo jvm/libs exists. skipping go build.
+if [ -d "jvm/libs/$ARCH" ] && [ "$1" != "force" ]; then
+  echo jvm/libs/$ARCH  exists. skipping go build.
   exit 0
 fi
 
 
-rm -rf jvm/libs 2> /dev/null
+rm -rf jvm/libs/$ARCH  2> /dev/null
 
 source goenv.sh
 
@@ -38,7 +42,7 @@ doBuild(){
   #go run golang.org/x/mobile/cmd/gomobile \
   echo running gomobile bind
   gomobile \
-    bind -ldflags "-w"  -v -target=linux/amd64 -tags=openssl  -javapkg go.kipfs  -o build \
+    bind -ldflags "-w"  -v -target=linux/$ARCH -tags=openssl  -javapkg go.kipfs  -o build \
    $PACKAGES || exit 1
 }
 
@@ -48,7 +52,8 @@ doBuild || exit 1
 rm -rf ../core/src/main/java/go 2> /dev/null
 unzip  build/core-sources.jar  -d ../core/src/main/java/
 rm -rf ../core/src/main/java/META-INF
-mv build/libs ../jvm/libs
+rm -rf ../jvm/libs/$ARCH
+mv build/libs/* ../jvm/libs/
 rm -rf build
 
 
