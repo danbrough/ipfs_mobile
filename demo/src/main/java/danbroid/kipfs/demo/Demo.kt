@@ -1,6 +1,6 @@
 package danbroid.kipfs.demo
 
-import danbroid.kipfs.jvm.NativeLoader
+import danbroid.jni.NativeLoader
 import danbroid.kipfs.jvm.TestData
 import go.Seq
 import go.kipfs.cids.Cids
@@ -124,16 +124,13 @@ open class Demo {
 
     val log = danbroid.logging.configure("TEST", coloured = true)
 
-    init {
-      log.warn("loading gojni..")
-
-      NativeLoader.loadLibrary(Demo::class.java.classLoader, "gojni")
-      log.info("finished load")
-    }
 
     @JvmStatic
     fun main(args: Array<String>) {
       log.debug("main()")
+      log.trace("loading library ...")
+      NativeLoader.loadLibrary(Demo::class.java.classLoader,"gojni")
+      log.warn("library loaded")
       Demo().run()
     }
   }

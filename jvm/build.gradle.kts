@@ -65,7 +65,7 @@ tasks {
 
   create<Jar>("jniAmd64Jar") {
     //this.dependsOn("jvmbuild")
-    from(file("libs/amd64/*"))
+    from(file("libs/amd64"))
   }
 
 }

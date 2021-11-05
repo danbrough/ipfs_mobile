@@ -171,6 +171,10 @@ github.com/danbrough/mobile v0.0.1-beta15 h1:Rwh0XDlgMrXFs7hW6HFodQ8WAkEaUoXx0lc
 github.com/danbrough/mobile v0.0.1-beta15/go.mod h1:9/kDvrEgWZIXajY9LpIoBhHCSoJM30JBTVRyBSxIrbU=
 github.com/danbrough/mobile v0.0.1-beta16 h1:FUZVc/Wizn6O0J/6ErU2R2ovP0kiRwVScyIFW4iGQsc=
 github.com/danbrough/mobile v0.0.1-beta16/go.mod h1:9/kDvrEgWZIXajY9LpIoBhHCSoJM30JBTVRyBSxIrbU=
+github.com/danbrough/mobile v0.0.1-beta17 h1:Ph9LTKUik6bNeulmQCXFKOndodrbMV6iyO1fDOG+7V4=
+github.com/danbrough/mobile v0.0.1-beta17/go.mod h1:9/kDvrEgWZIXajY9LpIoBhHCSoJM30JBTVRyBSxIrbU=
+github.com/danbrough/mobile v0.0.1-beta18 h1:A3gqHY7pty7rAV5eepjO5Qnxz3mf/AeN5ieM3WtL/jM=
+github.com/danbrough/mobile v0.0.1-beta18/go.mod h1:9/kDvrEgWZIXajY9LpIoBhHCSoJM30JBTVRyBSxIrbU=
 github.com/davecgh/go-spew v0.0.0-20171005155431-ecdeabc65495/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=

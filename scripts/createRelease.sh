@@ -47,7 +47,10 @@ git commit -am "$VERSION_NAME"
 git tag "$VERSION_NAME" && git push && git push origin "$VERSION_NAME"
 
 
-curl https://jitpack.io/com/github/danbrough/ipfs_mobile/android/$VERSION_NAME/android-$VERSION_NAME-sources.jar -o /dev/null &
+~/bin/syncmaven
+
+
+#curl https://jitpack.io/com/github/danbrough/ipfs_mobile/android/$VERSION_NAME/android-$VERSION_NAME-sources.jar -o /dev/null &
 
 
 
