@@ -26,6 +26,7 @@ fi
 
 export PATH=~/go/bin:$GOPATH/bin:$PATH
 PACKAGES="kipfs/core kipfs/cids"
+export OPENSSL_LIBS=`realpath openssl/libs`
 
 echo go is at `which go`
 echo go version `go version`

@@ -63,7 +63,7 @@ tasks {
   }
 
 
-  create<Jar>("win32Amd64Jar") {
+  create<Jar>("win32Amd64") {
     //this.dependsOn("jvmbuild")
     from(file("libs/win32/amd64/"))
   }
@@ -80,7 +80,7 @@ publishing {
 
     register<MavenPublication>("win32Amd64") {
       artifactId = "win32amd64"
-      artifact(tasks.named("win32Amd64Jar"))
+      artifact(tasks.named("win32Amd64"))
     }
 
 /*    register<MavenPublication>("jniArm64") {
