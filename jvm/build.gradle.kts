@@ -63,14 +63,11 @@ tasks {
   }
 
 
-  create<Jar>("jniAmd64Jar") {
+  create<Jar>("win32Amd64Jar") {
     //this.dependsOn("jvmbuild")
-    from(file("libs/amd64"))
+    from(file("libs/win32/amd64/"))
   }
-  create<Jar>("jniArm64Jar") {
-    //this.dependsOn("jvmbuild")
-    from(file("libs/arm64"))
-  }
+
 }
 
 
@@ -81,15 +78,15 @@ publishing {
       from(components["java"])
     }
 
-    register<MavenPublication>("jniAmd64") {
-      artifactId = "jniAmd64"
-      artifact(tasks.named("jniAmd64Jar"))
+    register<MavenPublication>("win32Amd64") {
+      artifactId = "win32amd64"
+      artifact(tasks.named("win32Amd64Jar"))
     }
 
-    register<MavenPublication>("jniArm64") {
+/*    register<MavenPublication>("jniArm64") {
       artifactId = "jniArm64Jar"
       artifact(tasks.named("jniArm64Jar"))
-    }
+    }*/
   }
 }
 

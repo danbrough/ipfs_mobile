@@ -30,23 +30,25 @@ unset ANDROID_HOME
 
 
 doBuild(){
-  echo building kipfs
-  go mod download || exit 1
-  go get -d  github.com/danbrough/mobile
-  go install  github.com/danbrough/mobile/cmd/gomobile
-  go install  github.com/danbrough/mobile/cmd/gobind
 
-  #go install golang.org/x/mobile/cmd/gomobile
-  #go install golang.org/x/mobile/cmd/gobind
-
-  echo running "gomobile init" using `which gomobile`
-  gomobile init || exit 1
   #go run golang.org/x/mobile/cmd/gomobile \
   echo running gomobile bind
+    #gomobile \
+    #bind -ldflags "-w"  -v -target=windows/$ARCH -tags=openssl  -javapkg go.kipfs  -o build \
+   #$PACKAGES || exit 1
+
   gomobile \
-    bind -ldflags "-w"  -v -target=linux/$ARCH -tags=openssl  -javapkg go.kipfs  -o build \
+    bind -ldflags "-w"  -v -x -work -target=windows/amd64   -javapkg go.kipfs  -o build \
    $PACKAGES || exit 1
 }
+
+echo building kipfs
+go mod download || exit 1
+go get -d  github.com/danbrough/mobile
+go install  github.com/danbrough/mobile/cmd/gomobile
+go install  github.com/danbrough/mobile/cmd/gobind
+echo running "gomobile init" using `which gomobile`
+gomobile init || exit 1
 
 doBuild || exit 1
 

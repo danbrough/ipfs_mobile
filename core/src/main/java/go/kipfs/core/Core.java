@@ -21,14 +21,12 @@ public abstract class Core {
 	private static native void _init();
 	
 	
-	public static final String UDSDir = "sock";
 	
 	public static native void initRepo(String path, Config cfg) throws Exception;
 	public static native Config newConfig(byte[] raw_json) throws Exception;
 	public static native Config newDefaultConfig() throws Exception;
 	public static native Node newNode(Repo r, boolean online) throws Exception;
 	public static native Shell newShell(String url);
-	public static native SockManager newSockManager(String path) throws Exception;
 	public static native Shell newTCPShell(String port);
 	/**
 	 * New unix socket domain shell
@@ -36,5 +34,4 @@ public abstract class Core {
 	public static native Shell newUDSShell(String sockpath);
 	public static native Repo openRepo(String path) throws Exception;
 	public static native boolean repoIsInitialized(String path);
-	public static native void setDNSPair(String primary, String secondary, boolean loadFromSystem);
 }
