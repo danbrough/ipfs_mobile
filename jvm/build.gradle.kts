@@ -3,6 +3,8 @@ plugins {
   `maven-publish`
 }
 
+group = ProjectVersions.GROUP_ID
+version = ProjectVersions.VERSION_NAME
 
 repositories {
   mavenLocal()
@@ -35,8 +37,6 @@ val sourcesJar by tasks.registering(Jar::class) {
   from(file("libs/arm64/").absolutePath)
 }*/
 
-group = ProjectVersions.GROUP_ID
-version = ProjectVersions.VERSION_NAME
 
 /*
 artifacts.add("archives", file("libs/386/libgojni.so")) {
@@ -50,11 +50,12 @@ tasks {
   //builds the go library
   task<Exec>("jvmbuild") {
     commandLine("../jvmbuild.sh")
-    // dependsOn("classes")
+
+    //dependsOn("classes")
   }
 
   compileKotlin {
-    dependsOn("jvmbuild")
+    //dependsOn("jvmbuild")
     /*  doLast {
         named("jvmbuild").get().apply {
           actions.first().execute(this)
@@ -63,14 +64,18 @@ tasks {
   }
 
 
-  create<Jar>("win32Amd64") {
-    //this.dependsOn("jvmbuild")
-    from(file("libs/win32/amd64/"))
-  }
-
 }
 
 
+val win32Amd64Jar by tasks.registering(Jar::class) {
+  dependsOn("jvmbuild")
+  from(file("libs/win32/amd64/"))
+}
+
+val linuxAmd64Jar by tasks.registering(Jar::class) {
+  dependsOn("jvmbuild")
+  from(file("libs/win32/amd64/"))
+}
 publishing {
   publications {
 
@@ -78,9 +83,9 @@ publishing {
       from(components["java"])
     }
 
-    register<MavenPublication>("win32Amd64") {
+    register<MavenPublication>("win32amd64"){
       artifactId = "win32amd64"
-      artifact(tasks.named("win32Amd64"))
+      artifact(win32Amd64Jar)
     }
 
 /*    register<MavenPublication>("jniArm64") {
