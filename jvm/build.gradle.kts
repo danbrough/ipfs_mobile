@@ -26,6 +26,11 @@ val jvmBuild by tasks.registering(Exec::class) {
 val linuxAmd64Jar by tasks.registering(Jar::class) {
   from(file("libs/linux/amd64"))
 }
+
+val linuxArm64Jar by tasks.registering(Jar::class) {
+  from(file("libs/linux/arm64"))
+}
+
 val win32Amd64Jar by tasks.registering(Jar::class) {
   from(file("libs/win32/amd64"))
 }
@@ -43,7 +48,12 @@ publishing {
         builtBy(jvmBuild)
       }
     }
-
+    create<MavenPublication>("linuxArm64Jar") {
+      artifactId = "linuxArm64"
+      artifact(linuxArm64Jar) {
+        builtBy(jvmBuild)
+      }
+    }
     create<MavenPublication>("win32Amd64Jar") {
       artifactId = "win32Amd64"
       artifact(win32Amd64Jar) {
@@ -62,5 +72,5 @@ publishing {
 
 
 dependencies {
-  api(project(":core"))
+  implementation(project(":core"))
 }
