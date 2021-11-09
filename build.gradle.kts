@@ -21,6 +21,7 @@ allprojects {
     google()
     mavenCentral()
     maven("https://h1.danbrough.org/maven")
+
    // maven("https://jitpack.io")
   }
 

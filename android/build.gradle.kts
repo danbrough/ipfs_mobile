@@ -36,6 +36,12 @@ android {
           }
         }
       }
+
+      repositories {
+        maven("kipfs") {
+          url = file("../maven").toURI()
+        }
+      }
     }
   }
 

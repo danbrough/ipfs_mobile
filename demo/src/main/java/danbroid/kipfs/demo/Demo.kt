@@ -135,7 +135,7 @@ open class Demo {
       log.debug("main()")
 
       val demo = Demo()
-      Demo().run()
+      demo.run()
     }
   }
 }

@@ -26,4 +26,10 @@ publishing {
       from(components["java"])
     }
   }
+
+  repositories {
+    maven("kipfs") {
+      url = file("../maven").toURI()
+    }
+  }
 }
