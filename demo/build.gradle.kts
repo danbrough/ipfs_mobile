@@ -5,7 +5,9 @@ plugins {
   application
 }
 
-
+repositories {
+  maven("https://h1.danbrough.org/maven")
+}
 /*System.getProperties().keys.forEach {
   println("$it -> ${System.getProperty(it?.toString())}")
 }*/
