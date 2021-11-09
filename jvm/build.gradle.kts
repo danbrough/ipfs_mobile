@@ -20,79 +20,43 @@ java {
   withSourcesJar()
 }
 
-/*
-val sourcesJar by tasks.registering(Jar::class) {
-  archiveClassifier.set("sources")
-  from(sourceSets.getByName("main").java.srcDirs)
+
+val jvmBuild by tasks.registering(Exec::class) {
+  commandLine("../jvmbuild.sh")
 }
-*/
 
-/*val libamd64Jar by tasks.registering(Jar::class) {
-  dependsOn("compileKotlin")
-  from(file("libs/amd64").absolutePath)
-}*/
-
-/*val libarm64Jar by tasks.registering(Jar::class) {
-  dependsOn("compileKotlin")
-  from(file("libs/arm64/").absolutePath)
-}*/
-
-
-/*
-artifacts.add("archives", file("libs/386/libgojni.so")) {
-  type = "lib"
-  name = "libs/386/libgojni.so"
+val linuxAmd64Jar by tasks.registering(Jar::class){
+  from(file("libs/linux/amd64"))
 }
-*/
-
-tasks {
-
-  //builds the go library
-  task<Exec>("jvmbuild") {
-    commandLine("../jvmbuild.sh")
-
-    //dependsOn("classes")
-  }
-
-  compileKotlin {
-    //dependsOn("jvmbuild")
-    /*  doLast {
-        named("jvmbuild").get().apply {
-          actions.first().execute(this)
-        }
-      }*/
-  }
-
-
+val win32Amd64Jar by tasks.registering(Jar::class){
+  from(file("libs/win32/amd64"))
 }
 
 
-val win32Amd64Jar by tasks.registering(Jar::class) {
-  dependsOn("jvmbuild")
-  from(file("libs/win32/amd64/"))
-}
-
-val linuxAmd64Jar by tasks.registering(Jar::class) {
-  dependsOn("jvmbuild")
-  from(file("libs/win32/amd64/"))
-}
 publishing {
   publications {
-
     create<MavenPublication>("default") {
       from(components["java"])
     }
 
-    register<MavenPublication>("win32amd64"){
-      artifactId = "win32amd64"
-      artifact(win32Amd64Jar)
+    create<MavenPublication>("linuxAmd64Jar") {
+      artifactId = "linuxAmd64"
+      artifact(linuxAmd64Jar){
+        builtBy(jvmBuild)
+      }
     }
 
-/*    register<MavenPublication>("jniArm64") {
-      artifactId = "jniArm64Jar"
-      artifact(tasks.named("jniArm64Jar"))
-    }*/
+    create<MavenPublication>("win32Amd64Jar") {
+      artifactId = "win32Amd64"
+      artifact(win32Amd64Jar){
+        builtBy(jvmBuild)
+      }
+    }
+
+
   }
+
+
 }
 
 

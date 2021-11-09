@@ -38,7 +38,7 @@ doBuild(){
    #$PACKAGES || exit 1
 
   gomobile \
-    bind -ldflags "-w"  -v -x -work -target=linux/amd64   -javapkg go.kipfs  -o build \
+    bind -ldflags "-w"  -v  -target=linux/amd64   -javapkg go.kipfs  -o build \
    $PACKAGES || exit 1
 }
 
@@ -57,8 +57,9 @@ rm -rf ../core/src/main/java/go 2> /dev/null
 unzip  build/core-sources.jar  -d ../core/src/main/java/
 rm -rf ../core/src/main/java/META-INF
 rm -rf ../jvm/libs/linux/$ARCH
-mv build/libs ../jvm/libs/linux/$ARCH
-rm -rf build
+mkdir -p ../jvm/libs/linux/
+mv build/libs/$ARCH ../jvm/libs/linux/
+
 
 
 

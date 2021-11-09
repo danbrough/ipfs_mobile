@@ -3,6 +3,8 @@ plugins {
   application
 }
 
+val arch = System.getenv("os.arch")
+println("arch is $arch")
 
 application {
   mainClass.set("danbroid.kipfs.demo.Demo")

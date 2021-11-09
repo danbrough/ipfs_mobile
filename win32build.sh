@@ -34,7 +34,7 @@ doBuild(){
 
   export JAVA_HOME=/mnt/files2/windows/jdk
   gomobile \
-    bind -ldflags "-w"  -v -x -work -target=windows/amd64   -javapkg go.kipfs  -o build \
+    bind -ldflags "-w"  -v  -target=windows/amd64   -javapkg go.kipfs  -o build \
    $PACKAGES || exit 1
 }
 

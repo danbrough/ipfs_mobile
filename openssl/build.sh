@@ -30,7 +30,7 @@ fi
 
 echo
 
-
+#arch name: android version : folder
 for arch in arm64:21:arm64-v8a arm:16:armeabi-v7a x86:16:x86 x86_64:21:x86_64; do
 #for arch in x86_64:21:x86_64; do
   echo compiling $arch
@@ -47,11 +47,5 @@ for arch in arm64:21:arm64-v8a arm:16:armeabi-v7a x86:16:x86 x86_64:21:x86_64; d
   make || exit 1
   make install_sw || exit 1
 done
-
-
-
-
-
-#./Configure android-x86_64 no-shared -D__ANDROID_API__=21 --prefix=`realpath ../x86_64`
 
 
