@@ -5,6 +5,11 @@ plugins {
   application
 }
 
+
+System.getProperties().keys.forEach {
+  println("$it -> ${System.getProperty(it?.toString())}")
+}
+
 val arch = System.getProperty("os.arch")!!
 val osName = System.getProperty("os.name")!!
 
