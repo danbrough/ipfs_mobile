@@ -11,7 +11,9 @@ System.getProperties().keys.forEach {
 }
 
 val arch = System.getProperty("os.arch")!!
-val osName = System.getProperty("os.name")!!
+val osName = System.getProperty("os.name")!!.let {
+  if (it.startsWith("Windows")) "win32" else it
+}
 
 println("arch is $arch")
 
