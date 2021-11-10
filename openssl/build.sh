@@ -5,6 +5,12 @@ SCRIPTDIR=`realpath .`
 
 echo $SCRIPTDIR
 LIBS=`realpath libs`
+
+if [ -d $LIBS ]; then
+    echo not building openssl as $LIBS exists
+    exit 0
+fi
+
 SRC=`realpath src`
 
 echo LIBS: $LIBS

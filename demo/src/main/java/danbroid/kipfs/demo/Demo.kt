@@ -126,8 +126,8 @@ open class Demo {
 
     init {
       log.trace("loading library ...")
-      System.loadLibrary("gojni")
-      //NativeLoader.loadLibrary(this::class.java.classLoader,"gojni")
+      //System.loadLibrary("gojni")
+      NativeLoader.loadLibrary(this::class.java.classLoader,"gojni")
       log.warn("library loaded")
     }
 

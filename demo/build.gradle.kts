@@ -24,7 +24,6 @@ println("arch is $arch")
 
 application {
   mainClass.set("danbroid.kipfs.demo.Demo")
-  applicationDefaultJvmArgs += "-Djava.library.path=${file("../jvm/libs/linux/$arch")}"
 }
 
 dependencies {
