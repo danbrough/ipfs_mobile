@@ -1,13 +1,15 @@
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
+
+
+
 plugins {
   kotlin("jvm")
   application
+  id("com.github.johnrengelman.shadow")
 }
 
-repositories {
-  maven("https://h1.danbrough.org/maven")
-}
+
 /*System.getProperties().keys.forEach {
   println("$it -> ${System.getProperty(it?.toString())}")
 }*/
@@ -22,9 +24,12 @@ val osName = System.getProperty("os.name")!!.let {
 
 println("arch is $arch")
 
+
+
 application {
   mainClass.set("danbroid.kipfs.demo.Demo")
 }
+
 
 dependencies {
   implementation(AndroidUtils.logging)
@@ -33,8 +38,16 @@ dependencies {
   val libName = "${osName.toLowerCase()}${arch.capitalizeAsciiOnly()}"
   println("libName: $libName")
   implementation("com.github.danbrough.ipfs_mobile:$libName:_")
-  implementation("com.github.danbrough.ipfs_mobile:core:_")
-  implementation("com.github.danbrough.ipfs_mobile:jvm:_")
+  project.findProperty("localLibs")?.also {
+    println("using local libs ..")
+
+    implementation(project(":core"))
+    implementation(project(":jvm"))
+
+  } ?: run {
+    implementation("com.github.danbrough.ipfs_mobile:core:_")
+    implementation("com.github.danbrough.ipfs_mobile:jvm:_")
+  }
 }
 
 

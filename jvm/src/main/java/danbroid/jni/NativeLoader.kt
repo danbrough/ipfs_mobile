@@ -10,7 +10,10 @@ object NativeLoader {
     try {
       System.loadLibrary(libName)
     } catch (ex: UnsatisfiedLinkError) {
+      val fullLibName = libFilename(libName)
+      println("NativeLoader: trying classLoader.getResource($libName)")
       val url = classLoader.getResource(libFilename(libName))
+      println("NativeLoader: url is $url")
       try {
         val file = Files.createTempFile("jni", libFilename(nameOnly(libName))).toFile()
         file.deleteOnExit()
