@@ -12,7 +12,10 @@ repositories {
   println("$it -> ${System.getProperty(it?.toString())}")
 }*/
 
-val arch = System.getProperty("os.arch")!!
+val arch = System.getProperty("os.arch")!!.let {
+  if (it == "aarch64") "arm64" else it
+}
+
 val osName = System.getProperty("os.name")!!.let {
   if (it.startsWith("Windows")) "win32" else it
 }
