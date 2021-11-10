@@ -9,7 +9,7 @@ version = ProjectVersions.VERSION_NAME
 
 
 dependencies {
-  implementation(AndroidUtils.logging)
+  //implementation(AndroidUtils.logging)
   testImplementation(Testing.junit4)
   // testImplementation("com.github.danbrough.ipfs_mobile:libamd64:0.10.0_06")
 }

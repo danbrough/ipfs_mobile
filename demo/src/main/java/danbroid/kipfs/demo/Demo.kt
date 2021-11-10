@@ -107,6 +107,16 @@ open class Demo {
     }
   }
 
+  fun dagGet(dag: String) {
+    log.debug("dagGet() $dag")
+    shell.newRequest("dag/get").also {
+      it.argument(dag)
+      it.send().decodeToString().also { data ->
+        log.info("response: $data")
+      }
+    }
+  }
+
   fun run() {
     log.info("run(): offlineMode:$offlineMode")
 
@@ -127,7 +137,7 @@ open class Demo {
     init {
       log.trace("loading library ...")
       //System.loadLibrary("gojni")
-      NativeLoader.loadLibrary(this::class.java.classLoader,"gojni")
+      NativeLoader.loadLibrary(this::class.java.classLoader, "gojni")
       log.warn("library loaded")
     }
 
@@ -137,7 +147,11 @@ open class Demo {
 
       val demo = Demo()
       demo.offlineMode = args.contains("offline")
+
       demo.run()
+      args.filter { it != "offline" }.iterator().forEach {
+        demo.dagGet(it)
+      }
     }
   }
 }
