@@ -149,7 +149,8 @@ open class Demo {
       demo.offlineMode = args.contains("offline")
 
       demo.run()
-      args.filter { it != "offline" }.iterator().forEach {
+      args.asList().filter { it != "offline" }.forEach {
+        log.debug("getting dag $it")
         demo.dagGet(it)
       }
     }
