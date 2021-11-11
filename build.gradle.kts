@@ -18,11 +18,12 @@ apply("project.gradle.kts")
 allprojects {
   repositories {
 
+
     google()
     mavenCentral()
     maven("https://h1.danbrough.org/maven")
 
-   // maven("https://jitpack.io")
+    // maven("https://jitpack.io")
   }
 
   tasks {
@@ -43,9 +44,9 @@ allprojects {
       testLogging {
         events("standardOut", "started", "passed", "skipped", "failed")
         showStandardStreams = true
-    /*    outputs.upToDateWhen {
-          false
-        }*/
+        /*    outputs.upToDateWhen {
+              false
+            }*/
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
       }
 

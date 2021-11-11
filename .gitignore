@@ -11,4 +11,3 @@ local.properties
 /pkg
 /gobuild
 **.log
-/maven

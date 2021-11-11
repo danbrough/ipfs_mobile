@@ -52,7 +52,8 @@ doBuild || exit 1
 rm -rf ../core/src/main/java/go 2> /dev/null
 unzip  build/core-sources.jar  -d ../core/src/main/java/
 rm -rf ../core/src/main/java/META-INF
-rm -rf ../jvm/libs/win32/$ARCH; mkdir ../jvm/libs/win32
+rm -rf ../jvm/libs/win32/$ARCH
+mkdir ../jvm/libs/win32
 mv build/libs/* ../jvm/libs/win32/
 rm -rf build
 

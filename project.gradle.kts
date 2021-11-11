@@ -1,31 +1,15 @@
 import java.io.FileInputStream
 
-fun initProps() {
-  //println("initProps()")
-  val fis = FileInputStream(file("project.properties"))
-  val prop = java.util.Properties()
-  prop.load(fis)
-  fis.close()
 
-  prop.keys.forEach {
-    val key = it as String
-    extra[key] = prop[key]
-  }
+interface ProjectInitExtension
 
-  ProjectVersions.init(prop)
-}
-
-
-
-
-initProps()
-
-
-
-class ProjectPlugin : Plugin<Project> {
+class ProjectPlugin @javax.inject.Inject constructor() : Plugin<Project> {
 
 
   override fun apply(project: Project) {
+
+    project.extensions.create<ProjectInitExtension>("init")
+    //initProps()
 
     project.task("projectVersionName") {
       doLast {
@@ -60,3 +44,11 @@ class ProjectPlugin : Plugin<Project> {
 
 // Apply the plugin
 apply<ProjectPlugin>()
+
+configure<ProjectInitExtension> {
+  FileInputStream(file("project.properties")).use {
+    val props = java.util.Properties()
+    props.load(it)
+    ProjectVersions.init(project,props)
+  }
+}

@@ -7,6 +7,8 @@
 //+build linux, windows 
 package go;
 
+import go.Seq;
+
 public abstract class Universe {
 	static {
 		Seq.touch(); // for loading the native library

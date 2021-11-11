@@ -7,11 +7,11 @@ import go.kipfs.cids.Cids
 import go.kipfs.core.*
 import java.io.File
 
-open class Demo {
+open class BaseDemo {
   //http api port of the node
   var nodePort = 5002
 
-  open var repoPath: File = File("/tmp/repo")
+  open var repoPath: File = File(System.getProperty("java.io.tmpdir"), "repo")
 
   private var _repo: Repo? = null
   val repo: Repo by lazy {
@@ -30,7 +30,6 @@ open class Demo {
 
   open var offlineMode: Boolean = System.getProperty("offline", "false").toBoolean()
     set(value) {
-      log.error("SETTING OFFLINE to $offlineMode")
       if (field != value) {
         field = value
         _shell = null
@@ -76,82 +75,13 @@ open class Demo {
     }
   }
 
-  private fun cidTest() {
-    log.info("cidTest()")
-
-    val dag1 = Cids.dagCid(TestData.Wally.json)
-    log.debug("dag1: $dag1")
-    val expected = TestData.Wally.cid
-    assert(dag1 == expected) {
-      "dag1: $dag1 != expected: $expected"
-    }
-    val cborData = Cids.jsonToCbor(TestData.Wally.json)
-    val dag2 = Cids.dagCidBytes(cborData, "cbor")
-
-    log.debug("dag2: $dag2")
-    assert(dag2 == expected) {
-      "dag2: $dag2 != expected: $expected"
-    }
-  }
-
-  private fun dagTest() {
-    log.debug("dagTest()")
-
-    val dag = "bafyreidfq7gnjnpi7hllpwowrphojoy6hgdgrsgitbnbpty6f2yirqhkom"
-    log.trace("looking up dag: $dag")
-    shell.newRequest("dag/get").also {
-      it.argument(dag)
-      it.send().decodeToString().also { data ->
-        log.info("response: $data")
-      }
-    }
-  }
-
-  fun dagGet(dag: String) {
-    log.debug("dagGet() $dag")
-    shell.newRequest("dag/get").also {
-      it.argument(dag)
-      it.send().decodeToString().also { data ->
-        log.info("response: $data")
-      }
-    }
-  }
-
-  fun run() {
-    log.info("run(): offlineMode:$offlineMode")
-
-    shell.newRequest("id").send().decodeToString().also {
-      log.trace("RESPONSE: $it")
-    }
-
-    cidTest()
-
-    dagTest()
-  }
 
   companion object {
-
-
-    val log = danbroid.logging.configure("TEST", coloured = true)
-
     init {
       log.trace("loading library ...")
+      //System.loadLibrary("gojni")
       NativeLoader.loadLibrary(this::class.java.classLoader, "gojni")
       log.warn("library loaded")
-    }
-
-    @JvmStatic
-    fun main(args: Array<String>) {
-      log.debug("main()")
-
-      val demo = Demo()
-      demo.offlineMode = args.contains("offline")
-
-      demo.run()
-      args.asList().filter { it != "offline" }.forEach {
-        log.debug("getting dag $it")
-        demo.dagGet(it)
-      }
     }
   }
 }

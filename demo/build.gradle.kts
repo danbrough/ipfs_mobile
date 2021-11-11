@@ -1,11 +1,8 @@
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.capitalizeAsciiOnly
 
 
-
-
 plugins {
   kotlin("jvm")
-  application
   id("com.github.johnrengelman.shadow")
 }
 
@@ -23,12 +20,19 @@ val osName = System.getProperty("os.name")!!.let {
 }
 
 
+tasks {
+  register<JavaExec>("demoBasic") {
+    mainClass.set("danbroid.kipfs.demo.DemoBasic")
+    classpath = sourceSets["main"].runtimeClasspath
+  }
+  register<JavaExec>("demoSubscribe") {
+    mainClass.set("danbroid.kipfs.demo.DemoSubscribe")
+    //classpath = sourceSets["main"].runtimeClasspath
+    classpath = files("../jvm/libs/linux/amd64") + sourceSets["main"].runtimeClasspath
 
-
-application {
-  mainClass.set("danbroid.kipfs.demo.Demo")
+    //allJvmArgs.plusAssign("-Djava.library.path=${file("../jvm/libs/linux/amd64")}")
+  }
 }
-
 
 dependencies {
   implementation(AndroidUtils.logging)
@@ -36,13 +40,12 @@ dependencies {
 
   val libName = "${osName.toLowerCase()}${arch.capitalizeAsciiOnly()}"
   implementation("com.github.danbrough.ipfs_mobile:$libName:_")
-  project.findProperty("localLibs")?.also {
-    println("using local libs ..")
 
+  val useLocalLibs = true //project.findProperty("localLibs") != null
+  if (useLocalLibs) {
     implementation(project(":core"))
     implementation(project(":jvm"))
-
-  } ?: run {
+  } else {
     implementation("com.github.danbrough.ipfs_mobile:core:_")
     implementation("com.github.danbrough.ipfs_mobile:jvm:_")
   }

@@ -62,11 +62,13 @@ publishing {
     }
   }
 
-  repositories {
-    maven("kipfs") {
-      url = file("../maven").toURI()
+
+  ProjectVersions.LOCAL_MAVEN_REPO?.also { repoPath ->
+    repositories {
+      maven(repoPath)
     }
   }
+
 }
 
 
