@@ -3,6 +3,7 @@ package main
 import (
   "bufio"
   "flag"
+  "fmt"
   "kipfs/core"
   "kipfs/testing"
   "os"
@@ -45,10 +46,52 @@ func initRepo() {
   log.Trace("initialized repo at %s", repoPath)
 }
 
-func subscribe(topic string, shell *core.Shell) {
-  log.Warn("topic: %s", topic)
+func pubMessage(topic string, msg string, shell *core.Shell) {
+  log.Info("pubMessage() topic: %s message: %s", topic, msg)
   var req *core.RequestBuilder
-  time.Sleep(10 * time.Second)
+  req = shell.NewRequest("pubsub/pub")
+  req.Argument(topic)
+  req.Argument(msg)
+  response, err := req.Send()
+  if err != nil {
+    panic(err)
+  }
+  log.Debug("response: %s", response)
+}
+
+func publish(topic string, shell *core.Shell) {
+  var count = 0
+  time.Sleep(1 * time.Second)
+  pubMessage(topic, fmt.Sprintf("Message: %d", count), shell)
+  count++
+  time.Sleep(1 * time.Second)
+  pubMessage(topic, fmt.Sprintf("Message: %d", count), shell)
+  count++
+  time.Sleep(1 * time.Second)
+  pubMessage(topic, fmt.Sprintf("Message: %d", count), shell)
+  count++
+  time.Sleep(1 * time.Second)
+  pubMessage(topic, fmt.Sprintf("Message: %d", count), shell)
+  count++
+  time.Sleep(1 * time.Second)
+  pubMessage(topic, fmt.Sprintf("Message: %d", count), shell)
+  count++
+  time.Sleep(1 * time.Second)
+  pubMessage(topic, fmt.Sprintf("Message: %d", count), shell)
+  count++
+  time.Sleep(1 * time.Second)
+  pubMessage(topic, fmt.Sprintf("Message: %d", count), shell)
+  count++
+  time.Sleep(1 * time.Second)
+  pubMessage(topic, fmt.Sprintf("Message: %d", count), shell)
+  count++
+}
+
+func subscribe(topic string, shell *core.Shell) {
+  log.Info("topic: %s", topic)
+  var req *core.RequestBuilder
+  time.Sleep(time.Second)
+  /* time.Sleep(10 * time.Second)
   req = shell.NewRequest("pubsub/pub")
   req.Argument(topic)
   req.Argument("Hello from kipfs!")
@@ -61,6 +104,8 @@ func subscribe(topic string, shell *core.Shell) {
   log.Info("pub response: %s", string(resp))
 
   time.Sleep(2 * time.Second)
+
+  */
   req = shell.NewRequest("pubsub/sub")
   req.Argument(topic)
   log.Trace("subscribing to %s", topic)
@@ -98,7 +143,9 @@ func main() {
   var dagToGet string
   flag.StringVar(&dagToGet, "dag", "", "dag to retrieve")
   var topic string
+  var pubTopic string
   flag.StringVar(&topic, "subscribe", "", "pubsub topic to subscribe to")
+  flag.StringVar(&pubTopic, "publish", "", "pubsub topic to publish to")
   flag.Parse()
 
   log.Info("running demo.. offline: %t", offline)
@@ -136,6 +183,11 @@ func main() {
 
   if topic != "" {
     subscribe(topic, shell)
+    return
+  }
+
+  if pubTopic != "" {
+    publish(pubTopic, shell)
     return
   }
 
