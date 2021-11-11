@@ -4,6 +4,8 @@
 cd `dirname $0`
 SCRIPTDIR=`pwd`
 echo running $0 at `date` at $SCRIPTDIR
+echo wget is `which wget`
+echo curl is `which curl`
 
 if [ -d "android/src/main/jniLibs" ] && [ "$1" != "force" ]; then
   echo android/src/main/jniLibs exists. skipping go build.

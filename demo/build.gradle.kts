@@ -22,7 +22,6 @@ val osName = System.getProperty("os.name")!!.let {
   if (it.startsWith("Windows")) "win32" else it
 }
 
-println("arch is $arch")
 
 
 
@@ -36,7 +35,6 @@ dependencies {
   testImplementation(Testing.junit4)
 
   val libName = "${osName.toLowerCase()}${arch.capitalizeAsciiOnly()}"
-  println("libName: $libName")
   implementation("com.github.danbrough.ipfs_mobile:$libName:_")
   project.findProperty("localLibs")?.also {
     println("using local libs ..")
