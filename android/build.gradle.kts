@@ -4,11 +4,6 @@ plugins {
   `maven-publish`
 }
 
-ProjectVersions.LOCAL_MAVEN_REPO?.also { repoPath ->
-  repositories {
-    maven(repoPath)
-  }
-}
 
 android {
   compileSdk = ProjectVersions.SDK_VERSION
@@ -42,10 +37,11 @@ android {
         }
       }
 
-
+      repositories {
+        maven(ProjectVersions.MAVEN_REPO)
+      }
     }
   }
-
 }
 
 

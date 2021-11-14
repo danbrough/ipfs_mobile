@@ -9,7 +9,9 @@ version = ProjectVersions.VERSION_NAME
 
 
 dependencies {
-  //implementation(AndroidUtils.logging)
+  api(project(":core"))
+
+  implementation(AndroidUtils.logging)
   testImplementation(Testing.junit4)
   // testImplementation("com.github.danbrough.ipfs_mobile:libamd64:0.10.0_06")
 }
@@ -32,8 +34,18 @@ val linuxArm64Jar by tasks.registering(Jar::class) {
 }
 
 val win32Amd64Jar by tasks.registering(Jar::class) {
-  from(file("libs/win32/amd64"))
+  from(layout.projectDirectory.dir("libs/win32/amd64"))
 }
+
+task<Exec>("downloadTest") {
+  commandLine("wget", "https://h1.danbrough.org/maven/message.txt", "-O", "/tmp/content")
+}
+
+val testJar by tasks.registering(Jar::class) {
+  dependsOn("downloadTest")
+  from("/tmp/content")
+}
+
 
 
 publishing {
@@ -48,6 +60,7 @@ publishing {
         builtBy(jvmBuild)
       }
     }
+
     create<MavenPublication>("linuxArm64Jar") {
       artifactId = "linuxArm64"
       artifact(linuxArm64Jar) {
@@ -60,19 +73,21 @@ publishing {
         builtBy(jvmBuild)
       }
     }
-  }
 
-
-  ProjectVersions.LOCAL_MAVEN_REPO?.also { repoPath ->
-    repositories {
-      maven(repoPath)
+    create<MavenPublication>("jarTest") {
+      artifactId = "test"
+      artifact(testJar) {
+        builtBy(jvmBuild)
+      }
     }
   }
 
+
+
+  repositories {
+    maven(ProjectVersions.MAVEN_REPO)
+  }
+
 }
 
 
-
-dependencies {
-  implementation(project(":core"))
-}

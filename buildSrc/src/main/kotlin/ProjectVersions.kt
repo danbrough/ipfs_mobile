@@ -16,7 +16,7 @@ object ProjectVersions {
   val NDK_VERSION = if (JITPACK_BUILD) "21.1.6352462" else "23.0.7599858"
   var BUILD_VERSION = 1
   var VERSION_OFFSET = 1
-  var LOCAL_MAVEN_REPO: String? = null
+  lateinit var MAVEN_REPO: String
 
   var GROUP_ID = "com.github.danbrough.ipfs_mobile"
 
@@ -27,7 +27,8 @@ object ProjectVersions {
     BUILD_VERSION = props.getProperty("buildVersion", "1").toInt()
     VERSION_OFFSET = props.getProperty("versionOffset", "1").toInt()
     VERSION_FORMAT = props.getProperty("versionFormat", "0.0.%d").trim()
-    LOCAL_MAVEN_REPO = project.findProperty("LOCAL_MAVEN_REPO")?.toString()?.trim()
+    MAVEN_REPO = project.findProperty("LOCAL_MAVEN_REPO")?.toString()?.trim()
+      ?: "https://h1.danbrough.org/maven"
   }
 
   fun getIncrementedVersionName() = getVersionName(BUILD_VERSION + 1)

@@ -1,4 +1,3 @@
-
 plugins {
   kotlin("jvm")
   `maven-publish`
@@ -27,9 +26,9 @@ publishing {
     }
   }
 
-  ProjectVersions.LOCAL_MAVEN_REPO?.also { repoPath ->
-    repositories {
-      maven(repoPath)
-    }
+
+  repositories {
+    maven(ProjectVersions.MAVEN_REPO)
   }
+
 }

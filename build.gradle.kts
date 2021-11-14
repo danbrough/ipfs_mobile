@@ -21,9 +21,10 @@ allprojects {
 
     google()
     mavenCentral()
-    maven("https://h1.danbrough.org/maven")
 
-    // maven("https://jitpack.io")
+    maven(ProjectVersions.MAVEN_REPO)
+
+    maven("https://jitpack.io")
   }
 
   tasks {
