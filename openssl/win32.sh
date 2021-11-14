@@ -4,7 +4,7 @@ cd `dirname $0`
 SCRIPTDIR=`realpath .`
 
 echo $SCRIPTDIR
-LIBS=`realpath libs`
+LIBS=`realpath libs/win32`
 
 if [ -d $LIBS ]; then
     echo not building openssl as $LIBS exists
@@ -19,13 +19,6 @@ echo SRC: $SRC
 OPENSSL_TAG=OpenSSL_1_1_1l
 export CFLAGS="-Wno-macro-redefined"
 
-if [ -z "$ANDROID_NDK_HOME" ]; then
-  export ANDROID_NDK_HOME=/mnt/files/sdk/android/ndk/23.0.7599858
-  echo ANDROID_NDK_HOME not set. Using the default: $ANDROID_NDK_HOME
-fi
-
-PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
-
 
 if [ ! -d $SRC ]; then
   echo "downloading source .."
@@ -35,6 +28,14 @@ if [ ! -d $SRC ]; then
 fi
 
 echo
+
+cd $SRC
+git clean -xdf
+git checkout $OPENSSL_TAG  || exit 1
+
+./Configure --prefix="$LIBS" mingw64 no-shared  no-idea no-mdc2 no-rc5
+
+exit 0
 
 #arch name: android version : folder
 for arch in arm64:21:arm64-v8a arm:16:armeabi-v7a x86:16:x86 x86_64:21:x86_64; do
