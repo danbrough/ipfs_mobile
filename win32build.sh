@@ -14,7 +14,9 @@ fi
 rm -rf jvm/libs/w32/$ARCH
 
 
+OPENSSL=`realpath openssl/libs/win32`
 source goenv.sh
+./openssl/win32.sh
 
 cd go
 unset ANDROID_HOME
@@ -32,19 +34,24 @@ doBuild(){
     #bind -ldflags "-w"  -v -target=windows/$ARCH -tags=openssl  -javapkg go.kipfs  -o build \
    #$PACKAGES || exit 1
 
+  #set JAVA_HOME to a windows jdk
   export JAVA_HOME=/mnt/files2/windows/jdk
+  export CC=/usr/bin/x86_64-w64-mingw32-cc
+  export CXX=/usr/bin/x86_64-w64-mingw32-cpp
+  export CFLAGS="-I$OPENSSL/include"
+  export CGO_CFLAGS="-I$OPENSSL/include -DWIN32_LEAN_AND_MEAN -DUNICODE -D_UNICODE "
+  export CGO_LDFLAGS="-L$OPENSSL/lib -L/usr/x86_64-w64-mingw32/lib/  -l:/home/dan/workspace/android/ipfs_mobile/openssl/libs/win32/lib/libcrypto.a -l:/home/dan/workspace/android/ipfs_mobile/openssl/libs/win32/lib/libssl.a"
   gomobile \
-    bind -ldflags "-w"  -v  -target=windows/amd64   -javapkg go.kipfs  -o build \
+    bind -ldflags "-w"  -v  -x -work -target=windows/amd64 -tags=openssl  -javapkg go.kipfs  -o build \
    $PACKAGES || exit 1
 }
 
 echo building kipfs
-go mod download || exit 1
-go get -d  github.com/danbrough/mobile
-go install  github.com/danbrough/mobile/cmd/gomobile
-go install  github.com/danbrough/mobile/cmd/gobind
-echo running "gomobile init" using `which gomobile`
-gomobile init || exit 1
+#go mod download || exit 1
+#go get -d  github.com/danbrough/mobile
+#go install  github.com/danbrough/mobile/cmd/gomobile
+#go install  github.com/danbrough/mobile/cmd/gobind
+
 
 doBuild || exit 1
 
@@ -53,7 +60,7 @@ rm -rf ../core/src/main/java/go 2> /dev/null
 unzip  build/core-sources.jar  -d ../core/src/main/java/
 rm -rf ../core/src/main/java/META-INF
 rm -rf ../jvm/libs/win32/$ARCH
-mkdir ../jvm/libs/win32
+[ ! -d ../jvm/libs/win32 ] && mkdir ../jvm/libs/win32
 mv build/libs/* ../jvm/libs/win32/
 rm -rf build
 

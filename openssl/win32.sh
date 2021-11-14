@@ -32,8 +32,13 @@ echo
 cd $SRC
 git clean -xdf
 git checkout $OPENSSL_TAG  || exit 1
+export CC=/usr/bin/x86_64-w64-mingw32-gcc
+export CXX=/usr/bin/x86_64-w64-mingw32-cpp
+export WINDRES=/usr/bin/x86_64-w64-mingw32-windres
 
-./Configure --prefix="$LIBS" mingw64 no-shared  no-idea no-mdc2 no-rc5
+#./Configure --prefix="$LIBS" mingw64 no-shared  no-idea no-mdc2 no-rc5
+./Configure --prefix="$LIBS" mingw64 no-shared || exit 1
+make install_sw || exit 1
 
 exit 0
 
