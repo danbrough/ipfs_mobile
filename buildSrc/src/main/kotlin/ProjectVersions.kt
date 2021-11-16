@@ -12,7 +12,7 @@ object ProjectVersions {
 
   const val COMPOSE_VERSION = "1.1.0-beta01"
 
-  val JITPACK_BUILD = System.getenv().containsKey("JITPACK")
+  val JITPACK_BUILD = System.getenv().containsKey("JITPACK") || true
   val NDK_VERSION = if (JITPACK_BUILD) "21.1.6352462" else "23.0.7599858"
   var BUILD_VERSION = 1
   var VERSION_OFFSET = 1

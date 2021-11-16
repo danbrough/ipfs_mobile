@@ -37,7 +37,8 @@ doBuild(){
   #set JAVA_HOME to a windows jdk
   export JAVA_HOME=/mnt/files2/windows/jdk
   export CGO_CFLAGS="-fPIC -static -I$OPENSSL/include"
-  export CGO_LDFLAGS="-L/usr/x86_64-w64-mingw32/lib/ -L$OPENSSL/lib -lcrypto -lssl -lcrypt32 -lmincore"
+  echo compiling with  -L$OPENSSL/lib
+  export CGO_LDFLAGS="-static -fPIC -L/usr/x86_64-w64-mingw32/lib/ -L$OPENSSL/lib -lcrypto -lcrypt32 -lws2_32 " #-Lssl -Lcrypt32 -Lmincor
   gomobile \
     bind -ldflags "-w" -v -target=windows/amd64  -tags=openssl  -javapkg go.kipfs  -o build \
 	   $PACKAGES || exit 1

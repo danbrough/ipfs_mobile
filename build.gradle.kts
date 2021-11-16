@@ -24,7 +24,6 @@ allprojects {
 
     maven(ProjectVersions.MAVEN_REPO)
 
-    maven("https://jitpack.io")
   }
 
   tasks {
