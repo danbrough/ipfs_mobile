@@ -45,23 +45,6 @@ android {
 }
 
 
-
-
-tasks {
-
-  //builds the go library
-  task<Exec>("gobuild") {
-    commandLine("../gobuild.sh")
-  }
-
-
-  //build the library before anything else
-  named("preBuild") {
-    dependsOn("gobuild")
-  }
-}
-
-
 dependencies {
   implementation(project(":core"))
   implementation(AndroidX.core.ktx)

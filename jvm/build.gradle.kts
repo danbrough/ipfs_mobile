@@ -21,20 +21,18 @@ java {
   withSourcesJar()
 }
 
-
-val jvmBuild by tasks.registering(Exec::class) {
-  commandLine("../jvmbuild.sh")
-}
-
 val buildLinuxAmd64 by tasks.registering(Jar::class) {
+  archiveFileName.set("linuxAmd64.jar")
   from(file("libs/linux/amd64"))
 }
 
 val buildLinuxArm64 by tasks.registering(Jar::class) {
+  archiveFileName.set("linuxArm64.jar")
   from(file("libs/linux/arm64"))
 }
 
 val buildWin32 by tasks.registering(Jar::class) {
+  archiveFileName.set("win32.jar")
   from(layout.projectDirectory.dir("libs/win32/amd64"))
 }
 
@@ -74,20 +72,14 @@ publishing {
         artifactId = arch
         if (ProjectVersions.JITPACK_BUILD) {
           artifact(file("build/downloads/$arch.jar")) {
-            //builtBy(downloadWin32Jar)
             builtBy(tasks.getAt("download${arch.capitalize()}"))
           }
         } else {
-          artifact("build${arch.capitalize()}") {
-            builtBy(jvmBuild)
-          }
+          artifact(tasks.getAt("build${arch.capitalize()}"))
         }
       }
     }
-
   }
-
-
 
   repositories {
     maven(ProjectVersions.MAVEN_REPO)
@@ -95,4 +87,9 @@ publishing {
 
 }
 
+tasks.named("publishToMavenLocal") {
+  doFirst {
+    println("RUNNING publishToMavenLocal")
+  }
+}
 
