@@ -10,7 +10,7 @@ val urlPrefix = "https://h1.danbrough.org/maven/com/github/danbrough/ipfs_mobile
 
 
 dependencies {
-  api(project(":core"))
+  implementation(project(":core"))
 
   implementation(AndroidUtils.logging)
   testImplementation(Testing.junit4)

@@ -38,7 +38,7 @@ func (req *RequestBuilder) Send() ([]byte, error) {
   }
 
   var doClose = func() {
-    testing.TestLog.Warn("Closing res")
+   // testing.TestLog.Warn("Closing res")
     err := res.Close()
     if err != nil {
       testing.TestLog.Error("Error closing res: %s", err)

@@ -46,9 +46,8 @@ android {
 
 
 dependencies {
-  api(project(":core"))
+  implementation(project(":core"))
   implementation(AndroidX.core.ktx)
-
   androidTestImplementation(AndroidUtils.logging)
   androidTestImplementation(KotlinX.coroutines.android)
 
