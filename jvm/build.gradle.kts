@@ -87,9 +87,3 @@ publishing {
 
 }
 
-tasks.named("publishToMavenLocal") {
-  doFirst {
-    println("RUNNING publishToMavenLocal")
-  }
-}
-
