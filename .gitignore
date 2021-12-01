@@ -11,3 +11,4 @@ local.properties
 /pkg
 /gobuild
 **.log
+/go/bind
