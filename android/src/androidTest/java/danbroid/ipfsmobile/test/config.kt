@@ -13,6 +13,7 @@ private val logger = danbroid.logging.configure("TEST", coloured = true)
 
 open class Tests() {
 
+
   //http api port of the node
   var nodePort = 5002
 
@@ -52,6 +53,11 @@ open class Tests() {
   companion object {
     val log: DBLog = logger
     val context: Context = InstrumentationRegistry.getInstrumentation().context
+
+    init {
+      log.warn("loading libgojni ..")
+      System.load("libgojni")
+    }
   }
 
   open fun createRepo(): Repo = _repo ?: run {
