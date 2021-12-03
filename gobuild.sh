@@ -22,17 +22,16 @@ echo OPENSSL_LIBS=$OPENSSL_LIBS
 doBuild(){
   echo building kipfs
   go mod download || exit 1
-  go get -d  github.com/danbrough/mobile
-  go install  github.com/danbrough/mobile/cmd/gomobile
-  go install  github.com/danbrough/mobile/cmd/gobind
+  #go get -d  github.com/danbrough/mobile
+  go mod download github.com/danbrough/mobile
 
   #go install golang.org/x/mobile/cmd/gomobile
   #go install golang.org/x/mobile/cmd/gobind
 
-  echo running "gomobile init" using `which gomobile`
-  gomobile init || exit 1
+  #echo running "gomobile init" using `which gomobile`
+  #gomobile init || exit 1
   #go run golang.org/x/mobile/cmd/gomobile \
-  gomobile \
+  go run github.com/danbrough/mobile/cmd/gomobile  \
     bind -ldflags "-w" -v  -tags=openssl -target=android -o kipfs.aar -javapkg go.kipfs  \
    $PACKAGES
 }

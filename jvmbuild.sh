@@ -37,7 +37,7 @@ doBuild(){
     #bind -ldflags "-w"  -v -target=windows/$ARCH -tags=openssl  -javapkg go.kipfs  -o build \
    #$PACKAGES || exit 1
 
-  gomobile \
+  go run github.com/danbrough/mobile/cmd/gomobile \
     bind -ldflags "-w" -work -v  -target=linux/$ARCH   -javapkg go.kipfs --tags=openssl  -o build \
    $PACKAGES || exit 1
 }

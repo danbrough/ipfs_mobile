@@ -5,11 +5,11 @@ go 1.16
 //replace github.com/danbrough/mobile => /home/dan/workspace/go/src/github.com/danbrough/mobile
 
 require (
-	github.com/danbrough/mobile v0.0.2-beta02
+	github.com/danbrough/mobile v0.0.2-beta04
 	github.com/ipfs/go-cid v0.1.0
 	github.com/ipfs/go-datastore v0.5.1
 	github.com/ipfs/go-filestore v1.1.0 // indirect
-	github.com/ipfs/go-ipfs v0.11.0-rc1
+	github.com/ipfs/go-ipfs v0.11.0-rc2
 	github.com/ipfs/go-ipfs-api v0.2.1-0.20210927222059-39cfea2d66ec
 	github.com/ipfs/go-ipfs-config v0.18.0
 	github.com/ipfs/go-log v1.0.5
