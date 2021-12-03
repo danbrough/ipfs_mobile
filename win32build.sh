@@ -6,12 +6,12 @@ echo running $0 at `date` at `pwd`
 
 ARCH=amd64
 
-if [ -d "jvm/libs/w32/$ARCH" ] && [ "$1" != "force" ]; then
-  echo jvm/libs/w32/$ARCH exists. skipping go build.
+if [ -d "jvm/libs/win32/$ARCH" ] && [ "$1" != "force" ]; then
+  echo jvm/libs/win32/$ARCH exists. skipping go build.
   exit 0
 fi
 
-rm -rf jvm/libs/w32/$ARCH
+rm -rf jvm/libs/win32/$ARCH
 
 
 OPENSSL=`realpath openssl/libs/win32`
