@@ -35,6 +35,8 @@ if git tag | grep "$VERSION_NAME" > /dev/null; then
 fi
 
 
+./gradlew -PLOCAL_MAVEN_REPO=file:///mnt/files2/repo/ \
+	publishAllPublicationsToMavenRepository  && syncmaven
 
 
 #sed -i  README.md  -e 's/Latest version.*/Latest version: '$VERSION_NAME'/g'
