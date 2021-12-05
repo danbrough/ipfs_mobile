@@ -43,10 +43,8 @@ dependencies {
 
   val useLocalLibs = true //project.findProperty("localLibs") != null
   if (useLocalLibs) {
-    implementation(project(":core"))
     implementation(project(":jvm"))
   } else {
-    implementation("com.github.danbrough.ipfs_mobile:core:_")
     implementation("com.github.danbrough.ipfs_mobile:jvm:_")
   }
 }
