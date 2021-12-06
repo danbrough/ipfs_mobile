@@ -1,3 +1,5 @@
+import java.io.File
+
 plugins {
   kotlin("jvm")
   `maven-publish`
@@ -19,7 +21,12 @@ dependencies {
 
 java {
   withSourcesJar()
+
+
 }
+
+
+
 
 val buildLinuxAmd64 by tasks.registering(Jar::class) {
   archiveFileName.set("linuxAmd64.jar")
@@ -50,6 +57,7 @@ fun downloadFile(url: String, fileName: String) = tasks.registering(Exec::class)
     mkdir(file("build/downloads"))
   }
   workingDir = file("build/downloads")
+
   commandLine("wget", "-nv", url, "-O", fileName)
 }
 

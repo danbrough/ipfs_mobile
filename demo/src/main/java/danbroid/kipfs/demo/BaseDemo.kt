@@ -1,26 +1,23 @@
 package danbroid.kipfs.demo
 
-import danbroid.jni.NativeLoader
-import danbroid.kipfs.jvm.TestData
-import go.Seq
-import go.kipfs.cids.Cids
+import danbroid.kipfs.jni.NativeLoader
 import go.kipfs.core.*
 import java.io.File
 
 open class BaseDemo {
   //http api port of the node
-  var nodePort = 5002
+  private var nodePort = 5002
 
   open var repoPath: File = File(System.getProperty("java.io.tmpdir"), "repo")
 
   private var _repo: Repo? = null
-  val repo: Repo by lazy {
+  private val repo: Repo by lazy {
     createRepo()
   }
 
 
   private var _node: Node? = null
-  val node: Node
+  private val node: Node
     get() = createNode()
 
 
