@@ -23,7 +23,6 @@ public abstract class Core {
 	private static native void _init();
 	
 	
-	public static final String UDSDir = "sock";
 	
 	public static native void initRepo(String path, Config cfg) throws Exception;
 	public static native Config newConfig(byte[] raw_json) throws Exception;
