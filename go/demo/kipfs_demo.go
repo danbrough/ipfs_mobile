@@ -7,7 +7,9 @@ import (
   "kipfs/core"
   "kipfs/testing"
   "os"
+  "os/signal"
   "path/filepath"
+  "syscall"
   "time"
 )
 
@@ -20,7 +22,9 @@ const repoName = "repo"
 //whether to delete any existing repo
 const deleteExistingRepo = false
 
-var repoPath = filepath.Join("/tmp", repoName)
+var repoPath = filepath.Join(os.TempDir(), repoName)
+var sockPath = filepath.Join(os.TempDir(), "ipfs.socket")
+
 var Log = testing.TestLog
 
 func initRepo() {
@@ -170,16 +174,47 @@ func main() {
   }
   Log.Debug("created node %s", node)
 
-  var port = "5002"
-  Log.Trace("starting node with port %s", port)
-  _, err = node.ServeTCPAPI(port)
+  cleanUp := func() {
+    Log.Error("CLEANUP!")
+    err := node.Close()
+    if err != nil {
+      Log.Error("%s", err)
+    }
+    /*    err = os.Remove(sockPath)
+          if err != nil {
+            Log.Error("%s", err)
+          }*/
+  }
+
+  sigs := make(chan os.Signal, 1)
+  signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+  go func() {
+    <-sigs
+    cleanUp()
+    os.Exit(0)
+  }()
+
+  Log.Info("starting node with socket " + sockPath)
+  err = node.ServeUnixSocketAPI(sockPath)
+
   if err != nil {
     panic(err)
   }
-  Log.Info("node running on %s. creating shell..", port)
-
-  shell := core.NewShell("/ip4/192.168.1.4/tcp/5001")
+  Log.Info("node running on %s. creating shell..", sockPath)
+  shell := core.NewUDSShell(sockPath)
   Log.Trace("created shell %s", shell)
+
+  /*    var port = "5002"
+        Log.Trace("starting node with port %s", port)
+        _, err = node.ServeTCPAPI(port)
+        if err != nil {
+          panic(err)
+        }
+        Log.Info("node running on %s. creating shell..", port)
+
+        shell := core.NewShell("/ip4/192.168.1.4/tcp/5001")
+        Log.Trace("created shell %s", shell)
+  */
 
   if topic != "" {
     subscribe(topic, shell)
@@ -253,6 +288,8 @@ func main() {
     Log.Warn("You should now be able to run this with the -offline flag")
   }
 
+  time.Sleep(time.Second * 10)
+  cleanUp()
   /*  err = node.Close()
       if err != nil {
         panic(err)
