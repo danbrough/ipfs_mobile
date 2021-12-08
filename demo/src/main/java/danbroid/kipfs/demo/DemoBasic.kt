@@ -2,6 +2,7 @@ package danbroid.kipfs.demo
 
 import danbroid.kipfs.jvm.TestData
 import go.kipfs.cids.Cids
+import java.util.*
 
 class DemoBasic : BaseDemo() {
 
@@ -30,7 +31,7 @@ class DemoBasic : BaseDemo() {
     val dag = "bafyreidfq7gnjnpi7hllpwowrphojoy6hgdgrsgitbnbpty6f2yirqhkom"
     log.trace("looking up dag: $dag")
     shell.newRequest("dag/get").also {
-      it.argument(dag)
+
       it.send().decodeToString().also { data ->
         log.info("response: $data")
       }
@@ -47,20 +48,25 @@ class DemoBasic : BaseDemo() {
     }
   }
 
+  private fun dagPut(data: String) {
+    log.debug("dagPut() $data")
+    shell.Dag
+  }
+
   fun run() {
     log.info("run(): offlineMode:$offlineMode")
 
-    shell.newRequest("id").send().decodeToString().also {
+    dagPut("\"Hello World\"")
+    /*shell.newRequest("id").send().decodeToString().also {
       log.trace("RESPONSE: $it")
     }
 
     cidTest()
 
-    dagTest()
+    dagTest()*/
   }
 
   companion object {
-
 
 
     @JvmStatic

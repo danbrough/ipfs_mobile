@@ -6,15 +6,7 @@ import (
   "kipfs/testing"
 )
 
-func main() {
-  var url string
-  flag.StringVar(&url, "url", "/ip4/127.0.0.1/tcp/5001", "url to connect to")
-  flag.Parse()
-
-  shell := core.NewShell(url)
-  testing.TestLog.Trace("created shell %s", shell)
-
-  //var req *core.RequestBuilder
+func getID(shell *core.Shell) {
   var resp []byte
 
   testing.TestLog.Trace("getting id..")
@@ -24,5 +16,43 @@ func main() {
     panic(err)
   }
   testing.TestLog.Debug("got response: %s", string(resp))
+}
+
+func dagPut(shell *core.Shell) {
+
+  var data = []byte("\"Hello World\"")
+  testing.TestLog.Trace("dagPut() " + string(data))
+  var err error
+  resp := shell.NewRequest("dag/put")
+  //input-codec=dag-json&store-codec=dag-cbor&stream-channels=true
+  resp.StringOptions("encoding", "json")
+  resp.StringOptions("input-codec", "dag-json")
+  resp.StringOptions("store-codec", "dag-cbor")
+  resp.BoolOptions("stream-channels", true)
+  resp.Header("Transfer-Encoding", "chunked")
+  resp.Header("Message", "dude")
+
+  resp.BodyString(`"Hello World"`)
+  var respData []byte
+  respData, err = resp.Send()
+  if err != nil {
+    panic(err)
+  }
+  testing.TestLog.Debug("got response: %s", string(respData))
+}
+
+func main() {
+  var url string
+  flag.StringVar(&url, "url", "/ip4/127.0.0.1/tcp/5001", "url to connect to")
+  flag.Parse()
+
+  shell := core.NewShell(url)
+  shell.Test()
+
+  testing.TestLog.Trace("created shell %s", shell)
+
+  dagPut(shell)
+
+  //var req *core.RequestBuilder
 
 }

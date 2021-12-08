@@ -28,6 +28,7 @@ public final class Shell implements Seq.Proxy {
 	
 	Shell(int refnum) { this.refnum = refnum; Seq.trackGoRef(refnum, this); }
 	
+	public native String dagPut(String data);
 	public native RequestBuilder newRequest(String command);
 	@Override public boolean equals(Object o) {
 		if (o == null || !(o instanceof Shell)) {

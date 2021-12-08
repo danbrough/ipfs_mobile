@@ -4,6 +4,7 @@ import (
   "context"
   "io/ioutil"
   "kipfs/testing"
+  "log"
   "strings"
 
   ipfs_api "github.com/ipfs/go-ipfs-api"
@@ -19,6 +20,14 @@ func NewShell(url string) *Shell {
     ishell: ipfs_api.NewShell(url),
     url:    url,
   }
+}
+func (s *Shell) DagPut(data string) string {
+  put, err := s.ishell.DagPut(data, "dag-json", "dag-cbor")
+  if err != nil {
+    log.Println(err)
+    return ""
+  }
+  return put
 }
 
 func (s *Shell) NewRequest(command string) *RequestBuilder {
@@ -38,7 +47,7 @@ func (req *RequestBuilder) Send() ([]byte, error) {
   }
 
   var doClose = func() {
-   // testing.TestLog.Warn("Closing res")
+    // testing.TestLog.Warn("Closing res")
     err := res.Close()
     if err != nil {
       testing.TestLog.Error("Error closing res: %s", err)

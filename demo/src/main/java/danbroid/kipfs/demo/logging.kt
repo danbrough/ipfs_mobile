@@ -1,3 +1,3 @@
 package danbroid.kipfs.demo
 
-val log = danbroid.logging.configure("TEST", coloured = true)
+val log = danbroid.logging.configure("TEST", coloured = true, debug = true)

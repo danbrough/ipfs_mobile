@@ -22,6 +22,18 @@ public abstract class Core {
 	
 	private static native void _init();
 	
+	private static final class proxyReader implements Seq.Proxy, Reader {
+		private final int refnum;
+		
+		@Override public final int incRefnum() {
+		      Seq.incGoRef(refnum, this);
+		      return refnum;
+		}
+		
+		proxyReader(int refnum) { this.refnum = refnum; Seq.trackGoRef(refnum, this); }
+		
+		public native long read(byte[] p0) throws Exception;
+	}
 	
 	public static final String UDSDir = "sock";
 	

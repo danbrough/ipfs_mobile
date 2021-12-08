@@ -6,7 +6,12 @@ import java.io.File
 
 open class BaseDemo {
   //http api port of the node
-  private var nodePort = 5002
+  private var shellUrl = System.getProperty("IPFS_URL") ?: "/ip4/127.0.0.1/tcp/5001"
+  val nodePort = 5002
+
+  init {
+    log.error("nodeUrl: $shellUrl")
+  }
 
   open var repoPath: File = File(System.getProperty("java.io.tmpdir"), "repo")
 
@@ -66,8 +71,7 @@ open class BaseDemo {
   }
 
   open fun createShell(): Shell = _shell ?: run {
-    node
-    Core.newTCPShell(nodePort.toString()).also {
+    Core.newShell(shellUrl).also {
       _shell = it
     }
   }

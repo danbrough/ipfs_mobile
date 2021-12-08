@@ -20,18 +20,21 @@ val osName = System.getProperty("os.name")!!.let {
 }
 
 
-tasks {
-  register<JavaExec>("demoBasic") {
-    mainClass.set("danbroid.kipfs.demo.DemoBasic")
-    classpath = sourceSets["main"].runtimeClasspath
-  }
-  register<JavaExec>("demoSubscribe") {
-    mainClass.set("danbroid.kipfs.demo.DemoSubscribe")
-    //classpath = sourceSets["main"].runtimeClasspath
+fun TaskContainerScope.registerDemo(name:String,cls:String) =
+  register<JavaExec>(name) {
+    mainClass.set(cls)
     classpath = files("../jvm/libs/linux/amd64") + sourceSets["main"].runtimeClasspath
-
-    //allJvmArgs.plusAssign("-Djava.library.path=${file("../jvm/libs/linux/amd64")}")
+    val execTask = this
+    project.properties.keys.forEach { key->
+      if (key.startsWith("IPFS_")) {
+        execTask.systemProperties[key] = project.property(key).toString()
+      }
+    }
   }
+
+tasks {
+  registerDemo("basic","danbroid.kipfs.demo.DemoBasic")
+  registerDemo("subscribe","danbroid.kipfs.demo.DemoSubscribe")
 }
 
 dependencies {
