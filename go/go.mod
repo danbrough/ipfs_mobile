@@ -9,12 +9,14 @@ require (
 	github.com/ipfs/go-cid v0.1.0
 	github.com/ipfs/go-datastore v0.5.1
 	github.com/ipfs/go-filestore v1.1.0 // indirect
-	github.com/ipfs/go-ipfs v0.11.0-rc2
+	github.com/ipfs/go-graphsync v0.11.0 // indirect
+	github.com/ipfs/go-ipfs v0.11.0
 	github.com/ipfs/go-ipfs-api v0.3.0
 	github.com/ipfs/go-ipfs-config v0.18.0
 	github.com/ipfs/go-log v1.0.5
+	github.com/ipfs/go-merkledag v0.5.1 // indirect
 	github.com/ipfs/interface-go-ipfs-core v0.5.2
-	github.com/ipld/go-ipld-prime v0.14.1
+	github.com/ipld/go-ipld-prime v0.14.2
 	github.com/libp2p/go-doh-resolver v0.3.1 // indirect
 	github.com/libp2p/go-libp2p v0.16.0
 	github.com/libp2p/go-libp2p-connmgr v0.2.4 // indirect
