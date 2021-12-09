@@ -2,7 +2,7 @@
 
 useradd    -M -s /bin/bash kipfs
 
-cp -av /home/kipfs/docker/home/.  -t /home/kipfs/
+cp -av /home/kipfs/ipfs_mobile/docker/home/.  -t /home/kipfs/
 chown kipfs:kipfs -R /home/kipfs
 
 [ -d /usr/local/go ] && rm -rf /usr/local/go
