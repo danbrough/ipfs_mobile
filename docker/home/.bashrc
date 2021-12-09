@@ -112,10 +112,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PS1='\[\033[01;33m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
+export PS1='\[\033[00;36m\]\u@\h\[\033[01;32m\] \w \$\[\033[00m\] '
 
 export GOROOT=/usr/local/go
 export GOPATH=/tmp/go
 export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+export GOPATH=$GOPATH:/home/kipfs/ipfs_mobile
+
 
 
