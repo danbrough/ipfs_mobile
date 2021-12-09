@@ -8,6 +8,8 @@ plugins {
 android {
   compileSdk = ProjectVersions.SDK_VERSION
 
+  ndkVersion = "21.3.6528147"
+
   defaultConfig {
     minSdk = 16
     targetSdk = ProjectVersions.SDK_VERSION
