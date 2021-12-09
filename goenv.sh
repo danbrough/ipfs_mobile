@@ -26,7 +26,7 @@ fi
 
 #github.com/ipfs/go-ipfs-files
 
-export PATH=~/go/bin:$GOPATH/bin:$PATH
+#export PATH=~/go/bin:$GOPATH/bin:$PATH
 export PATH=$GOPATH/bin:$PATH
 PACKAGES="kipfs/core kipfs/cids kipfs/pubsub"
 export OPENSSL_LIBS=`realpath openssl/libs`

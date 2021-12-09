@@ -28,9 +28,7 @@ func dagPut(shell *core.Shell) {
   resp.StringOptions("encoding", "json")
   resp.StringOptions("input-codec", "dag-json")
   resp.StringOptions("store-codec", "dag-cbor")
-  resp.BoolOptions("stream-channels", true)
   resp.Header("Transfer-Encoding", "chunked")
-  resp.Header("Message", "dude")
 
   resp.BodyString(`"Hello World"`)
   var respData []byte
@@ -47,9 +45,10 @@ func main() {
   flag.Parse()
 
   shell := core.NewShell(url)
-  shell.Test()
-
   testing.TestLog.Trace("created shell %s", shell)
+
+  shell.Test()
+  //testing.TestLog.Info(shell.DagPut(`"Hello World"`))
 
   dagPut(shell)
 

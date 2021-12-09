@@ -50,7 +50,7 @@ class DemoBasic : BaseDemo() {
 
   private fun dagPut(data: String) {
     log.debug("dagPut() $data")
-    shell.Dag
+    shell.dagPut(data)
   }
 
   fun run() {

@@ -29,6 +29,10 @@ func (s *Shell) DagPut(data string) string {
   }
   return put
 }
+func (s *Shell) Test() {
+
+  //s.ishell.Request()
+}
 
 func (s *Shell) NewRequest(command string) *RequestBuilder {
   return &RequestBuilder{
