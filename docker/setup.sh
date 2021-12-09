@@ -20,6 +20,6 @@ fi
 
 
 cd /tmp
-wget https://go.dev/dl/$DOWNLOAD
-
+echo downloading go ..
+wget -q https://golang.org/dl/$DOWNLOAD || exit 1
 tar xvpf $DOWNLOAD -C /usr/local
