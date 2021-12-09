@@ -113,3 +113,9 @@ if ! shopt -oq posix; then
 fi
 
 export PS1='\[\033[01;33m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
+
+export GOROOT=/usr/local/go
+export GOPATH=/tmp/go
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+
+
