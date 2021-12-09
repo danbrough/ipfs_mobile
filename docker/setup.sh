@@ -15,7 +15,7 @@ if [ $ARCH = "x86_64" ]; then
 elif [ $ARCH = "aarch64" ]; then
   ARCH=arm64
   DOWNLOAD=go$GOVERSION.linux-arm64.tar.gz
-elif [ $ARCH = "arm" ]; then
+elif [ $ARCH = "armv7l" ]; then
   ARCH=arm
   DOWNLOAD=go$GOVERSION.linux-armv6l.tar.gz
 fi

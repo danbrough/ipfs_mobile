@@ -29,7 +29,7 @@ PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
 
 if [ ! -d $SRC ]; then
   echo "downloading source .."
-  git clone git@github.com:openssl/openssl.git $SRC || exit 1
+  git clone https://github.com/openssl/openssl.git $SRC || exit 1
   cd $SRC
   git checkout $OPENSSL_TAG  || exit 1
 fi
