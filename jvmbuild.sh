@@ -9,6 +9,9 @@ if [ "$ARCH" == "x86_64" ]; then
   ARCH=amd64
 elif [ "$ARCH" == "aarch64" ]; then
     ARCH=arm64
+elif [ "$ARCH" == "armv7l" ]; then
+	ARCH=arm
+	export GOARM=5
 fi
 
 if [ -d "jvm/libs/linux/$ARCH" ] && [ "$1" != "force" ]; then
