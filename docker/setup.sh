@@ -10,11 +10,12 @@ chown kipfs:kipfs -R /home/kipfs
 ARCH=`uname -m`
 GOVERSION=1.17.5
 
-if [ "$ARCH" = "X86_64" ]; then
+if [ $ARCH = "x86_64" ]; then
+  echo using $ARCH
   DOWNLOAD=go$GOVERSION.linux-amd64.tar.gz
-elif [ "$ARCH" = "aarch64" ]; then
+elif [ $ARCH = "aarch64" ]; then
   DOWNLOAD=go$GOVERSION.linux-arm64.tar.gz
-elif [ "$ARCH" = "arm" ]; then
+elif [ $ARCH = "arm" ]; then
   DOWNLOAD=go$GOVERSION.linux-armv6l.tar.gz
 fi
 
