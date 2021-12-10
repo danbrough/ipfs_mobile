@@ -1,11 +1,12 @@
 
 export GOROOT=/opt/go
 export GOPATH=/tmp/go
+export SRC=/home/kipfs/ipfs_mobile
 export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-export GOPATH=$GOPATH:/home/kipfs/ipfs_mobile
+export GOPATH=$GOPATH:$SRC
 export ANDROID_NDK_ROOT=/opt/ndk
 export PACKAGES="kipfs/core kipfs/cids kipfs/pubsub"
-export BUILDDIR=/home/kipfs/ipfs_mobile/build
+export BUILDDIR=$SRC/build
 
 # for Raspberry-pi 32bit
 if [ "$ARCH" == "arm" ]; then
