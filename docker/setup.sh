@@ -26,11 +26,13 @@ echo ARCH=$ARCH >> /etc/environment
 echo JAVA_HOME=/usr/lib/jvm/default-java >> /etc/environment
 
 
-cd /tmp
-echo downloading go from https://golang.org/dl/$DOWNLOAD ..
-wget -q https://golang.org/dl/$DOWNLOAD || exit 1
-tar xvpf $DOWNLOAD -C /opt
-rm $DOWNLOAD
+if [ ! -d $GOROOT ]; then
+  cd /tmp
+  echo downloading go from https://golang.org/dl/$DOWNLOAD ..
+  wget -q https://golang.org/dl/$DOWNLOAD || exit 1
+  tar xvpf $DOWNLOAD -C /opt
+  rm $DOWNLOAD
+fi
 
 
 if [ "$ARCH" = "amd64" ] && [ ! -d $ANDROID_NDK_ROOT ]; then
