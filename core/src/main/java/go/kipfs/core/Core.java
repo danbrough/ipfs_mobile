@@ -47,7 +47,6 @@ public abstract class Core {
 		public native long read(byte[] p0) throws Exception;
 	}
 	
-	public static final String UDSDir = "sock";
 	
 	public static native void initRepo(String path, Config cfg) throws Exception;
 	public static native Config newConfig(byte[] raw_json) throws Exception;
