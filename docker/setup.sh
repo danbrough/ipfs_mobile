@@ -1,5 +1,8 @@
 #!/bin/bash
 
+cd `dirname $0`
+source env.sh
+
 useradd    -M -s /bin/bash kipfs
 cp -av /home/kipfs/ipfs_mobile/docker/home/.  -t /home/kipfs/
 chown kipfs:kipfs -R /home/kipfs
