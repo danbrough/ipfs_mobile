@@ -4,7 +4,7 @@
 useradd    -M -s /bin/bash kipfs
 cp -av /home/kipfs/ipfs_mobile/docker/home/.  -t /home/kipfs/
 chown kipfs:kipfs -R /home/kipfs
-source /home/kipfs/env.sh 
+source /home/kipfs/env.sh
 
 
 ARCH=`uname -m`
@@ -37,8 +37,9 @@ if [ "$ARCH" = "amd64" ] && [ ! -d $ANDROID_NDK_ROOT ]; then
   echo "downloading android ndk"
   cd /tmp
   DOWNLOAD=https://dl.google.com/android/repository/android-ndk-r23b-linux.zip
-  wget -q $DOWNLOAD
-  unzip android-ndk-r23b-linux.zip  -d /opt
+  wget -q $DOWNLOAD -O ndk.zip
+  unzip ndk.zip  -d /opt
   mv /opt/android-ndk* $ANDROID_NDK_ROOT
-  rm $DOWNLOAD
+  chown kipfs:kipfs -R $ANDROID_NDK_ROOT
+  rm ndk.zip  
 fi
