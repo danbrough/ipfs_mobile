@@ -21,9 +21,9 @@ elif [ $ARCH = "armv7l" ]; then
   DOWNLOAD=go$GOVERSION.linux-armv6l.tar.gz
 fi
 
-sed -e /ARCH=/d /etc/environment
-
+sed -i -e /ARCH=/d  -e /JAVA_HOME=/d /etc/environment
 echo ARCH=$ARCH >> /etc/environment
+echo JAVA_HOME=/usr/lib/jvm/default-java >> /etc/environment
 
 
 cd /tmp
@@ -41,5 +41,5 @@ if [ "$ARCH" = "amd64" ] && [ ! -d $ANDROID_NDK_ROOT ]; then
   unzip ndk.zip  -d /opt
   mv /opt/android-ndk* $ANDROID_NDK_ROOT
   chown kipfs:kipfs -R $ANDROID_NDK_ROOT
-  rm ndk.zip  
+  rm ndk.zip
 fi
