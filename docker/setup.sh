@@ -1,14 +1,11 @@
 #!/bin/bash
 
-cd /home/kipfs || exit 1
-source env.sh
 
 useradd    -M -s /bin/bash kipfs
 cp -av /home/kipfs/ipfs_mobile/docker/home/.  -t /home/kipfs/
 chown kipfs:kipfs -R /home/kipfs
+source /home/kipfs/env.sh 
 
-
-[ -d /usr/local/go ] && rm -rf /usr/local/go
 
 ARCH=`uname -m`
 GOVERSION=1.17.5
@@ -28,13 +25,13 @@ sed -e /ARCH=/d /etc/environment
 
 echo ARCH=$ARCH >> /etc/environment
 
-if [ ! -d $GOROOT ]; then
-  cd /tmp
-  echo downloading go from https://golang.org/dl/$DOWNLOAD ..
-  wget -q https://golang.org/dl/$DOWNLOAD || exit 1
-  tar xvpf $DOWNLOAD -C /opt
-  rm $DOWNLOAD
-fi
+
+cd /tmp
+echo downloading go from https://golang.org/dl/$DOWNLOAD ..
+wget -q https://golang.org/dl/$DOWNLOAD || exit 1
+tar xvpf $DOWNLOAD -C /opt
+rm $DOWNLOAD
+
 
 if [ "$ARCH" = "amd64" ] && [ ! -d $ANDROID_NDK_ROOT ]; then
   echo "downloading android ndk"
