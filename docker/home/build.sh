@@ -15,7 +15,6 @@ echo building kipfs
 
 BUILDDIR=/home/kipfs/build
 
-go run github.com/danbrough/mobile/cmd/gomobile \
+go run github.com/danbrough/mobile/cmd/gomobile \  #-work -v
     bind -ldflags "-w" \
-    -work -v  \
     -target=linux/$ARCH -javapkg go.kipfs --tags=openssl -o $BUILDDIR $PACKAGES
