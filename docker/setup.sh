@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd `dirname $0`
+cd /home/kipfs || exit 1
 source env.sh
 
 useradd    -M -s /bin/bash kipfs
