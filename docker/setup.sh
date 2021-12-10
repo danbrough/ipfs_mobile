@@ -26,22 +26,25 @@ echo ARCH=$ARCH >> /etc/environment
 echo JAVA_HOME=/usr/lib/jvm/default-java >> /etc/environment
 
 
-if [ ! -d $GOROOT ]; then
-  cd /tmp
-  echo downloading go from https://golang.org/dl/$DOWNLOAD ..
-  wget -q https://golang.org/dl/$DOWNLOAD || exit 1
-  tar xvpf $DOWNLOAD -C /opt
-  rm $DOWNLOAD
-fi
+cd /tmp
+echo downloading go from https://golang.org/dl/$DOWNLOAD ..
+wget -q https://golang.org/dl/$DOWNLOAD || exit 1
+tar xvpf $DOWNLOAD -C /opt > /dev/null || exit 1
+rm $DOWNLOAD
 
 
 if [ "$ARCH" = "amd64" ] && [ ! -d $ANDROID_NDK_ROOT ]; then
-  echo "downloading android ndk"
   cd /tmp
   DOWNLOAD=https://dl.google.com/android/repository/android-ndk-r23b-linux.zip
+  echo "downloading android ndk from $DOWNLOAD"
   wget -q $DOWNLOAD -O ndk.zip
-  unzip ndk.zip  -d /opt
+  unzip ndk.zip  -d /opt > /dev/null
   mv /opt/android-ndk* $ANDROID_NDK_ROOT
   chown kipfs:kipfs -R $ANDROID_NDK_ROOT
   rm ndk.zip
+  echo "installing mingw-64"
+  apt install -y mingw-w64/stable
 fi
+
+
+bash

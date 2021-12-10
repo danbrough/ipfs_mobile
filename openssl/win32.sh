@@ -4,7 +4,7 @@ cd `dirname $0`
 SCRIPTDIR=`realpath .`
 
 echo $SCRIPTDIR
-LIBS=`realpath libs/win32`
+LIBS=$(PWD)/libs/win32
 
 if [ -d $LIBS ]; then
     echo not building openssl as $LIBS exists
@@ -22,7 +22,7 @@ export CFLAGS="-Wno-macro-redefined"
 
 if [ ! -d $SRC ]; then
   echo "downloading source .."
-  git clone git@github.com:openssl/openssl.git $SRC || exit 1
+  git clone https://github.com/openssl/openssl.git $SRC || exit 1
   cd $SRC
   git checkout $OPENSSL_TAG  || exit 1
 fi
