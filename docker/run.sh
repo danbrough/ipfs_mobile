@@ -2,7 +2,7 @@
 
 cd `dirname $0`
 
-AMD64=docker.io/danbrough/debby:latest@sha256:5c55e0ad1a7056e7e10783dc46f826c46477be66eacfd26e4994b1b6e29814bc
+AMD64=docker.io/danbrough/debby:latest@sha256:0651c5c85d2c9655439d7a3efb15a33c29a59830d1fb5f4cd3a0852f58221395
 PLATFORM=$AMD64
 NAME=debby_amd64
 
