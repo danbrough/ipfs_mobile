@@ -1,27 +1,37 @@
 #!/bin/bash
 
 
-source ~/env.sh
+. $IPFS_MOBILE/docker/env.sh
 
-cd $SRC
-OPENSSL=$SRC/openssl/libs/win32
+export $OPENSSL_LIBS=$BUILDDIR/libs/openssl/win32
+export OPENSSL=$OPENSSL_LIBS
 
-./openssl/win32.sh
 
-cd $SRC/go
+$IPFS_MOBILE/openssl/win32.sh
 
-go mod download || exit 1
-go get -d  github.com/danbrough/mobile
-go install  github.com/danbrough/mobile/cmd/gomobile
-go install  github.com/danbrough/mobile/cmd/gobind
-echo running "gomobile init" using `which gomobile`
+install_gomobile
+
+export JAVA_HOME=`realpath ~/win32_amd64_jdk/`
 
 export CFLAGS="-Wno-macro-redefined"
-export JAVA_HOME=`realpath ~/win32_amd64_jdk/`
+
+export CC=/usr/bin/x86_64-w64-mingw32-gcc
+export CXX=/usr/bin/x86_64-w64-mingw32-c++
+
 #export JAVA_HOME=/mnt/files2/windows/jdkbak/
 export CGO_CFLAGS="-fPIC -static -I$OPENSSL/include"
+
 echo compiling with  -L$OPENSSL/lib
-export CGO_LDFLAGS="-static -fPIC -L/usr/x86_64-w64-mingw32/lib/ -L$OPENSSL/lib -lcrypto -lcrypt32  -lws2_32 " #-Lssl -Lcrypt32 -Lmincor
+
+export CGO_LDFLAGS="-static -fPIC -L/usr/x86_64-w64-mingw32/lib/ \
+ -L$OPENSSL/lib -lcrypto -lcrypt32  -lpthread -lws2_32 " 
+
+#-Lssl -Lcrypt32 -Lmincor
+
+cd $IPFS_MOBILE/go
+
 gomobile  \
-  bind -ldflags "-w" -x -v -target=windows/amd64  -tags=openssl  -javapkg go.kipfs  -o build \
+  bind -ldflags "-w" -v -target=windows/amd64 -tags=openssl -javapkg go.kipfs  -o build \
    $PACKAGES || exit 1
+
+cp -av build/libs/amd64/. $IPFS_MOBILE/build/libs/win32/

@@ -1,9 +1,19 @@
 
-export GOROOT=/opt/go
-export GOPATH=/tmp/go
-export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+if [ -z "$GOROOT" ]; then
+  export GOROOT=/opt/go
+  export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+fi
+
+if [ -z "$GOPATH" ]; then
+  export GOPATH=/tmp/go
+fi
+
 export GOPATH=$GOPATH:$IPFS_MOBILE
-export ANDROID_NDK_ROOT=/opt/ndk
+
+if [ -z $ANDROID_NDK_ROOT ]; then
+  export ANDROID_NDK_ROOT=/opt/ndk
+fi
+
 export PACKAGES="kipfs/core kipfs/cids kipfs/pubsub"
 export BUILDDIR=$IPFS_MOBILE/build
 
@@ -18,7 +28,10 @@ elif [ "$ARCH" == "armv7l" ]; then
 fi
 export ARCH
 
-export JAVA_HOME=/usr/lib/jvm/default/
+if [ -z $JAVA_HOME ]; then
+  export JAVA_HOME=/usr/lib/jvm/default/
+fi
+
 export IPFS_MOBILE
 
 function install_gomobile() {
