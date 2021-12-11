@@ -1,48 +1,30 @@
 #!/bin/bash
 
 cd `dirname $0`
-SCRIPTDIR=`realpath .`
+source common.sh
 
-echo $SCRIPTDIR
-LIBS=`realpath libs`
+LIBS=$SCRIPTDIR/libs/android
 
 if [ -d $LIBS ]; then
     echo not building openssl as $LIBS exists
     exit 0
 fi
 
-SRC=`realpath src`
+
 
 echo LIBS: $LIBS
 echo SRC: $SRC
 
-OPENSSL_TAG=OpenSSL_1_1_1l
-export CFLAGS="-Wno-macro-redefined"
-
-if [ -z "$ANDROID_NDK_HOME" ]; then
-  export ANDROID_NDK_HOME=/mnt/files/sdk/android/ndk/23.0.7599858
-  echo ANDROID_NDK_HOME not set. Using the default: $ANDROID_NDK_HOME
-fi
-
 PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
 
 
-if [ ! -d $SRC ]; then
-  echo "downloading source .."
-  git clone https://github.com/openssl/openssl.git $SRC || exit 1
-  cd $SRC
-  git checkout $OPENSSL_TAG  || exit 1
-fi
-
 echo
-
 #arch name: android version : folder
 for arch in arm64:21:arm64-v8a arm:16:armeabi-v7a x86:16:x86 x86_64:21:x86_64; do
 #for arch in x86_64:21:x86_64; do
   echo compiling $arch
   cd $SRC
   git clean -xdf
-
   ARGS=(${arch//:/ })
   ARCH=${ARGS[0]}
   ANDROID_API=${ARGS[1]}

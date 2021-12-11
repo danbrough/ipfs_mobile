@@ -9,7 +9,7 @@ android {
   compileSdk = ProjectVersions.SDK_VERSION
 
   ndkVersion = "21.3.6528147"
-  this.ndkDirectory
+
 
   defaultConfig {
     minSdk = 16

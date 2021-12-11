@@ -17,8 +17,8 @@ go install  github.com/danbrough/mobile/cmd/gobind
 echo running "gomobile init" using `which gomobile`
 
 export CFLAGS="-Wno-macro-redefined"
-#export JAVA_HOME=`realpath ~/win32_amd64_jdk/`
-export JAVA_HOME=/mnt/files2/windows/jdkbak/
+export JAVA_HOME=`realpath ~/win32_amd64_jdk/`
+#export JAVA_HOME=/mnt/files2/windows/jdkbak/
 export CGO_CFLAGS="-fPIC -static -I$OPENSSL/include"
 echo compiling with  -L$OPENSSL/lib
 export CGO_LDFLAGS="-static -fPIC -L/usr/x86_64-w64-mingw32/lib/ -L$OPENSSL/lib -lcrypto -lcrypt32  -lws2_32 " #-Lssl -Lcrypt32 -Lmincor
