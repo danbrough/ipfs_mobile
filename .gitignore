@@ -1,7 +1,7 @@
 local.properties
 .gradle
 .idea
-*/build
+**/build
 /tmp
 /*.gz
 /gopath
