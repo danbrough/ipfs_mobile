@@ -10,6 +10,7 @@ source /home/kipfs/env.sh
 ARCH=`uname -m`
 GOVERSION=1.17.5
 
+
 if [ $ARCH = "x86_64" ]; then
   DOWNLOAD=go$GOVERSION.linux-amd64.tar.gz
   ARCH=amd64
@@ -21,9 +22,6 @@ elif [ $ARCH = "armv7l" ]; then
   DOWNLOAD=go$GOVERSION.linux-armv6l.tar.gz
 fi
 
-sed -i -e /ARCH=/d  -e /JAVA_HOME=/d /etc/environment
-echo ARCH=$ARCH >> /etc/environment
-echo JAVA_HOME=/usr/lib/jvm/default-java >> /etc/environment
 
 
 cd /tmp
@@ -42,8 +40,6 @@ if [ "$ARCH" = "amd64" ] && [ ! -d $ANDROID_NDK_ROOT ]; then
   mv /opt/android-ndk* $ANDROID_NDK_ROOT
   chown kipfs:kipfs -R $ANDROID_NDK_ROOT
   rm ndk.zip
-  echo "installing mingw-64"
-  apt install -y mingw-w64/stable
 fi
 
 
