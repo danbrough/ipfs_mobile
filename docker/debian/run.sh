@@ -2,7 +2,7 @@
 
 cd `dirname $0`
 
-PLATFORM=arm64
+PLATFORM=amd64
 NAME=debian
 
 amd64=docker.io/danbrough/debian:latest@sha256:71d2fe20a3926197a54871acb45b3051f801f4dab84af50d5f085546f5cfda69
