@@ -23,8 +23,9 @@ val osName = System.getProperty("os.name")!!.let {
 fun TaskContainerScope.registerDemo(name:String,cls:String) =
   register<JavaExec>(name) {
     mainClass.set(cls)
-    classpath = files("../jvm/libs/linux/amd64") + sourceSets["main"].runtimeClasspath
+    classpath = files("../jvm/libs/linux/libs/amd64") + sourceSets["main"].runtimeClasspath
     val execTask = this
+
     project.properties.keys.forEach { key->
       if (key.startsWith("IPFS_")) {
         execTask.systemProperties[key] = project.property(key).toString()

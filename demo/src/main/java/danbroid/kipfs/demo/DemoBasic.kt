@@ -74,10 +74,9 @@ class DemoBasic : BaseDemo() {
       log.debug("main()")
 
       val demo = DemoBasic()
-      demo.offlineMode = args.contains("offline")
 
       demo.run()
-      args.asList().filter { it != "offline" }.forEach {
+      args.asList().forEach {
         log.debug("getting dag $it")
         demo.dagGet(it)
       }

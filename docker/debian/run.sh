@@ -2,7 +2,7 @@
 
 cd `dirname $0`
 
-PLATFORM=amd64
+PLATFORM=arm64
 NAME=debian
 
 amd64=docker.io/danbrough/debian:latest@sha256:71d2fe20a3926197a54871acb45b3051f801f4dab84af50d5f085546f5cfda69
@@ -16,5 +16,5 @@ echo running `realpath setup.sh` in $image
 
 docker run -it --name "${NAME}_${PLATFORM}"  -h debian \
 	-v /mnt/files:/mnt/files -v /mnt/files2:/mnt/files2 \
-	-v `realpath ..`:/home/kipfs/ipfs_mobile $image \
+	-v `realpath ../..`:/home/kipfs/ipfs_mobile $image \
 	/home/kipfs/ipfs_mobile/docker/setup.sh

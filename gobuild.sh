@@ -31,7 +31,7 @@ doBuild(){
   #echo running "gomobile init" using `which gomobile`
   #gomobile init || exit 1
   #go run golang.org/x/mobile/cmd/gomobile \
-  go run github.com/danbrough/mobile/cmd/gomobile  \
+  gomobile  \
     bind -ldflags "-w" -v  -tags=openssl -target=android -o kipfs.aar -javapkg go.kipfs  \
    $PACKAGES
 }

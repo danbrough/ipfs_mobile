@@ -30,7 +30,7 @@ open class BaseDemo {
   val shell: Shell
     get() = createShell()
 
-  open var offlineMode: Boolean = System.getProperty("offline", "false").toBoolean()
+  open var offlineMode: Boolean = System.getProperty("IPFS_OFFLINE", "false").toBoolean().also { log.error("OFFLINE: $it")}
     set(value) {
       if (field != value) {
         field = value

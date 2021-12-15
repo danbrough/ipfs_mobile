@@ -4,11 +4,12 @@
 useradd    -M -s /bin/bash kipfs
 cp -av /home/kipfs/ipfs_mobile/docker/home/.  -t /home/kipfs/
 chown kipfs:kipfs -R /home/kipfs
-source /home/kipfs/env.sh
+source /home/kipfs/ipfs_mobile/docker/env.sh
 
 
 ARCH=`uname -m`
-GOVERSION=1.17.5
+#GOVERSION=1.17.5
+GOVERSION=1.16.12
 
 if [ $ARCH = "x86_64" ]; then
   DOWNLOAD=go$GOVERSION.linux-amd64.tar.gz
@@ -25,12 +26,14 @@ sed -i -e /ARCH=/d  -e /JAVA_HOME=/d /etc/environment
 echo ARCH=$ARCH >> /etc/environment
 echo JAVA_HOME=/usr/lib/jvm/default-java >> /etc/environment
 
+if [ ! -d /opt/go ]; then
+  cd /tmp
+  echo downloading go from https://golang.org/dl/$DOWNLOAD ..
+  wget -q https://golang.org/dl/$DOWNLOAD || exit 1
+  tar xvpf $DOWNLOAD -C /opt > /dev/null || exit 1
+  rm $DOWNLOAD
+fi
 
-cd /tmp
-echo downloading go from https://golang.org/dl/$DOWNLOAD ..
-wget -q https://golang.org/dl/$DOWNLOAD || exit 1
-tar xvpf $DOWNLOAD -C /opt > /dev/null || exit 1
-rm $DOWNLOAD
 
 
 if [ "$ARCH" = "amd64" ] && [ ! -d $ANDROID_NDK_ROOT ]; then

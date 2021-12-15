@@ -1,12 +1,14 @@
 
 if [ -z "$GOROOT" ]; then
   export GOROOT=/opt/go
-  export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+  export PATH=$GOROOT/bin:$PATH
 fi
 
 if [ -z "$GOPATH" ]; then
   export GOPATH=/tmp/go
 fi
+
+export PATH=$GOPATH/bin:$PATH
 
 export GOPATH=$GOPATH:$IPFS_MOBILE
 
