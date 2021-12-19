@@ -1,26 +1,30 @@
 package core
 
 import (
+  "bytes"
   "context"
+  files "github.com/ipfs/go-ipfs-files"
+  "io"
   "io/ioutil"
   "kipfs/testing"
   "log"
   "strings"
 
-  ipfs_api "github.com/ipfs/go-ipfs-api"
+  ipfsapi "github.com/ipfs/go-ipfs-api"
 )
 
 type Shell struct {
-  ishell *ipfs_api.Shell
+  ishell *ipfsapi.Shell
   url    string
 }
 
 func NewShell(url string) *Shell {
   return &Shell{
-    ishell: ipfs_api.NewShell(url),
+    ishell: ipfsapi.NewShell(url),
     url:    url,
   }
 }
+
 func (s *Shell) DagPut(data string) string {
   put, err := s.ishell.DagPut(data, "dag-json", "dag-cbor")
   if err != nil {
@@ -29,7 +33,20 @@ func (s *Shell) DagPut(data string) string {
   }
   return put
 }
+
 func (s *Shell) Test() {
+  rb := s.NewRequest("dag/put")
+  rb.StringOptions("input-codec", "dag-json")
+  rb.StringOptions("store-codec", "dag-cbor")
+
+  rb.PostString(`"Hello World"`)
+  println("Sending request ..")
+  resp, err := rb.Send()
+  if err != nil {
+    println("Error", err)
+  } else {
+    println("Response:", string(resp))
+  }
 
   //s.ishell.Request()
 }
@@ -41,7 +58,7 @@ func (s *Shell) NewRequest(command string) *RequestBuilder {
 }
 
 type RequestBuilder struct {
-  rb *ipfs_api.RequestBuilder
+  rb *ipfsapi.RequestBuilder
 }
 
 func (req *RequestBuilder) Send() ([]byte, error) {
@@ -67,7 +84,7 @@ func (req *RequestBuilder) Send() ([]byte, error) {
   return ioutil.ReadAll(res.Output)
 }
 
-func (req *RequestBuilder) Send2() (*ipfs_api.Response, error) {
+func (req *RequestBuilder) Send2() (*ipfsapi.Response, error) {
   res, err := req.rb.Send(context.Background())
   if err != nil {
     return nil, err
@@ -104,13 +121,41 @@ func (req *RequestBuilder) BodyBytes(body []byte) {
   req.rb.BodyBytes(body)
 }
 
-func (req *RequestBuilder) Header(name, value string) {
-  req.rb.Header(name, value)
+func (req *RequestBuilder) PostData(data []byte) {
+  req.post(data)
+}
+
+func (req *RequestBuilder) PostString(data string) {
+  req.post(data)
+}
+
+func (req *RequestBuilder) PostReader(data Reader) {
+  req.post(data)
+}
+
+func (req *RequestBuilder) post(data interface{}) {
+
+  var r io.Reader
+  switch data := data.(type) {
+  case string:
+    println("Its a string")
+    r = strings.NewReader(data)
+  case []byte:
+    r = bytes.NewReader(data)
+  case io.Reader:
+    r = data
+  }
+
+  fr := files.NewReaderFile(r)
+  slf := files.NewSliceDirectory([]files.DirEntry{files.FileEntry("", fr)})
+  fileReader := files.NewMultiFileReader(slf, true)
+  req.rb.Body(fileReader)
+
 }
 
 // Helpers
 
-// New unix socket domain shell
+// NewUDSShell New unix socket domain shell
 func NewUDSShell(sockpath string) *Shell {
   return NewShell("/unix/" + sockpath)
 }
