@@ -288,7 +288,7 @@ func main() {
     Log.Warn("You should now be able to run this with the -offline flag")
   }
 
-  time.Sleep(time.Second * 10)
+  //time.Sleep(time.Second * 10)
   cleanUp()
   /*  err = node.Close()
       if err != nil {

@@ -47,7 +47,7 @@ func main() {
   shell := core.NewShell(url)
   testing.TestLog.Trace("created shell %s", shell)
 
-  shell.Test()
+  //shell.Test()
   //testing.TestLog.Info(shell.DagPut(`"Hello World"`))
 
   dagPut(shell)
