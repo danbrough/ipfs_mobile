@@ -30,17 +30,17 @@ java {
 
 val buildLinuxAmd64 by tasks.registering(Jar::class) {
   archiveFileName.set("linuxAmd64.jar")
-  from(file("libs/linux/amd64"))
+  from(file("../build/libs/linux/libs/amd64"))
 }
 
 val buildLinuxArm64 by tasks.registering(Jar::class) {
   archiveFileName.set("linuxArm64.jar")
-  from(file("libs/linux/arm64"))
+  from(file("../build/libs/linux/libs/arm64"))
 }
 
 val buildWin32 by tasks.registering(Jar::class) {
   archiveFileName.set("win32.jar")
-  from(layout.projectDirectory.dir("libs/win32/amd64"))
+  from(layout.projectDirectory.dir("../build/libs/win32"))
 }
 
 /*
