@@ -2,7 +2,7 @@
 
 cd `dirname $0`
 
-. $IPFS_MOBILE/docker/env.sh
+. /env.sh
 
 SCRIPTDIR=$PWD
 
