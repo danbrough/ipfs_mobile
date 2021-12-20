@@ -1,9 +1,7 @@
 #!/bin/bash
 
-amd64=docker.io/danbrough/ipfsmobile:latest@sha256:28f677a575ab5e29db174ddd2ffb60b767e4077acc2d931a39b6a7bdc3879ca8
-arm64=docker.io/danbrough/ipfsmobile:latest@sha256:8345609c95dfd453ad288151d164cadf1ff1f5dc6d179ff0544e139d5a0abca8
-
-cd `dirname $0`
+amd64=docker.io/danbrough/ipfsmobile:latest@sha256:5aa8db97419c19381a772f3166a2efdb387c505abbd20d7e0bd7f5bd4be7f753
+arm64=docker.io/danbrough/ipfsmobile:latest@sha256:e527364166e9842d0187371e072237359e86aa0d14b3c3f985f26789b2205b95
 
 PLATFORM=amd64
 NAME=ipfsmobile

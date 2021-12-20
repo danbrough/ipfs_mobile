@@ -28,11 +28,7 @@ elif [ "$ARCH" == "armv7l" ]; then
 fi
 export ARCH
 
-if [ -z "$ANDROID_HOME"]; then
-  export ANDROID_HOME=
-fi
-
-if [ -z "$ANDROID_NDK_ROOT"]; then
+if [ -z "$ANDROID_NDK_ROOT" ]; then
   export ANDROID_NDK_ROOT=/opt/ndk
 fi
 
