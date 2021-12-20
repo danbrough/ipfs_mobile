@@ -3,7 +3,7 @@
 
 
 
-. $IPFS_MOBILE/docker/env.sh
+. /env.sh
 
 
 
@@ -16,9 +16,6 @@ if [ -d "android/src/main/jniLibs" ] && [ "$1" != "force" ]; then
   echo android/src/main/jniLibs exists. skipping go build.
   exit 0
 fi
-
-export ANDROID_NDK_HOME=$ANDROID_NDK_ROOT
-
 
 
 ./openssl/build.sh
