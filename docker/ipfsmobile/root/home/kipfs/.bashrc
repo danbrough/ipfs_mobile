@@ -11,5 +11,6 @@
 alias ls='ls --color=auto'
 export PS1='\[\033[00;36m\]\u@\h\[\033[01;32m\] \w \$\[\033[00m\] '
 
-source ~/env.sh
+source ~/ipfs_mobile/docker/env.sh
+
 
