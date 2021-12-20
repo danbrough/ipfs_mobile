@@ -3,7 +3,7 @@
 amd64=docker.io/danbrough/ipfsmobile:latest@sha256:c4464c75b8131fea2e1a83ad3270cb7086330097c42836913154808b8eaee04f
 arm64=docker.io/danbrough/ipfsmobile:latest@sha256:67080bf5d37024e7b79ca59d5b89460d93646381aca0dd197cdaf5d348246ff9
 
-PLATFORM=amd64
+PLATFORM=arm64
 NAME=ipfsmobile
 #Place to store cache files
 CACHEDIR=/mnt/files2/cache
