@@ -31,6 +31,9 @@ public final class RequestBuilder implements Seq.Proxy {
 	public native void boolOptions(String key, boolean value);
 	public native void byteOptions(String key, byte[] value);
 	public native void header(String name, String value);
+	public native void postData(byte[] data);
+	public native void postReader(Reader data);
+	public native void postString(String data);
 	public native byte[] send() throws Exception;
 	// skipped method RequestBuilder.Send2 with unsupported parameter or return types
 	

@@ -3,7 +3,7 @@
 
 . $IPFS_MOBILE/docker/env.sh
 
-export $OPENSSL_LIBS=$BUILDDIR/libs/openssl/win32
+export OPENSSL_LIBS=$BUILDDIR/libs/openssl/win32
 export OPENSSL=$OPENSSL_LIBS
 
 
@@ -19,12 +19,11 @@ export CC=/usr/bin/x86_64-w64-mingw32-gcc
 export CXX=/usr/bin/x86_64-w64-mingw32-c++
 
 #export JAVA_HOME=/mnt/files2/windows/jdkbak/
-export CGO_CFLAGS="-fPIC -static -I$OPENSSL/include"
+export CGO_CFLAGS="-fPIC -static -I$OPENSSL_LIBS/include"
 
-echo compiling with  -L$OPENSSL/lib
+echo compiling with  -L$OPENSSL_LIBS/lib
 
-export CGO_LDFLAGS="-static -fPIC -L/usr/x86_64-w64-mingw32/lib/ \
- -L$OPENSSL/lib -lcrypto -lcrypt32  -lpthread -lws2_32 " 
+export CGO_LDFLAGS="-static -fPIC -L/usr/x86_64-w64-mingw32/lib/ -L$OPENSSL_LIBS/lib -lcrypto -lcrypt32  -lpthread -lws2_32 "
 
 #-Lssl -Lcrypt32 -Lmincor
 

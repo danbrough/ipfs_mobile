@@ -12,8 +12,12 @@ export CFLAGS="-Wno-macro-redefined"
 
 
 if [ -z "$ANDROID_NDK_HOME" ]; then
-  export ANDROID_NDK_HOME=/mnt/files/sdk/android/ndk/23.0.7599858
-  echo ANDROID_NDK_HOME not set. Using the default: $ANDROID_NDK_HOME
+  if [ -z "$ANDROID_NDK_ROOT" ]; then
+    export ANDROID_NDK_HOME=/mnt/files/sdk/android/ndk/23.0.7599858
+    echo ANDROID_NDK_HOME not set. Using the default: $ANDROID_NDK_HOME
+  else
+    export ANDROID_NDK_HOME=$ANDROID_NDK_ROOT
+  fi
 fi
 
 

@@ -57,7 +57,7 @@ public abstract class Core {
 	public static native SockManager newSockManager(String path) throws Exception;
 	public static native Shell newTCPShell(String port);
 	/**
-	 * New unix socket domain shell
+	 * NewUDSShell New unix socket domain shell
 	 */
 	public static native Shell newUDSShell(String sockpath);
 	public static native Repo openRepo(String path) throws Exception;

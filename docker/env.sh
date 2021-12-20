@@ -4,17 +4,15 @@ if [ -z "$GOROOT" ]; then
   export PATH=$GOROOT/bin:$PATH
 fi
 
-if [ -z "$GOPATH" ]; then
-  export GOPATH=/tmp/go
-fi
+GOPATH=/cache
+
+
+export GRADLE_USER_HOME=/cache/gradle
 
 export PATH=$GOPATH/bin:$PATH
 
 export GOPATH=$GOPATH:$IPFS_MOBILE
 
-if [ -z $ANDROID_NDK_ROOT ]; then
-  export ANDROID_NDK_ROOT=/opt/ndk
-fi
 
 export PACKAGES="kipfs/core kipfs/cids kipfs/pubsub"
 export BUILDDIR=$IPFS_MOBILE/build
@@ -29,6 +27,10 @@ elif [ "$ARCH" == "armv7l" ]; then
 	export GOARM=5
 fi
 export ARCH
+
+if [ -z "$ANDROID_NDK_ROOT" ]; then
+  export ANDROID_NDK_ROOT=/opt/ndk
+fi
 
 if [ -z $JAVA_HOME ]; then
   export JAVA_HOME=/usr/lib/jvm/default/

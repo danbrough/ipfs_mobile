@@ -1,10 +1,10 @@
 #!/bin/bash
 
 
-useradd    -M -s /bin/bash kipfs
-cp -av /home/kipfs/ipfs_mobile/docker/home/.  -t /home/kipfs/
+useradd    -m -s /bin/bash kipfs
+#cp -av /home/kipfs/ipfs_mobile/docker/home/.  -t /home/kipfs/
 chown kipfs:kipfs -R /home/kipfs
-source /home/kipfs/ipfs_mobile/docker/env.sh
+source /env.sh
 
 
 ARCH=`uname -m`
@@ -24,7 +24,6 @@ fi
 
 sed -i -e /ARCH=/d  -e /JAVA_HOME=/d /etc/environment
 echo ARCH=$ARCH >> /etc/environment
-echo JAVA_HOME=/usr/lib/jvm/default-java >> /etc/environment
 
 if [ ! -d /opt/go ]; then
   cd /tmp
@@ -45,9 +44,10 @@ if [ "$ARCH" = "amd64" ] && [ ! -d $ANDROID_NDK_ROOT ]; then
   mv /opt/android-ndk* $ANDROID_NDK_ROOT
   chown kipfs:kipfs -R $ANDROID_NDK_ROOT
   rm ndk.zip
+  echo installing android-sdk-platform-tools android-sdk-platform-23
+  apt install android-sdk-platform-tools android-sdk-platform-23
   echo "installing mingw-64"
   apt install -y mingw-w64/stable
 fi
 
 
-bash

@@ -113,6 +113,10 @@ func (req *RequestBuilder) StringOptions(key string, value string) {
   req.rb.Option(key, value)
 }
 
+func (req *RequestBuilder) Header(name, value string) {
+  req.rb.Header(name, value)
+}
+
 func (req *RequestBuilder) BodyString(body string) {
   req.rb.BodyString(body)
 }
@@ -138,7 +142,6 @@ func (req *RequestBuilder) post(data interface{}) {
   var r io.Reader
   switch data := data.(type) {
   case string:
-    println("Its a string")
     r = strings.NewReader(data)
   case []byte:
     r = bytes.NewReader(data)
