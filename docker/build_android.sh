@@ -26,7 +26,7 @@ cd $IPFS_MOBILE/go
 doBuild(){
   echo building kipfs
   gomobile  \
-    bind -ldflags "-w" -v -work -x  -tags=openssl -target=android/386 -o kipfs.aar -javapkg go.kipfs  \
+    bind -ldflags "-w" -v  -tags=openssl -target=android -o kipfs.aar -javapkg go.kipfs  \
    $PACKAGES
 }
 
