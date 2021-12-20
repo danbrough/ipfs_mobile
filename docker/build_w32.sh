@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-. $IPFS_MOBILE/docker/env.sh
+. /env.sh
 
 export OPENSSL_LIBS=$BUILDDIR/libs/openssl/win32
 export OPENSSL=$OPENSSL_LIBS
@@ -14,11 +14,8 @@ install_gomobile
 export JAVA_HOME=`realpath ~/win32_amd64_jdk/`
 
 export CFLAGS="-Wno-macro-redefined"
-
 export CC=/usr/bin/x86_64-w64-mingw32-gcc
 export CXX=/usr/bin/x86_64-w64-mingw32-c++
-
-#export JAVA_HOME=/mnt/files2/windows/jdkbak/
 export CGO_CFLAGS="-fPIC -static -I$OPENSSL_LIBS/include"
 
 echo compiling with  -L$OPENSSL_LIBS/lib
