@@ -5,10 +5,10 @@
 
 . /env.sh
 
-
+export OPENSSL_LIBS=$IPFS_MOBILE/openssl/libs
+echo OPENSSL_LIBS=$OPENSSL_LIBS
 
 install_gomobile
-echo building kipfs moving to $IPFS_MOBILE/go
 
 cd $IPFS_MOBILE
 
@@ -20,13 +20,7 @@ fi
 
 ./openssl/build.sh
 
-
-install_gomobile
-
 cd $IPFS_MOBILE/go
-export OPENSSL_LIBS=$IPFS_MOBILE/openssl/libs
-
-echo OPENSSL_LIBS=$OPENSSL_LIBS
 
 
 doBuild(){
