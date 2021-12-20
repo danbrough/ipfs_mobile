@@ -2,14 +2,12 @@
 
 useradd  -M -s /bin/bash kipfs
 
-if [ ! -d /home/kipfs ]; then
-  mkdir /home/kipfs
+if [ ! -d /home/kipfs/ipfs_mobile ]; then
   chown kipfs:kipfs -R /home/kipfs
   su -l kipfs -c "git clone  https://github.com/danbrough/ipfs_mobile"
-  su -l kipfs -c "cp -av ~/ipfs_mobile/docker/home/. ~/."
 fi
 
-source /env.sh
+source /home/kipfs/ipfs_mobile/docker/env.sh
 
 ARCH=`uname -m`
 #GOVERSION=1.17.5

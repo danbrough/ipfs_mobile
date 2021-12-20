@@ -3,6 +3,7 @@ package core
 import (
   "bytes"
   "context"
+  "fmt"
   files "github.com/ipfs/go-ipfs-files"
   "io"
   "io/ioutil"
@@ -43,14 +44,19 @@ func (s *Shell) Test() {
   println("Sending request ..")
   resp, err := rb.Send()
   if err != nil {
-    println("Error", err)
+    fmt.Printf("Error: %s", err.Error())
   } else {
     println("Response:", string(resp))
   }
 
   //s.ishell.Request()
 }
+func (s *Shell) Test2() {
+  /*rb := s.NewRequest("add")
+    s.ishell.AddDir("/tmp/a")*/
 
+  //s.ishell.Request()
+}
 func (s *Shell) NewRequest(command string) *RequestBuilder {
   return &RequestBuilder{
     rb: s.ishell.Request(strings.TrimLeft(command, "/")),

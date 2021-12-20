@@ -2,6 +2,7 @@ package main
 
 import (
   "flag"
+  "fmt"
   "kipfs/core"
   "kipfs/testing"
 )
@@ -20,23 +21,23 @@ func getID(shell *core.Shell) {
 
 func dagPut(shell *core.Shell) {
 
-  var data = []byte("\"Hello World\"")
-  testing.TestLog.Trace("dagPut() " + string(data))
-  var err error
-  resp := shell.NewRequest("dag/put")
-  //input-codec=dag-json&store-codec=dag-cbor&stream-channels=true
-  resp.StringOptions("encoding", "json")
-  resp.StringOptions("input-codec", "dag-json")
-  resp.StringOptions("store-codec", "dag-cbor")
-  resp.Header("Transfer-Encoding", "chunked")
+  rb := shell.NewRequest("dag/put")
+  rb.StringOptions("input-codec", "dag-json")
+  rb.StringOptions("store-codec", "dag-cbor")
 
-  resp.BodyString(`"Hello World"`)
-  var respData []byte
-  respData, err = resp.Send()
+  rb.PostString(`"Hello World"`)
+  println("Sending request ..")
+  resp, err := rb.Send()
   if err != nil {
-    panic(err)
+    println("Error", err)
+  } else {
+    println("Response:", string(resp))
   }
-  testing.TestLog.Debug("got response: %s", string(respData))
+
+  if err != nil {
+    fmt.Printf("Failed: %s", err.Error())
+  }
+  testing.TestLog.Debug("got response: %s", string(resp))
 }
 
 func main() {
@@ -46,6 +47,7 @@ func main() {
 
   shell := core.NewShell(url)
   testing.TestLog.Trace("created shell %s", shell)
+
   shell.Test()
 
   //testing.TestLog.Info(shell.DagPut(`"Hello World"`))

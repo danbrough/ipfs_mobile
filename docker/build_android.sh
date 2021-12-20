@@ -1,10 +1,6 @@
 #!/bin/bash
 
 
-
-
-. /env.sh
-
 export OPENSSL_LIBS=$IPFS_MOBILE/openssl/libs
 echo OPENSSL_LIBS=$OPENSSL_LIBS
 
