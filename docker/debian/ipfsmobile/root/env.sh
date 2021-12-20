@@ -10,10 +10,10 @@ GOPATH=/cache
 export GRADLE_USER_HOME=/cache/gradle
 
 export PATH=$GOPATH/bin:$PATH
-
 export GOPATH=$GOPATH:$IPFS_MOBILE
 
 
+export IPFS_MOBILE=/home/kipfs/ipfs_mobile
 export PACKAGES="kipfs/core kipfs/cids kipfs/pubsub"
 export BUILDDIR=$IPFS_MOBILE/build
 
@@ -32,8 +32,15 @@ if [ -z "$ANDROID_NDK_ROOT" ]; then
   export ANDROID_NDK_ROOT=/opt/ndk
 fi
 
+export ANDROID_NDK_HOME=$ANDROID_NDK_ROOT
+
+if [ -z "$ANDROID_HOME" ]; then
+  export ANDROID_HOME=/usr/lib/android-sdk
+fi
+
+
 if [ -z $JAVA_HOME ]; then
-  export JAVA_HOME=/usr/lib/jvm/default/
+  export JAVA_HOME=/usr/lib/jvm/default-java/
 fi
 
 export IPFS_MOBILE
