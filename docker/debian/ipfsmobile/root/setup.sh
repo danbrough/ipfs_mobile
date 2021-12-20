@@ -1,14 +1,12 @@
 #!/bin/bash
 
+useradd  -M -s /bin/bash kipfs
 
-
-useradd    -M -s /bin/bash kipfs
-#cp -av /home/kipfs/ipfs_mobile/docker/home/.  -t /home/kipfs/
 if [ ! -d /home/kipfs ]; then
   mkdir /home/kipfs
   chown kipfs:kipfs -R /home/kipfs
-  su -l kipfs  -c "git clone  https://github.com/danbrough/ipfs_mobile"
-  su -l kipfs -c "cp -av ipfs_mobile/docker/home /home/kipfs/."
+  su -l kipfs -c "git clone  https://github.com/danbrough/ipfs_mobile"
+  su -l kipfs -c "cp -av ~/ipfs_mobile/docker/home/. ~/."
 fi
 
 source /env.sh
@@ -56,7 +54,6 @@ if [ "$ARCH" = "amd64" ] && [ ! -d $ANDROID_NDK_ROOT ]; then
   apt install -y mingw-w64/stable
 fi
 
-su -l kipfs -c "/home/kipfs/ipfs_mobile/docker/setup.sh"
 
 
 

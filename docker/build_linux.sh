@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. $IPFS_MOBILE/docker/env.sh
+. /env.sh
 
 
 install_gomobile
