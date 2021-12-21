@@ -14,11 +14,11 @@ import go.Seq;
 A rule follows the syntax for patterns used in .gitgnore files for specifying untracked files.
 Examples:
 foo.txt
-*.app
+(star).app
 bar/
-star,star/baz
-fizz/star,star
- **/
+(star)(star)/baz
+fizz/(star)(star)
+ */
 public final class Filter implements Seq.Proxy {
 	static { Files.touch(); }
 	

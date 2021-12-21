@@ -12,7 +12,9 @@ gomobile \
     bind -ldflags "-w"  -v  -target=linux/$ARCH -javapkg go.kipfs --tags=openssl \
     -o $BUILDDIR/libs/linux $PACKAGES
 
-# For a static build of openssl  (doesn't work)
+
+
+# For a static build of openssl  . Broken
 
 #export CGO_CFLAGS="-fPIC -static -I$OPENSSL_LIBS/include"
 #echo compiling with  -L$OPENSSL_LIBS/lib
