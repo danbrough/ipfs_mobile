@@ -45,9 +45,12 @@ fi
 
 export IPFS_MOBILE
 
+
 function install_gomobile() {
+  which gobind > /dev/null  && return
+  echo '# installing gomobile ...'
   cd $IPFS_MOBILE/go
-  go mod download || exit 1
+  go mod download
   go get -d  github.com/danbrough/mobile
   go install  github.com/danbrough/mobile/cmd/gomobile
   go install  github.com/danbrough/mobile/cmd/gobind

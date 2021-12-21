@@ -1,15 +1,15 @@
 #!/bin/bash
 
 
-. /env.sh
+cd `dirname $0`
+source env.sh
+install_gomobile
+
 
 export OPENSSL_LIBS=$BUILDDIR/libs/openssl/win32
 export OPENSSL=$OPENSSL_LIBS
 
-
 $IPFS_MOBILE/openssl/win32.sh
-
-install_gomobile
 
 export JAVA_HOME=`realpath ~/win32_amd64_jdk/`
 

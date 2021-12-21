@@ -31,6 +31,7 @@ public final class Shell implements Seq.Proxy {
 	public native String dagPut(String data);
 	public native RequestBuilder newRequest(String command);
 	public native void test();
+	public native void test2();
 	@Override public boolean equals(Object o) {
 		if (o == null || !(o instanceof Shell)) {
 		    return false;

@@ -1,12 +1,15 @@
 #!/bin/bash
 
 
+cd `dirname $0`
+source env.sh
+install_gomobile
+
 export OPENSSL_LIBS=$IPFS_MOBILE/openssl/libs
 echo OPENSSL_LIBS=$OPENSSL_LIBS
 
-install_gomobile
 
-cd $IPFS_MOBILE
+cd ..
 
 if [ -d "android/src/main/jniLibs" ] && [ "$1" != "force" ]; then
   echo android/src/main/jniLibs exists. skipping go build.

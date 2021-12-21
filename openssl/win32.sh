@@ -2,7 +2,7 @@
 
 cd `dirname $0`
 
-. /env.sh
+. ../docker/env.sh
 
 SCRIPTDIR=$PWD
 

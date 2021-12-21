@@ -1,11 +1,14 @@
 #!/bin/bash
 
-. $IPFS_MOBILE/docker/env.sh
+# This script doesn't work
+cd `dirname $0`
+
+. env.sh
 
 
 #export OPENSSL=$BUILDDIR/libs/
 
-. $IPFS_MOBILE/openssl/linux.sh
+. ../openssl/linux.sh
 
 echo openssl is at $OPENSSL_LIBS
 
