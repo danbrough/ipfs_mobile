@@ -25,6 +25,7 @@ allprojects {
     mavenCentral()
 
     maven(ProjectVersions.MAVEN_REPO)
+    maven("https://h1.danbrough.org/maven")
 
   }
 

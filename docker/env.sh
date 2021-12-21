@@ -4,11 +4,12 @@ if [ -z "$GOROOT" ]; then
   export PATH=$GOROOT/bin:$PATH
 fi
 
-[ -z "$GOPATH" ] && GOPATH=/cache && echo set gopath
 
+[ -z "$GRADLE_USER_HOME" ] && export GRADLE_USER_HOME=/cache/gradle
 
 if [ -z "$GOPATH" ]; then
-  export GRADLE_USER_HOME=/cache/gradle
+  GOPATH=/cache
+  echo set gopath
   export PATH=$GOPATH/bin:$PATH
 fi
 

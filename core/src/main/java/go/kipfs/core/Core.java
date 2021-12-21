@@ -12,6 +12,7 @@ import go.Seq;
 public abstract class Core {
 	static {
 		Seq.touch(); // for loading the native library
+		go.kipfs.files.Files.touch();
 		_init();
 	}
 	
