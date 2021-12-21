@@ -4,17 +4,19 @@ if [ -z "$GOROOT" ]; then
   export PATH=$GOROOT/bin:$PATH
 fi
 
-GOPATH=/cache
+[ -z "$GOPATH" ] && GOPATH=/cache && echo set gopath
 
 
-export GRADLE_USER_HOME=/cache/gradle
+if [ -z "$GOPATH" ]; then
+  export GRADLE_USER_HOME=/cache/gradle
+  export PATH=$GOPATH/bin:$PATH
+fi
 
-export PATH=$GOPATH/bin:$PATH
 export GOPATH=$GOPATH:$IPFS_MOBILE
 
 
-export IPFS_MOBILE=/home/kipfs/ipfs_mobile
-export PACKAGES="kipfs/core kipfs/cids kipfs/pubsub"
+export IPFS_MOBILE=`realpath ..`
+export PACKAGES="kipfs/core kipfs/cids kipfs/pubsub github.com/ipfs/go-ipfs-files"
 export BUILDDIR=$IPFS_MOBILE/build
 
 ARCH=`uname -m`
@@ -42,8 +44,6 @@ fi
 if [ -z $JAVA_HOME ]; then
   export JAVA_HOME=/usr/lib/jvm/default-java/
 fi
-
-export IPFS_MOBILE
 
 
 function install_gomobile() {
