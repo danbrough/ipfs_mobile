@@ -1,24 +1,11 @@
 
+export IPFS_MOBILE=`realpath ..`
+
+
 if [ -z "$GOROOT" ]; then
   export GOROOT=/opt/go
   export PATH=$GOROOT/bin:$PATH
 fi
-
-
-[ -z "$GRADLE_USER_HOME" ] && export GRADLE_USER_HOME=/cache/gradle
-
-if [ -z "$GOPATH" ]; then
-  GOPATH=/cache
-  echo set gopath
-  export PATH=$GOPATH/bin:$PATH
-fi
-
-export GOPATH=$GOPATH:$IPFS_MOBILE
-
-
-export IPFS_MOBILE=`realpath ..`
-export PACKAGES="kipfs/core kipfs/cids kipfs/pubsub github.com/ipfs/go-ipfs-files"
-export BUILDDIR=$IPFS_MOBILE/build
 
 ARCH=`uname -m`
 if [ "$ARCH" == "x86_64" ]; then
@@ -30,6 +17,19 @@ elif [ "$ARCH" == "armv7l" ]; then
 	export GOARM=5
 fi
 export ARCH
+
+[ -z "$GRADLE_USER_HOME" ] && export GRADLE_USER_HOME=/cache/gradle
+
+if [ -z "$GOPATH" ]; then
+  GOPATH=/cache/gopath/$ARCH
+  echo set gopath
+  export PATH=$GOPATH/bin:$PATH
+fi
+
+export GOPATH=$GOPATH:$IPFS_MOBILE
+export PACKAGES="kipfs/core kipfs/cids kipfs/pubsub github.com/ipfs/go-ipfs-files"
+export BUILDDIR=$IPFS_MOBILE/build
+
 
 if [ -z "$ANDROID_NDK_ROOT" ]; then
   export ANDROID_NDK_ROOT=/opt/ndk

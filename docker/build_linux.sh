@@ -9,7 +9,7 @@ echo building kipfs moving to $IPFS_MOBILE/go
 cd $IPFS_MOBILE/go
 
 gomobile \
-    bind -ldflags "-w" -x -v -work -target=linux/$ARCH -javapkg go.kipfs --tags=openssl \
+    bind -ldflags "-w"  -v  -target=linux/$ARCH -javapkg go.kipfs --tags=openssl \
     -o $BUILDDIR/libs/linux $PACKAGES
 
 # For a static build of openssl  (doesn't work)
