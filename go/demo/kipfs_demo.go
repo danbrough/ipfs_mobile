@@ -16,6 +16,7 @@ import (
 //whether to initialize the ipfs repo using internal storage or sdcard
 const useInternalStorage = false
 
+
 //directory name of the ipfs repo
 const repoName = "repo"
 
@@ -283,6 +284,9 @@ func main() {
     //should be "Hello World"
     Log.Debug("got cat response: %s", string(resp))
   }
+
+
+ 
 
   if !offline {
     Log.Warn("You should now be able to run this with the -offline flag")

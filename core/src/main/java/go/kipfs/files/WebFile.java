@@ -14,7 +14,7 @@ import go.Seq;
 from a Web URL (http). A GET request will be performed
 against the source when calling Read().
  */
-public final class WebFile implements Seq.Proxy, File, FileInfo, Node, go.kipfs.core.JReader, go.kipfs.core.Reader {
+public final class WebFile implements Seq.Proxy, File, FileInfo, Node, go.kipfs.core.Reader {
 	static { Files.touch(); }
 	
 	private final int refnum;

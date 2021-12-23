@@ -12,7 +12,7 @@ import go.Seq;
 /**
  * Node represents a regular Unix file
  */
-public interface File extends Node, go.kipfs.core.JReader, go.kipfs.core.Reader {
+public interface File extends Node, go.kipfs.core.Reader {
 	public void close() throws Exception;
 	public long read(byte[] p0) throws Exception;
 	public long seek(long offset, long whence) throws Exception;

@@ -2,7 +2,12 @@ package danbroid.kipfs.demo
 
 import danbroid.kipfs.jvm.TestData
 import go.kipfs.cids.Cids
-import java.util.*
+import go.kipfs.core.Callback
+import go.kipfs.core.Core
+import go.kipfs.files.DirEntry
+import java.nio.charset.Charset
+import kotlin.io.path.Path
+import kotlin.io.path.writeBytes
 
 class DemoBasic : BaseDemo() {
 
@@ -48,17 +53,87 @@ class DemoBasic : BaseDemo() {
     }
   }
 
-  private fun dagPut(data: String) {
-    log.debug("dagPut() $data")
-    shell.dagPut(data).also {
-      log.info("response: $it")
+  private fun addData() {
+    log.debug("addData()")
+    val data = (0 until 256).map { it.toByte() }.toByteArray()
+
+
+    shell.newRequest("add").also { request ->
+      request.postData(data, object : Callback {
+        override fun onError(err: String?) {
+          log.error(err)
+        }
+
+        override fun onResponse(data: ByteArray?) {
+          log.info("response: ${data?.decodeToString()}")
+        }
+
+      })
     }
   }
+
+  private fun dagPut() {
+    log.debug("dagPut()")
+    shell.newRequest("dag/put").also { request ->
+      request.stringOptions("store-codec", "dag-cbor")
+      request.stringOptions("input-codec", "dag-json")
+      request.boolOptions("pin", true)
+      request.postData("\"Hello World\"".encodeToByteArray(), object : Callback {
+        override fun onError(err: String?) {
+          log.error(err)
+        }
+
+        override fun onResponse(data: ByteArray?) {
+          log.info("response: ${data?.decodeToString()}")
+        }
+
+      })
+    }
+
+  }
+
+  private fun filesWrite() {
+    log.debug("filesWrite()")
+
+    val data = (0 until 256).map { it.toByte() }.toByteArray()
+    Path("/tmp/test1.bin").writeBytes(data)
+
+
+    //go.kipfs.files.MultiFileReader(File("/tmp/test"), true)
+
+    shell.newRequest("files/write").also { request ->
+      log.trace("request created")
+      request.argument("/test/test4.bin")
+      request.boolOptions("create", true)
+      request.boolOptions("parents", true)
+      request.boolOptions("truncate", true)
+      request.postData(data, object : Callback {
+        override fun onError(err: String?) {
+          log.error(err)
+        }
+
+        override fun onResponse(data: ByteArray?) {
+          log.info("response: ${data?.decodeToString()}")
+        }
+
+      })
+    }
+  }
+
+
+  private fun filesWrite2() {
+    log.debug("filesWrite2()")
+  }
+
 
   fun run() {
     log.info("run(): offlineMode:$offlineMode")
 
-    dagPut("\"Hello World\"")
+    addData()
+    /*dagPut()
+    filesWrite()*/
+
+
     /*shell.newRequest("id").send().decodeToString().also {
       log.trace("RESPONSE: $it")
     }

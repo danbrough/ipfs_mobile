@@ -23,7 +23,7 @@ public abstract class Core {
 	
 	private static native void _init();
 	
-	private static final class proxyJReader implements Seq.Proxy, JReader {
+	private static final class proxyCallback implements Seq.Proxy, Callback {
 		private final int refnum;
 		
 		@Override public final int incRefnum() {
@@ -31,9 +31,10 @@ public abstract class Core {
 		      return refnum;
 		}
 		
-		proxyJReader(int refnum) { this.refnum = refnum; Seq.trackGoRef(refnum, this); }
+		proxyCallback(int refnum) { this.refnum = refnum; Seq.trackGoRef(refnum, this); }
 		
-		public native long read(byte[] p0) throws Exception;
+		public native void onError(String err);
+		public native void onResponse(byte[] data);
 	}
 	private static final class proxyReader implements Seq.Proxy, Reader {
 		private final int refnum;
@@ -57,10 +58,13 @@ public abstract class Core {
 	public static native Shell newShell(String url);
 	public static native SockManager newSockManager(String path) throws Exception;
 	public static native Shell newTCPShell(String port);
+	// skipped function NewTestReader with unsupported parameter or return types
+	
 	/**
 	 * NewUDSShell New unix socket domain shell
 	 */
 	public static native Shell newUDSShell(String sockpath);
 	public static native Repo openRepo(String path) throws Exception;
 	public static native boolean repoIsInitialized(String path);
+	public static native void writeStuff(byte[] data, String path);
 }

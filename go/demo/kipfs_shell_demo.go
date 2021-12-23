@@ -40,6 +40,27 @@ func dagPut(shell *core.Shell) {
   testing.TestLog.Debug("got response: %s", string(resp))
 }
 
+func filesWrite(shell *core.Shell) {
+  var data = [256]byte{}
+
+  for i := 0; i < len(data); i++ {
+    data[i] = byte(i)
+  }
+  println("Length: ", len(data))
+  req := shell.NewRequest("files/write")
+  req.Argument("/test/test.bin")
+  req.BoolOptions("create", true)
+  req.BoolOptions("truncate", true)
+  req.BoolOptions("parents", true)
+  req.PostData(data[:])
+  res, err := req.Send()
+  if err != nil {
+    testing.TestLog.Error("Failed: %s", err.Error())
+  } else {
+    testing.TestLog.Info("Response: %s", res)
+  }
+}
+
 func main() {
   var url string
   flag.StringVar(&url, "url", "/ip4/127.0.0.1/tcp/5001", "url to connect to")
@@ -48,8 +69,14 @@ func main() {
   shell := core.NewShell(url)
   testing.TestLog.Trace("created shell %s", shell)
 
-  shell.Test()
+  var data = [256]byte{}
 
+  for i := 0; i < len(data); i++ {
+    data[i] = byte(int8(i))
+    println("DATA: i:", i, " b:", data[i])
+  }
+
+  //filesWrite(shell)
   //testing.TestLog.Info(shell.DagPut(`"Hello World"`))
 
   //dagPut(shell)

@@ -13,6 +13,8 @@ gomobile \
     -o $BUILDDIR/libs/linux $PACKAGES
 
 
+rm -rf $IPFS_MOBILE/core/src/main/java/go/
+unzip -o -d  $IPFS_MOBILE/core/src/main/java/ $BUILDDIR/libs/linux/core-sources.jar
 
 # For a static build of openssl  . Broken
 

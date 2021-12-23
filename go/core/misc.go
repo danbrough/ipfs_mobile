@@ -1,11 +1,25 @@
 package core
 
-import "io"
+import (
+  "io"
+  "kipfs/testing"
+  "os"
+)
 
 type Reader interface {
-  Read(p []byte) (n int, err error)
+  io.Reader
 }
 
-type JReader interface {
-  io.Reader
+func WriteStuff(data []byte, path string) {
+  testing.TestLog.Info("Writing stuff to %s", path)
+  err := os.WriteFile(path, data, 0644)
+  if err != nil {
+    panic(err)
+  }
+
+}
+
+type Callback interface {
+  OnResponse(data []byte)
+  OnError(err string)
 }

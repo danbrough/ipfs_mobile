@@ -29,9 +29,30 @@ public final class Shell implements Seq.Proxy {
 	Shell(int refnum) { this.refnum = refnum; Seq.trackGoRef(refnum, this); }
 	
 	public native String dagPut(String data);
+	/**
+	 * *
+	Fileswrite
+	
+		fr := files.NewReaderFile(data)
+		slf := files.NewSliceDirectory([]files.DirEntry{files.FileEntry(&#34;&#34;, fr)})
+		fileReader := files.NewMultiFileReader(slf, true)
+	
+	AddDir
+		sf, err := files.NewSerialFile(dir, false, stat)
+		if err != nil {
+			return &#34;&#34;, err
+		}
+		slf := files.NewSliceDirectory([]files.DirEntry{files.FileEntry(filepath.Base(dir), sf)})
+		reader := files.NewMultiFileReader(slf, true)
+	
+	DagPut
+		fr := files.NewReaderFile(r)
+		slf := files.NewSliceDirectory([]files.DirEntry{files.FileEntry(&#34;&#34;, fr)})
+		fileReader := files.NewMultiFileReader(slf, true)
+	 */
 	public native RequestBuilder newRequest(String command);
 	public native void test();
-	public native void test2();
+	public native void writeStuff(byte[] data, String path);
 	@Override public boolean equals(Object o) {
 		if (o == null || !(o instanceof Shell)) {
 		    return false;
