@@ -4,7 +4,12 @@ import danbroid.kipfs.jvm.TestData
 import go.kipfs.cids.Cids
 import go.kipfs.core.Callback
 import go.kipfs.core.Core
+import go.kipfs.core.Response
 import go.kipfs.files.DirEntry
+import go.kipfs.files.File
+import java.io.Closeable
+import java.io.FileInputStream
+import java.io.InputStream
 import java.nio.charset.Charset
 import kotlin.io.path.Path
 import kotlin.io.path.writeBytes
@@ -23,6 +28,7 @@ class DemoBasic : BaseDemo() {
     }
     val cborData = Cids.jsonToCbor(TestData.Wally.json)
     val dag2 = Cids.dagCidBytes(cborData, "cbor")
+
 
     log.debug("dag2: $dag2")
     assert(dag2 == expected) {
@@ -43,6 +49,7 @@ class DemoBasic : BaseDemo() {
     }
   }
 
+
   fun dagGet(dag: String) {
     log.debug("dagGet() $dag")
     shell.newRequest("dag/get").also {
@@ -59,6 +66,18 @@ class DemoBasic : BaseDemo() {
 
 
     shell.newRequest("add").also { request ->
+      request.postData3(data).also {
+        log.debug("response: ${it.input().readAllBytes().decodeToString()}")
+      }
+    }
+  }
+
+
+  private fun addDirectory() {
+    log.debug("addDirectory()")
+
+
+/*    shell.newRequest("add").also { request ->
       request.postData(data, object : Callback {
         override fun onError(err: String?) {
           log.error(err)
@@ -69,8 +88,9 @@ class DemoBasic : BaseDemo() {
         }
 
       })
-    }
+    }*/
   }
+
 
   private fun dagPut() {
     log.debug("dagPut()")
@@ -78,16 +98,19 @@ class DemoBasic : BaseDemo() {
       request.stringOptions("store-codec", "dag-cbor")
       request.stringOptions("input-codec", "dag-json")
       request.boolOptions("pin", true)
-      request.postData("\"Hello World\"".encodeToByteArray(), object : Callback {
-        override fun onError(err: String?) {
-          log.error(err)
+
+
+      request.postString3("\"Hello World\"").also { response ->
+
+
+        response.input().use {
+          log.trace("GOT RESPONSE: ${it.readAllBytes().decodeToString()}")
         }
 
-        override fun onResponse(data: ByteArray?) {
-          log.info("response: ${data?.decodeToString()}")
-        }
 
-      })
+      }
+
+
     }
 
   }
@@ -107,6 +130,7 @@ class DemoBasic : BaseDemo() {
       request.boolOptions("create", true)
       request.boolOptions("parents", true)
       request.boolOptions("truncate", true)
+
       request.postData(data, object : Callback {
         override fun onError(err: String?) {
           log.error(err)
@@ -115,8 +139,8 @@ class DemoBasic : BaseDemo() {
         override fun onResponse(data: ByteArray?) {
           log.info("response: ${data?.decodeToString()}")
         }
-
       })
+
     }
   }
 
@@ -130,8 +154,8 @@ class DemoBasic : BaseDemo() {
     log.info("run(): offlineMode:$offlineMode")
 
     addData()
-    /*dagPut()
-    filesWrite()*/
+    //dagPut()
+    //filesWrite()
 
 
     /*shell.newRequest("id").send().decodeToString().also {
@@ -161,3 +185,39 @@ class DemoBasic : BaseDemo() {
   }
 }
 
+
+class ResponseInput(private val response: Response, bufSize: Int = 1024) :
+  InputStream() {
+
+  private val buf = ByteArray(bufSize)
+  private var readCount = 0
+  private var readIndex = 0
+
+
+  override fun close() {
+    super.close()
+    response.close()
+  }
+
+  override fun read(): Int {
+
+    if (readCount == -1) return -1
+
+    if (readCount > 0 && readIndex == readCount) {
+      readCount = 0
+      readIndex = 0
+    }
+
+    if (readCount == 0) {
+      readCount = response.read(buf).toInt()
+      if (readCount == -1) {
+        return -1
+      }
+      readIndex = 0
+    }
+
+    return buf[readIndex++].toInt()
+  }
+}
+
+fun Response.input(): InputStream = ResponseInput(this)

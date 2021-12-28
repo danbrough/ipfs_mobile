@@ -51,7 +51,6 @@ public final class Shell implements Seq.Proxy {
 		fileReader := files.NewMultiFileReader(slf, true)
 	 */
 	public native RequestBuilder newRequest(String command);
-	public native void test();
 	public native void writeStuff(byte[] data, String path);
 	@Override public boolean equals(Object o) {
 		if (o == null || !(o instanceof Shell)) {

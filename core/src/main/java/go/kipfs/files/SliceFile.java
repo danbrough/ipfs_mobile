@@ -14,7 +14,7 @@ import go.Seq;
 It contains children files, and is created from a `[]Node`.
 SliceFiles are always directories, and can&#39;t be read from or closed.
  */
-public final class SliceFile implements Seq.Proxy, Directory, Node {
+public final class SliceFile implements Seq.Proxy, Directory, Node, go.kipfs.core.Closer {
 	static { Files.touch(); }
 	
 	private final int refnum;

@@ -12,7 +12,7 @@ import go.Seq;
 /**
  * Node is a common interface for files, directories and other special files
  */
-public interface Node {
+public interface Node extends go.kipfs.core.Closer {
 	public void close() throws Exception;
 	/**
 	 * Size returns size of this file (if this file is a directory, total size of

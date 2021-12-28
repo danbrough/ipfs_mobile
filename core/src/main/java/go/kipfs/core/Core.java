@@ -36,6 +36,31 @@ public abstract class Core {
 		public native void onError(String err);
 		public native void onResponse(byte[] data);
 	}
+	private static final class proxyCloser implements Seq.Proxy, Closer {
+		private final int refnum;
+		
+		@Override public final int incRefnum() {
+		      Seq.incGoRef(refnum, this);
+		      return refnum;
+		}
+		
+		proxyCloser(int refnum) { this.refnum = refnum; Seq.trackGoRef(refnum, this); }
+		
+		public native void close() throws Exception;
+	}
+	private static final class proxyReadCloser implements Seq.Proxy, ReadCloser {
+		private final int refnum;
+		
+		@Override public final int incRefnum() {
+		      Seq.incGoRef(refnum, this);
+		      return refnum;
+		}
+		
+		proxyReadCloser(int refnum) { this.refnum = refnum; Seq.trackGoRef(refnum, this); }
+		
+		public native void close() throws Exception;
+		public native long read(byte[] p0) throws Exception;
+	}
 	private static final class proxyReader implements Seq.Proxy, Reader {
 		private final int refnum;
 		
@@ -58,8 +83,6 @@ public abstract class Core {
 	public static native Shell newShell(String url);
 	public static native SockManager newSockManager(String path) throws Exception;
 	public static native Shell newTCPShell(String port);
-	// skipped function NewTestReader with unsupported parameter or return types
-	
 	/**
 	 * NewUDSShell New unix socket domain shell
 	 */

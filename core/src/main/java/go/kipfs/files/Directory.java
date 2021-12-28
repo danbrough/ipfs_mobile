@@ -12,7 +12,7 @@ import go.Seq;
 /**
  * Directory is a special file which can link to any number of files.
  */
-public interface Directory extends Node {
+public interface Directory extends Node, go.kipfs.core.Closer {
 	public void close() throws Exception;
 	/**
 	 * Entries returns a stateful iterator over directory entries.

@@ -12,7 +12,7 @@ import go.Seq;
 /**
  * FileInfo exposes information on files in local filesystem
  */
-public interface FileInfo extends Node {
+public interface FileInfo extends Node, go.kipfs.core.Closer {
 	/**
 	 * AbsPath returns full real file path.
 	 */

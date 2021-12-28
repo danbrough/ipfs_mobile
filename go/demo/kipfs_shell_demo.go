@@ -25,7 +25,7 @@ func dagPut(shell *core.Shell) {
   rb.StringOptions("input-codec", "dag-json")
   rb.StringOptions("store-codec", "dag-cbor")
 
-  rb.PostString(`"Hello World"`)
+  //rb.PostString(`"Hello World"`)
   println("Sending request ..")
   resp, err := rb.Send()
   if err != nil {
@@ -52,7 +52,7 @@ func filesWrite(shell *core.Shell) {
   req.BoolOptions("create", true)
   req.BoolOptions("truncate", true)
   req.BoolOptions("parents", true)
-  req.PostData(data[:])
+  //req.PostData(data[:])
   res, err := req.Send()
   if err != nil {
     testing.TestLog.Error("Failed: %s", err.Error())

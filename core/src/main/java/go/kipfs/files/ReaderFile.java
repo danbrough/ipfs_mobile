@@ -13,7 +13,7 @@ import go.Seq;
  * ReaderFile is a implementation of File created from an `io.Reader`.
 ReaderFiles are never directories, and can be read from and closed.
  */
-public final class ReaderFile implements Seq.Proxy, File, FileInfo, Node, go.kipfs.core.Reader {
+public final class ReaderFile implements Seq.Proxy, File, FileInfo, Node, go.kipfs.core.Closer, go.kipfs.core.ReadCloser, go.kipfs.core.Reader {
 	static { Files.touch(); }
 	
 	private final int refnum;

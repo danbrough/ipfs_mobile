@@ -9,7 +9,7 @@ package go.kipfs.files;
 
 import go.Seq;
 
-public final class TarWriter implements Seq.Proxy {
+public final class TarWriter implements Seq.Proxy, go.kipfs.core.Closer {
 	static { Files.touch(); }
 	
 	private final int refnum;

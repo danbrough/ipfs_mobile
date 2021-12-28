@@ -6,9 +6,9 @@ import (
   "os"
 )
 
-type Reader interface {
-  io.Reader
-}
+type Reader = io.Reader
+type Closer = io.Closer
+type ReadCloser = io.ReadCloser
 
 func WriteStuff(data []byte, path string) {
   testing.TestLog.Info("Writing stuff to %s", path)

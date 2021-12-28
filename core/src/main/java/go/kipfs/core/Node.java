@@ -9,7 +9,7 @@ package go.kipfs.core;
 
 import go.Seq;
 
-public final class Node implements Seq.Proxy {
+public final class Node implements Seq.Proxy, Closer {
 	static { Core.touch(); }
 	
 	private final int refnum;

@@ -6,7 +6,7 @@ import java.io.File
 import java.util.*
 
 
-private val logger = danbroid.logging.configure("TEST", coloured = true)
+private val logger = danbroid.logging.configure("TEST")
 
 
 open class Tests() {

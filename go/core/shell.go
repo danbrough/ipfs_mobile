@@ -3,12 +3,13 @@ package core
 import (
   "bytes"
   "context"
-  "fmt"
   files "github.com/ipfs/go-ipfs-files"
   "io"
   "io/ioutil"
   "kipfs/testing"
   "log"
+  "os"
+  "path/filepath"
   "strings"
 
   ipfsapi "github.com/ipfs/go-ipfs-api"
@@ -35,22 +36,6 @@ func (s *Shell) DagPut(data string) string {
   return put
 }
 
-func (s *Shell) Test() {
-  rb := s.NewRequest("dag/put")
-  rb.StringOptions("input-codec", "dag-json")
-  rb.StringOptions("store-codec", "dag-cbor")
-
-  rb.PostString(`"Hello World"`)
-  println("Sending request ..")
-  resp, err := rb.Send()
-  if err != nil {
-    fmt.Printf("Error: %s", err.Error())
-  } else {
-    println("Response:", string(resp))
-  }
-
-  //s.ishell.Request()
-}
 func (s *Shell) WriteStuff(data []byte, path string) {
 
   err := s.ishell.FilesWrite(context.Background(), path, bytes.NewReader(data),
@@ -94,6 +79,23 @@ func (s *Shell) NewRequest(command string) *RequestBuilder {
 
 type RequestBuilder struct {
   rb *ipfsapi.RequestBuilder
+}
+
+type Response struct {
+  res *ipfsapi.Response
+}
+
+func (res *Response) Close() error {
+  return res.res.Close()
+}
+
+func (res *Response) Read(p []byte) (n int, err error) {
+  n, err = res.res.Output.Read(p)
+  if err == io.EOF {
+    err = nil
+    n = -1
+  }
+  return n, err
 }
 
 func (req *RequestBuilder) Send() ([]byte, error) {
@@ -161,61 +163,50 @@ func (req *RequestBuilder) BodyBytes(body []byte) {
 }
 
 func (req *RequestBuilder) PostData(data []byte, callback Callback) {
-  fr := files.NewReaderFile(bytes.NewReader(data))
-  slf := files.NewSliceDirectory([]files.DirEntry{files.FileEntry("", fr)})
-  fileReader := files.NewMultiFileReader(slf, true)
-  req.rb.Body(fileReader)
-  res, err := req.rb.Send(context.Background())
+  req.post("", files.NewReaderFile(bytes.NewReader(data)), callback)
+}
+
+func (req *RequestBuilder) PostData2(data []byte) ([]byte, error) {
+  return req.post2("", files.NewReaderFile(bytes.NewReader(data)))
+}
+
+func (req *RequestBuilder) PostData3(data []byte) (*Response, error) {
+  return req.post3("", files.NewReaderFile(bytes.NewReader(data)))
+}
+
+func (req *RequestBuilder) PostString(data string, callback Callback) {
+  req.post("", files.NewReaderFile(strings.NewReader(data)), callback)
+}
+
+func (req *RequestBuilder) PostString2(data string) ([]byte, error) {
+  return req.post2("", files.NewReaderFile(strings.NewReader(data)))
+}
+
+func (req *RequestBuilder) PostString3(data string) (*Response, error) {
+  return req.post3("", files.NewReaderFile(strings.NewReader(data)))
+}
+
+func (req *RequestBuilder) PostReader(data Reader, callback Callback) {
+  req.post("", files.NewReaderFile(data), callback)
+}
+
+func (req *RequestBuilder) PostDirectory(dir string, callback Callback) {
+  stat, err := os.Lstat(dir)
   if err != nil {
-    testing.TestLog.Error("Error: %s", err.Error())
     callback.OnError(err.Error())
-  } else {
-    respData, _ := ioutil.ReadAll(res.Output)
-    testing.TestLog.Info("Response: %s", string(respData))
-    callback.OnResponse(respData)
+    return
   }
 
-  testing.TestLog.Debug("queued response")
-
-}
-
-func (req *RequestBuilder) PostString(data string) {
-  req.post(strings.NewReader(data))
-}
-
-func (req *RequestBuilder) PostReader(data Reader) {
-  req.post(data)
-}
-
-type ByteReader struct {
-  Reader
-  data []int8
-  size int
-  i    int
-}
-
-func NewTestReader(data []int8) Reader {
-  var r = new(ByteReader)
-  r.data = data
-  r.size = len(data)
-  r.i = -1
-  return r
-}
-
-func (r *ByteReader) Read(p []byte) (int, error) {
-
-  //println("REading ", r.i)
-  if r.i == r.size {
-    return 0, io.EOF
+  sf, err := files.NewSerialFile(dir, false, stat)
+  if err != nil {
+    callback.OnError(err.Error())
+    return
   }
-  r.i = r.size
-  for n := 0; n < r.size; n++ {
-    p[n] = byte(r.data[n])
-  }
-  return r.size, nil
+  //slf := files.NewSliceDirectory([]files.DirEntry{files.FileEntry(filepath.Base(dir), sf)})
+  req.post(filepath.Base(dir), sf, callback)
 }
 
-func (req *RequestBuilder) post(data io.Reader) {
+func (req *RequestBuilder) post(name string, file files.Node, callback Callback) {
   /*
      var r io.Reader
      switch data := data.(type) {
@@ -232,11 +223,90 @@ func (req *RequestBuilder) post(data io.Reader) {
        r = data
      }
   */
-  fr := files.NewReaderFile(data)
-  slf := files.NewSliceDirectory([]files.DirEntry{files.FileEntry("", fr)})
+  //fr := files.NewReaderFile(data)
+  slf := files.NewSliceDirectory([]files.DirEntry{files.FileEntry(name, file)})
   fileReader := files.NewMultiFileReader(slf, true)
   req.rb.Body(fileReader)
+  res, err := req.rb.Send(context.Background())
+  if err != nil {
+    testing.TestLog.Error("Error: %s", err.Error())
+    callback.OnError(err.Error())
+  } else {
+    respData, _ := ioutil.ReadAll(res.Output)
+    //testing.TestLog.Info("Response: %s", string(respData))
+    callback.OnResponse(respData)
+  }
 
+  //testing.TestLog.Debug("queued response")
+}
+
+func (req *RequestBuilder) post2(name string, file files.Node) ([]byte, error) {
+  /*
+     var r io.Reader
+     switch data := data.(type) {
+     case string:
+       r = strings.NewReader(data)
+     case []byte:
+       println("data is byte[] of length", len(data))
+       r = bytes.NewReader(data)
+     case []int8:
+       println("in8 array length: ", len(data))
+       r = NewTestReader(data)
+
+     case io.Reader:
+       r = data
+     }
+  */
+  //fr := files.NewReaderFile(data)
+  slf := files.NewSliceDirectory([]files.DirEntry{files.FileEntry(name, file)})
+  fileReader := files.NewMultiFileReader(slf, true)
+  req.rb.Body(fileReader)
+  res, err := req.rb.Send(context.Background())
+  if err != nil {
+    testing.TestLog.Error("Error: %s", err.Error())
+    return nil, err
+  } else {
+    respData, err := ioutil.ReadAll(res.Output)
+    //testing.TestLog.Info("Response: %s", string(respData))
+    if err != nil {
+      return nil, err
+    }
+    return respData, nil
+  }
+
+  //testing.TestLog.Debug("queued response")
+}
+
+func (req *RequestBuilder) post3(name string, file files.Node) (*Response, error) {
+  /*
+     var r io.Reader
+     switch data := data.(type) {
+     case string:
+       r = strings.NewReader(data)
+     case []byte:
+       println("data is byte[] of length", len(data))
+       r = bytes.NewReader(data)
+     case []int8:
+       println("in8 array length: ", len(data))
+       r = NewTestReader(data)
+
+     case io.Reader:
+       r = data
+     }
+  */
+  //fr := files.NewReaderFile(data)
+  slf := files.NewSliceDirectory([]files.DirEntry{files.FileEntry(name, file)})
+  fileReader := files.NewMultiFileReader(slf, true)
+  req.rb.Body(fileReader)
+  res, err := req.rb.Send(context.Background())
+  if err != nil {
+    testing.TestLog.Error("Error: %s", err.Error())
+    return nil, err
+  } else {
+    return &Response{res: res}, nil
+  }
+
+  //testing.TestLog.Debug("queued response")
 }
 
 // Helpers
