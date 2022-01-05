@@ -48,6 +48,10 @@ func (s *Shell) WriteStuff(data []byte, path string) {
   }
 }
 
+func (s *Shell) AddDir(path string) (string, error) {
+  return s.ishell.AddDir(path)
+}
+
 /**
 Fileswrite
 

@@ -1,7 +1,6 @@
 
 export IPFS_MOBILE=`realpath ..`
 
-
 if [ -z "$GOROOT" ]; then
   export GOROOT=/opt/go
   export PATH=$GOROOT/bin:$PATH

@@ -7,7 +7,7 @@ export SRC=$PWD/src
 #echo LIBS: $LIBS
 #echo SRC: $SRC
 
-export OPENSSL_TAG=OpenSSL_1_1_1l
+export OPENSSL_TAG=OpenSSL_1_1_1m
 export CFLAGS="-Wno-macro-redefined"
 
 
@@ -32,6 +32,7 @@ fi
 cd $SRC
 git clean -xdf
 git reset --hard
+git checkout $OPENSSL_TAG
 
 
 

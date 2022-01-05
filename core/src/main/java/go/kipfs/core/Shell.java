@@ -28,6 +28,7 @@ public final class Shell implements Seq.Proxy {
 	
 	Shell(int refnum) { this.refnum = refnum; Seq.trackGoRef(refnum, this); }
 	
+	public native String addDir(String path) throws Exception;
 	public native String dagPut(String data);
 	/**
 	 * *

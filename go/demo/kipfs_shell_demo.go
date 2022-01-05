@@ -19,6 +19,9 @@ func getID(shell *core.Shell) {
   testing.TestLog.Debug("got response: %s", string(resp))
 }
 
+func addData(shell *core.Shell) {
+  shell.AddData("Hello World")
+}
 func dagPut(shell *core.Shell) {
 
   rb := shell.NewRequest("dag/put")

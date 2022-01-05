@@ -9,7 +9,7 @@ object NativeLoader {
   private val log = danbroid.logging.getLog(this::class)
 
   @Suppress("UnsafeDynamicallyLoadedCode")
-  fun loadLibrary(classLoader: ClassLoader, libName: String) {
+  fun loadLibrary(classLoader: ClassLoader, libName: String = "gojni") {
     try {
       System.loadLibrary(libName)
     } catch (ex: UnsatisfiedLinkError) {

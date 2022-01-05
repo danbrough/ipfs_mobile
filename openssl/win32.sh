@@ -17,8 +17,8 @@ fi
 source common.sh
 
 cd $SRC
-#git clean -xdf
-#git checkout $OPENSSL_TAG  || exit 1
+git clean -xdf
+git checkout $OPENSSL_TAG  || exit 1
 export CC=/usr/bin/x86_64-w64-mingw32-gcc
 export CXX=/usr/bin/x86_64-w64-mingw32-cpp
 export WINDRES=/usr/bin/x86_64-w64-mingw32-windres

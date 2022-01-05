@@ -8,9 +8,6 @@ plugins {
 group = ProjectVersions.GROUP_ID
 version = ProjectVersions.VERSION_NAME
 
-val urlPrefix = "https://h1.danbrough.org/maven/com/github/danbrough/ipfs_mobile"
-
-
 dependencies {
   api(project(":core"))
 
@@ -21,10 +18,7 @@ dependencies {
 
 java {
   withSourcesJar()
-
-
 }
-
 
 
 
@@ -43,30 +37,6 @@ val buildWin32 by tasks.registering(Jar::class) {
   from(layout.projectDirectory.dir("../build/libs/win32"))
 }
 
-/*
-fun downloadDir(url: String, output: File) = tasks.registering(Exec::class) {
-  println("downloadDir: $url")
-
-  commandLine("wget", "-r", "-nH", "--cut-dirs=2", "-np", "-P", output.absolutePath, url)
-}
-*/
-
-fun downloadFile(url: String, fileName: String) = tasks.registering(Exec::class) {
-  //println("downloadFile: $url")
-  doFirst {
-    mkdir(file("build/downloads"))
-  }
-  workingDir = file("build/downloads")
-
-  commandLine("wget", "-nv", url, "-O", fileName)
-}
-
-fun mavenDownload(name: String) =
-  downloadFile("$urlPrefix/$name/$version/$name-$version.jar", "$name.jar")
-
-val downloadWin32 by mavenDownload("win32")
-val downloadLinuxAmd64 by mavenDownload("linuxAmd64")
-val downloadLinuxArm64 by mavenDownload("linuxArm64")
 
 
 publishing {
