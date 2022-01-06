@@ -20,7 +20,6 @@ func getID(shell *core.Shell) {
 }
 
 func addData(shell *core.Shell) {
-  shell.AddData("Hello World")
 }
 func dagPut(shell *core.Shell) {
 

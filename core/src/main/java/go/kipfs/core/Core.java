@@ -48,6 +48,18 @@ public abstract class Core {
 		
 		public native void close() throws Exception;
 	}
+	private static final class proxyKReader implements Seq.Proxy, KReader {
+		private final int refnum;
+		
+		@Override public final int incRefnum() {
+		      Seq.incGoRef(refnum, this);
+		      return refnum;
+		}
+		
+		proxyKReader(int refnum) { this.refnum = refnum; Seq.trackGoRef(refnum, this); }
+		
+		public native long read(byte[] p0) throws Exception;
+	}
 	private static final class proxyReadCloser implements Seq.Proxy, ReadCloser {
 		private final int refnum;
 		

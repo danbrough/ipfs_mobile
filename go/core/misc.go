@@ -6,6 +6,8 @@ import (
   "os"
 )
 
+var EOF = io.EOF
+
 type Reader = io.Reader
 type Closer = io.Closer
 type ReadCloser = io.ReadCloser
@@ -22,4 +24,8 @@ func WriteStuff(data []byte, path string) {
 type Callback interface {
   OnResponse(data []byte)
   OnError(err string)
+}
+
+type KReader interface {
+  io.Reader
 }

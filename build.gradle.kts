@@ -52,9 +52,15 @@ allprojects {
             }*/
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
       }
-
+      project.properties.keys.forEach { key ->
+        if (key.startsWith("IPFS_")) {
+          val value = project.property(key).toString()
+          systemProperty(key, value)
+          //environment(key, value)
+        }
+      }
+      environment("PROJECT_DIR", file("."))
     }
-
   }
 }
 

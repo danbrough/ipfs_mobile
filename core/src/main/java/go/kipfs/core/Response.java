@@ -9,7 +9,7 @@ package go.kipfs.core;
 
 import go.Seq;
 
-public final class Response implements Seq.Proxy, Closer, ReadCloser, Reader {
+public final class Response implements Seq.Proxy, Closer, KReader, ReadCloser, Reader {
 	static { Core.touch(); }
 	
 	private final int refnum;

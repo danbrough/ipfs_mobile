@@ -10,8 +10,8 @@ fi
 source /home/kipfs/ipfs_mobile/docker/env.sh
 
 ARCH=`uname -m`
-#GOVERSION=1.17.5
-GOVERSION=1.16.12
+GOVERSION=1.17.6
+#GOVERSION=1.16.12
 
 if [ $ARCH = "x86_64" ]; then
   DOWNLOAD=go$GOVERSION.linux-amd64.tar.gz

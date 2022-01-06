@@ -7,9 +7,9 @@ else
 fi
 
 
-DOWNLOAD=go1.17.5.linux-amd64.tar.gz
+DOWNLOAD=go1.17.6.linux-amd64.tar.gz
 #DOWNLOAD=go1.17.5.linux-armv6l.tar.gz
-#DOWNLOAD=go1.16.12.linux-amd64.tar.gz
+#DOWNLOAD=go1.16.13.linux-amd64.tar.gz
 
 doDownload(){
   if [ ! -f $DOWNLOAD ]; then

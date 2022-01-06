@@ -9,7 +9,7 @@ package go.kipfs.files;
 
 import go.Seq;
 
-public final class Symlink implements Seq.Proxy, File, Node, go.kipfs.core.Closer, go.kipfs.core.ReadCloser, go.kipfs.core.Reader {
+public final class Symlink implements Seq.Proxy, File, Node, go.kipfs.core.Closer, go.kipfs.core.KReader, go.kipfs.core.ReadCloser, go.kipfs.core.Reader {
 	static { Files.touch(); }
 	
 	private final int refnum;

@@ -31,12 +31,13 @@ public final class RequestBuilder implements Seq.Proxy {
 	public native void boolOptions(String key, boolean value);
 	public native void byteOptions(String key, byte[] value);
 	public native void header(String name, String value);
+	public native byte[] post2(String name, go.kipfs.files.Node file) throws Exception;
+	public native Response post4(KReader body) throws Exception;
 	public native void postData(byte[] data, Callback callback);
 	public native byte[] postData2(byte[] data) throws Exception;
 	public native Response postData3(byte[] data) throws Exception;
 	public native void postDirectory(String dir, Callback callback);
-	// skipped method RequestBuilder.PostReader with unsupported parameter or return types
-	
+	public native void postReader(String name, KReader data, Callback callback);
 	public native void postString(String data, Callback callback);
 	public native byte[] postString2(String data) throws Exception;
 	public native Response postString3(String data) throws Exception;

@@ -13,7 +13,7 @@ import go.Seq;
  * MultiFileReader reads from a `commands.Node` (which can be a directory of files
 or a regular file) as HTTP multipart encoded data.
  */
-public final class MultiFileReader implements Seq.Proxy, go.kipfs.core.Reader {
+public final class MultiFileReader implements Seq.Proxy, go.kipfs.core.KReader, go.kipfs.core.Reader {
 	static { Files.touch(); }
 	
 	private final int refnum;
